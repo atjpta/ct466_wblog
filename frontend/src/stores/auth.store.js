@@ -10,6 +10,9 @@ export const authStore = defineStore("authStore", {
 		isUserLoggedIn(state) {
 			return !!state.user && !!state.user.accessToken;
 		},
+		getUser(state) {
+			return state.user;
+		}
 	},
 	actions: {
 		loadAuthState() {
