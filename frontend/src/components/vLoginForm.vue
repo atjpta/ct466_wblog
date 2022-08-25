@@ -50,7 +50,6 @@
 <script setup>
 import * as Yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
-import { mapActions } from "pinia";
 import { authStore } from "@/stores/auth.store";
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
