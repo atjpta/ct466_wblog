@@ -93,6 +93,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { authStore } from "@/stores/auth.store";
 import { ref } from "vue";
 
+const useAuthStore = authStore();
 const user = ref({});
 const message = ref("");
 const error = ref("");
@@ -122,10 +123,10 @@ const userFormSchema = Yup.object().shape({
 async function handleRegister(user) {
   message.value = "";
   error.value = "";
-  successful.value = false;
+  success.value = false;
   loading.value = true;
   try {
-    const data = await register(user);
+    const data = await useAuthStore.register(user);
     message.value = data.message;
     loading.value = false;
     success.value = true;
