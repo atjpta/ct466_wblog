@@ -5,14 +5,14 @@ const User = db.user;
 const Role = db.user;
 
 
-verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+exports.verifyToken = (req, res, next) => {
+  let token = req.headers["authorization"];
 
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, config.jwt.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }
@@ -21,38 +21,26 @@ verifyToken = (req, res, next) => {
   });
 };
 
-isAdmin = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
+exports.isAdmin = (req, res, next) => {
+  User.findById(req.userId).populate("roles", "-__v").exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
 
-    Role.find(
-      {
-        _id: { $in: user.roles },
-      },
-      (err, roles) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            next();
-            return;
-          }
-        }
-
-        res.status(403).send({ message: "Require Admin Role!" });
+    for (let i = 0; i < user.roles.length; i++) {
+      if (user.roles[i].name === "admin") {
+        next();
         return;
       }
-    );
+    }
+
+    res.status(403).send({ message: "Require Admin Role!" });
+    return;
   });
 };
 
-isModerator = (req, res, next) => {
+exports.isModerator = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -83,9 +71,9 @@ isModerator = (req, res, next) => {
   });
 };
 
-const authJwt = {
-  verifyToken,
-  isAdmin,
-  isModerator,
-};
-module.exports = authJwt;
+// const authJwt = {
+//   verifyToken,
+//   isAdmin,
+//   isModerator,
+// };
+// module.exports = authJwt;

@@ -92,7 +92,9 @@ import * as Yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { authStore } from "@/stores/auth.store";
 import { ref } from "vue";
+import { alertStore } from "@/stores/alert.store";
 
+const useAlertStore = alertStore();
 const useAuthStore = authStore();
 const user = ref({});
 const message = ref("");
@@ -121,18 +123,14 @@ const userFormSchema = Yup.object().shape({
     .required("mật khẩu phải có giá trị."),
 });
 async function handleRegister(user) {
-  message.value = "";
-  error.value = "";
-  success.value = false;
-  loading.value = true;
   try {
     const data = await useAuthStore.register(user);
-    message.value = data.message;
+    useAlertStore.message = data.message;
     loading.value = false;
-    success.value = true;
+    useAlertStore.success = true;
   } catch (err) {
-    console.log(err);
-    error.value = err.message;
+    useAlertStore.message = err.message;
+    useAlertStore.error = true;
     loading.value = false;
   }
 }

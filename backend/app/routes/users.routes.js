@@ -1,6 +1,6 @@
 const express = require("express");
 const users = require("../controllers/users.controller");
-const authJwt = require("../middlewares").authJwt;
+const authJwt = require("../middlewares/authJwt");
 
 module.exports = (app) => {
     const router = express.Router();
@@ -9,11 +9,9 @@ module.exports = (app) => {
         .get(users.getAllUsers)
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.deleteAll)
         .delete(users.deleteAll)
-
-
     router.route("/:id")
-        .get(users.findOne)
-        .put(users.update)
+        .get([authJwt.verifyToken], users.findOne)
+        .put([authJwt.verifyToken], users.update)
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.delete)
         .delete(users.delete)
 

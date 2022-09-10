@@ -39,6 +39,18 @@ const routes = [
     
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/views/ProFileView.vue'),
+    
+  },
+  {
+    path: '/editprofile',
+    name: 'editprofile',
+    component: () => import('@/views/EditProFileView.vue'),
+    
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("@/views/NotFound.vue"),

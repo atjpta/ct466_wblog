@@ -1,10 +1,20 @@
+const colors = require("tailwindcss/colors")
+
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./node_modules/vue-tailwind-datepicker/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "vtd-primary": colors.sky, // Light mode Datepicker color
+        "vtd-secondary": colors.white, // Dark mode Datepicker color
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ]
 }
