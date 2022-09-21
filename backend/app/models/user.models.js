@@ -6,7 +6,7 @@ const schema = mongoose.Schema(
             type: String,
             require: [true, "username is required"],
         },
-        avata:
+        avatar:
         {
             data: Buffer,
             contentType: String
@@ -19,12 +19,16 @@ const schema = mongoose.Schema(
         password: String,
         name: String,
         introduce: String,
+        date: String,
+        vip: String,
+        follow: Array,
         roles: [
             {
               type: mongoose.Schema.Types.ObjectId,
               ref: "Role"
             },
         ],
+        ban: Boolean,
     },
 
     {

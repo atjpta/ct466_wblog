@@ -1,5 +1,5 @@
 <template>
-  <div class="h-16 bg-gray-200/50 text-xl">
+  <div class="h-16 mb-16 bg-gray-200/50 text-xl">
     <div class="flex justify-between p-4">
       <!-- bên trái -->
       <div class="hover:text-violet-700 hover:scale-125 duration-300">

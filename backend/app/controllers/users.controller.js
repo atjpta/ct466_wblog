@@ -40,7 +40,12 @@ exports.findOne = async (req, res, next) => {
     };
 
     try{
-        const document = await user.findOne(condition);
+        const document = await user.findOne(condition).select([
+            'name',
+            'date',
+            'introduce',
+            'avatar',
+        ]);
         if(!document) {
             return next (res.status(404).json({ Message: "không thể tìm thấy user"}));
         }
@@ -73,11 +78,14 @@ exports.update = async (req, res, next) => {
         return res.send({ message: "đã update thành công"});
     }
     catch(error) {
+        console.log(error);
         return next(
             res.status(500).json({ Message: ` không thể update user với id = ${req.params.id} `})
         )
     }
 }
+
+
 exports.delete = async (req, res, next) => {
     const {id} = req.params;
     const condition = {

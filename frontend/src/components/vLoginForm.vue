@@ -1,11 +1,5 @@
 <template>
   <div>
-    <div v-if="message" class="">
-      <n-alert :title="message" type="success" closable> </n-alert>
-    </div>
-    <div v-if="error" class="">
-      <n-alert :title="error" type="error" closable> </n-alert>
-    </div>
     <Form
       @submit="handleLogin"
       :validation-schema="FormSchema"
@@ -28,7 +22,7 @@
           </div>
         </div>
 
-        <div v-show="!loading" class="flex justify-center pt-10">
+        <div v-show="!useAlertStore.loading" class="flex justify-center pt-10">
           <button
             class="bg-teal-500 rounded-lg p-2 shadow-md w-44 hover:scale-125 duration-300"
           >
@@ -36,7 +30,7 @@
           </button>
         </div>
 
-        <div v-show="loading" class="flex justify-center pt-10">
+        <div v-show="useAlertStore.loading" class="flex justify-center pt-10">
           <div class="bg-teal-500/50 rounded-lg p-2 shadow-md w-44 duration-300">
             <i class="fa-solid fa-spinner animate-spin px-4"></i>
             Đăng nhập
@@ -51,15 +45,14 @@
 import * as Yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { authStore } from "@/stores/auth.store";
+import { alertStore } from "@/stores/alert.store";
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
 const userAuthStore = authStore();
-const loading = ref(false);
-const message = ref("");
-const error = ref("");
+const useAlertStore = alertStore();
 
 const FormSchema = Yup.object().shape({
   username: Yup.string()
@@ -72,18 +65,17 @@ const FormSchema = Yup.object().shape({
 });
 
 async function handleLogin(user) {
-  loading.value = true;
+  useAlertStore.loading = true;
   try {
     await userAuthStore.login(user);
     const redirectPath = route.query.redirect || {
       name: "trang2",
     };
     router.push(redirectPath);
-    loading.value = false;
+    useAlertStore.loading = false;
   } catch (err) {
-    console.log(error);
-    loading.value = false;
-    error.value = err.message;
+    useAlertStore.loading = false;
+    useAlertStore.setError("sai tài khoản hoặc mật khẩu");
   }
 }
 </script>
