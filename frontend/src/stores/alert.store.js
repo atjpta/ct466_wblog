@@ -28,7 +28,6 @@ export const alertStore = defineStore("alertStore", {
 
 		deleteLocalStorage(){
 			localStorage.removeItem("user");
-			localStorage.removeItem("info");
 		},
 
 		setSuccess(message){
@@ -36,14 +35,14 @@ export const alertStore = defineStore("alertStore", {
 			this.success.set = true;
 			setTimeout(() => {
 				this.success.set = false;
-			}, 1000);
+			}, 2000);
 		},
 		setWarning(message){
 			this.warning.message = message
 			this.warning.set = true;
 			setTimeout(() => {
 				this.warning.set = false;
-			}, 1000);
+			}, 2000);
 
 		},
 		setInfo(message){
@@ -51,7 +50,7 @@ export const alertStore = defineStore("alertStore", {
 			this.info.set = true;
 			setTimeout(() => {
 				this.info.set = false;
-			}, 1000);
+			}, 2000);
 
 		},
 		setError(message){
@@ -59,7 +58,7 @@ export const alertStore = defineStore("alertStore", {
 			this.error.set = true;
 			setTimeout(() => {
 				this.error.set = false;
-			}, 1000);
+			}, 2000);
 
 		},
 	},

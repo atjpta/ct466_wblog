@@ -1,22 +1,12 @@
 <template>
   <div>
     <div
-      class="bg-gradient-to-l from-sky-100 to-sky-500/50 mx-20 min-h-max flex flex-row"
+      class="bg-gradient-to-l from-sky-100 to-sky-500/50 w-5/6 min-w-max mx-auto min-h-max flex flex-row"
     >
       <div class="basis-1/4">
         <vAvatarVue></vAvatarVue>
-        <div
-          class="flex justify-center text-xl mx-16 p-3 my-5 l text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
-        >
-          <router-link to="/editprofile">
-            <button>
-              <i class="fa-solid fa-user-pen"></i>
-              Chỉnh sửa
-            </button>
-          </router-link>
-        </div>
+        <vOptionProFileVue />
       </div>
-
       <div class="basis-3/4">
         <VInfo></VInfo>
         <div></div>
@@ -28,6 +18,7 @@
 <script setup>
 import vAvatarVue from "@/components/vAvatar.vue";
 import VInfo from "@/components/vInfo.vue";
+import vOptionProFileVue from "../components/vOptionProFile.vue";
 import { onMounted, onBeforeMount } from "vue";
 import { infoStore } from "../stores/info.store";
 
