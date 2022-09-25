@@ -20,9 +20,7 @@ import { infoStore } from "../stores/info.store";
 
 const useInfo = infoStore();
 
-onMounted(() => {
-  useInfo.getApiInfo();
-});
+onMounted(() => {});
 </script>
 
 <style></style>

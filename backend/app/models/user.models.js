@@ -6,11 +6,7 @@ const schema = mongoose.Schema(
             type: String,
             require: [true, "username is required"],
         },
-        avatar:
-        {
-            data: Buffer,
-            contentType: String
-        },        
+        avatar_Url: String,     
         email: {
             type: String,
             trim: true,

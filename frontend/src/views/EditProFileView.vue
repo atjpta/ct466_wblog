@@ -5,13 +5,15 @@
     >
       <div class="basis-1/4">
         <vAvatarVue></vAvatarVue>
+
         <div
-          class="flex justify-center text-xl p-3 my-5 mx-20 bg-teal-500/50 hover:text-violet-700 hover:scale-125 duration-300"
+          class="flex justify-center text-xl my-10 p-3 mx-16 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
         >
           <i class="fa-regular fa-image mt-2 mr-3"></i>
           <div>
+            <div></div>
             <input
-              class="w-24"
+              class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
               accept="image/*"
               type="file"
               @change="previewFiles($event)"
@@ -37,6 +39,9 @@ const useInfo = infoStore();
 
 function previewFiles(event) {
   const file = event.target.files[0];
+  useInfo.info.file = new FormData();
+  useInfo.info.file.append("image", file);
+  useInfo.info.avatar_Url = "http://localhost:8088/api/image/" + file.name;
   const theReader = new FileReader();
   theReader.onloadend = async () => {
     useInfo.info.avatar = await theReader.result;
@@ -44,7 +49,7 @@ function previewFiles(event) {
   theReader.readAsDataURL(file);
 }
 onMounted(() => {
-  useInfo.getInfo();
+  useInfo.getApiInfo();
 });
 </script>
 

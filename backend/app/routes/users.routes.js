@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("../controllers/users.controller");
 const authJwt = require("../middlewares/authJwt");
+const multer = require('../config/multer')
 
 module.exports = (app) => {
     const router = express.Router();
@@ -11,7 +12,7 @@ module.exports = (app) => {
         .delete(users.deleteAll)
     router.route("/:id")
         .get([authJwt.verifyToken], users.findOne)
-        .put([authJwt.verifyToken], users.update)
+        .put([authJwt.verifyToken], multer.Image.single("image"), users.update)
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.delete)
         .delete(users.delete)
 

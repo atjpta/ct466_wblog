@@ -4,7 +4,7 @@
       <div class="h-64 w-64">
         <img
           class="bg-black h-64 w-64 rounded-full"
-          :src="infoStore().info.avatar || emptyImage"
+          :src="infoStore().info.avatar || infoStore().info.avatar_Url || emptyImage"
           alt=""
         />
       </div>

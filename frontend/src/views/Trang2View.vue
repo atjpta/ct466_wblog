@@ -1,37 +1,30 @@
 <template>
-  <div class="">
-    <div class="">
-      <QuillEditor v-model:content="inputValue" theme="snow" toolbar="full" />
-      {{ inputValue }}
-    </div>
-    <div class="flex justify-center">
-      <button @click="test" class="bg-blue-300 h-10 w-20 rounded-3xl">submit</button>
-    </div>
-
-    <button @click="testadmin">test</button>
+  <div>
+    <img :src="test" alt="" />
+    <input
+      class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
+      accept="image/*"
+      type="file"
+      @change="previewFiles($event)"
+    />
+    <button @click="testAPI()" class="w-40 h-40 bg-red-500">gui len server</button>
   </div>
 </template>
 
 <script setup>
-import { QuillEditor, Delta } from "@vueup/vue-quill";
-import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import "@vueup/vue-quill/dist/vue-quill.bubble.css";
-import { ref, onMounted } from "vue";
-import { authStore } from "@/stores/auth.store";
+import { ref } from "vue";
+import imgageService from "../services/image.service";
 
-const usestore = authStore();
+const test = ref();
 
-const modules = ref();
-const inputValue = ref("");
-function test() {
-  console.log("dgbh" + inputValue.value);
+async function testAPI() {
+  const file = new FormData();
+  file.append("image", test.value);
+  await imgageService.uploadImage(file);
 }
-
-onMounted(() => {
-  console.log(QuillEditor);
-  console.log(modules);
-  usestore.testadminn();
-});
+function previewFiles(event) {
+  test.value = event.target.files[0];
+}
 </script>
 
 <style></style>

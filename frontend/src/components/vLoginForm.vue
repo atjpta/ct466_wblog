@@ -74,6 +74,7 @@ async function handleLogin(user) {
     router.push(redirectPath);
     useAlertStore.loading = false;
   } catch (err) {
+    console.log(err);
     useAlertStore.loading = false;
     useAlertStore.setError("sai tài khoản hoặc mật khẩu");
   }

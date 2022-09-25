@@ -29,7 +29,7 @@ export const authStore = defineStore("authStore", {
 		logout() {
 			this.user = null;
 			localStorage.removeItem("user");
-			localStorage.removeItem("info")
+			localStorage.removeItem("info");
 		},
 		async login(user) {
 			const response = await AuthService.login(user);
