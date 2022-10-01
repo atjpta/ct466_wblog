@@ -15,6 +15,7 @@
         <div>
           <div></div>
           <input
+            placeholder="chọn avatar"
             class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
             accept="image/*"
             type="file"

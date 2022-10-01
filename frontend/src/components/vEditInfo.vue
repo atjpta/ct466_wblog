@@ -3,7 +3,7 @@
     <p class="text-4xl mt-5">Tên:</p>
     <div class="mt-2">
       <input
-        v-model="useInfo.info.name"
+        v-model="useInfo.infoEdit.name"
         class="text-blue-600 text-3xl w-3/5 font-bold bg-slate-50/5 border-b-2 border-black"
       />
     </div>
@@ -12,7 +12,7 @@
       <vue-tailwind-datepicker
         as-single
         :formatter="formatter"
-        v-model="useInfo.info.date"
+        v-model="useInfo.infoEdit.date"
         :placeholder="useInfo.info.date || 'chưa thêm ngày sinh'"
       />
     </div>
@@ -20,7 +20,7 @@
     <div class="mt-10">
       <p class="text-3xl">Giới thiệu:</p>
       <textarea
-        v-model="useInfo.info.introduce"
+        v-model="useInfo.infoEdit.introduce"
         class="mt-3 text-xl h-[200px] w-3/5 bg-slate-50/5 border-black border-opacity-0"
       ></textarea>
       <div class="w-3/5 border-b-2 border-black"></div>
@@ -74,7 +74,9 @@ const formatter = ref({
   date: "DD/MM/YYYY",
   Month: "MM",
 });
+
 const loading = ref(false);
+
 async function update() {
   try {
     loading.value = true;
@@ -90,7 +92,7 @@ async function update() {
 }
 
 function cancel() {
-  useInfo.getInfo();
+  useInfo.infoEdit = useInfo.info;
   loading.value = false;
   const redirectPath = route.query.redirect || {
     name: "profile",

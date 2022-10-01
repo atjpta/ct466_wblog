@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 route.auth(app);
 route.users(app);
 route.image(app);
+route.blog(app);
 
 app.use((req, res, next) => {
     res.header(

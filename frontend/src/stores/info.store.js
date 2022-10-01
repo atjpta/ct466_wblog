@@ -19,21 +19,28 @@ export const infoStore = defineStore("infoStore", {
                 introduce: '',
             },
 			avatar: '',
+			infoEdit: {},
 		};
 	},
 	getters: {
 	},
 	actions: {
 		async getApiInfo(){
-			this.info = await UserService.getInfo(this.info.id)
+			try {
+				this.info = await UserService.getInfo(this.info.id)
+				this.infoEdit = this.info
+			} catch (error) {
+				alertStore().setError('lỗi lấy dữ liệu - ' + error.message );
+			}
+			
 		},
 
 		async updateInfo(){
 			try {
-				if(typeof(this.info.date) == 'array'){
-					this,info.date = this.info.date.join();
+				if(typeof(this.infoEdit.date) == 'array'){
+					this.infoEdit.date = this.infoEdit.date.join();
 				}
-				const result = await UserService.updateInfo(this.info.id, this.info);
+				const result = await UserService.updateInfo(this.infoEdit.id, this.infoEdit);
 				alertStore().setSuccess(result.message);
 			} catch (error) {
 				alertStore().setError('lỗi updata - ' + error.message );

@@ -23,6 +23,7 @@ exports.signup = (req, res) => {
             return;
           }
           user.roles = roles.map(role => role._id);
+          console.log(user.roles);
           user.save(err => {
             if (err) {
               res.status(500).send({ message: err });

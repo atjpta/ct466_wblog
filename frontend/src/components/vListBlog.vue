@@ -2,13 +2,13 @@
   <div>
     <div>
       <div class="text-6xl text-center font-bold m-5 uppercase">Tiêu đề bài viết</div>
-      <div class="h-auto w-[1600px] m-auto shadow-lg">
-        <div class="flex flex-row">
-          <div class="basis-2/4 p-5 bg-white">
+      <div class="">
+        <div class="flex flex-row w-9/12 mx-auto h-auto shadow-lg">
+          <div class="basis-3/4 p-5 bg-white/50">
             <img class="h-[400px] w-auto" src="../../public/imgs/miku.png" alt="" />
           </div>
 
-          <div class="basis-2/4 p-5 bg-white h-[450px]">
+          <div class="basis-2/4 py-5 bg-white/50 h-[450px]">
             <div class="h-16 m-auto flex">
               <img
                 class="bg-black h-16 w-16 rounded-full"
@@ -23,7 +23,7 @@
               </div>
             </div>
 
-            <div class="mt-5 indent-10 h-[200px]">
+            <div class="mt-5 indent-10 h-[200px] text-xl">
               Ở bài trước mình đã có giới thiệu về MERN stack. Nhưng với sự phát triển
               vượt trội của VueJS trong năm vừa rồi nên mình sẽ thử thay React bằng Vue.
               Bài trước thì dùng mern-cli, còn giờ chưa có mevn-cli nên tạm thời mình dùng
@@ -40,7 +40,7 @@
               </button>
             </div>
           </div>
-          <div class="text-3xl bg-sky-200 text-center w-auto">
+          <div class="text-3xl bg-white/50 text-center w-auto">
             <div class="px-5 py-5">
               <i class="fa-solid fa-heart"></i>
               <p>100</p>
@@ -65,13 +65,13 @@
 
     <div>
       <div class="text-6xl text-center font-bold m-5 uppercase">Tiêu đề bài viết</div>
-      <div class="h-auto w-[1600px] m-auto shadow-lg">
-        <div class="flex flex-row">
-          <div class="basis-2/4 p-5 bg-white">
+      <div class="">
+        <div class="flex flex-row w-9/12 mx-auto h-auto shadow-lg">
+          <div class="basis-3/4 p-5 bg-white/50">
             <img class="h-[400px] w-auto" src="../../public/imgs/miku.png" alt="" />
           </div>
 
-          <div class="basis-2/4 p-5 bg-white h-[450px]">
+          <div class="basis-2/4 py-5 bg-white/50 h-[450px]">
             <div class="h-16 m-auto flex">
               <img
                 class="bg-black h-16 w-16 rounded-full"
@@ -86,7 +86,7 @@
               </div>
             </div>
 
-            <div class="mt-5 indent-10 h-[200px]">
+            <div class="mt-5 indent-10 h-[200px] text-xl">
               Ở bài trước mình đã có giới thiệu về MERN stack. Nhưng với sự phát triển
               vượt trội của VueJS trong năm vừa rồi nên mình sẽ thử thay React bằng Vue.
               Bài trước thì dùng mern-cli, còn giờ chưa có mevn-cli nên tạm thời mình dùng
@@ -103,7 +103,7 @@
               </button>
             </div>
           </div>
-          <div class="text-3xl bg-sky-200 text-center w-auto">
+          <div class="text-3xl bg-white/50 text-center w-auto">
             <div class="px-5 py-5">
               <i class="fa-solid fa-heart"></i>
               <p>100</p>
@@ -128,13 +128,13 @@
 
     <div>
       <div class="text-6xl text-center font-bold m-5 uppercase">Tiêu đề bài viết</div>
-      <div class="h-auto w-[1600px] m-auto shadow-lg">
-        <div class="flex flex-row">
-          <div class="basis-2/4 p-5 bg-white">
+      <div class="">
+        <div class="flex flex-row w-9/12 mx-auto h-auto shadow-lg">
+          <div class="basis-3/4 p-5 bg-white/50">
             <img class="h-[400px] w-auto" src="../../public/imgs/miku.png" alt="" />
           </div>
 
-          <div class="basis-2/4 p-5 bg-white h-[450px]">
+          <div class="basis-2/4 py-5 bg-white/50 h-[450px]">
             <div class="h-16 m-auto flex">
               <img
                 class="bg-black h-16 w-16 rounded-full"
@@ -149,7 +149,7 @@
               </div>
             </div>
 
-            <div class="mt-5 indent-10 h-[200px]">
+            <div class="mt-5 indent-10 h-[200px] text-xl">
               Ở bài trước mình đã có giới thiệu về MERN stack. Nhưng với sự phát triển
               vượt trội của VueJS trong năm vừa rồi nên mình sẽ thử thay React bằng Vue.
               Bài trước thì dùng mern-cli, còn giờ chưa có mevn-cli nên tạm thời mình dùng
@@ -166,7 +166,7 @@
               </button>
             </div>
           </div>
-          <div class="text-3xl bg-sky-200 text-center w-auto">
+          <div class="text-3xl bg-white/50 text-center w-auto">
             <div class="px-5 py-5">
               <i class="fa-solid fa-heart"></i>
               <p>100</p>

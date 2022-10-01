@@ -12,7 +12,7 @@ module.exports = (app) => {
         .delete(users.deleteAll)
     router.route("/:id")
         .get([authJwt.verifyToken], users.findOne)
-        .put([authJwt.verifyToken], multer.Image.single("image"), users.update)
+        .put([authJwt.verifyToken], users.update)
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.delete)
         .delete(users.delete)
 

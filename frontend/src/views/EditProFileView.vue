@@ -16,6 +16,13 @@
 import vAvatarVue from "@/components/vAvatar.vue";
 import VEditInfo from "../components/vEditInfo.vue";
 import vOptionProFileVue from "../components/vOptionProFile.vue";
+import { onMounted, onBeforeMount } from "vue";
+import { infoStore } from "../stores/info.store";
+
+const useInfo = infoStore();
+onBeforeMount(() => {
+  useInfo.getApiInfo();
+});
 </script>
 
 <style></style>

@@ -16,8 +16,8 @@
     >
       <router-link to="/editprofile">
         <button>
-          <i class="fa-solid fa-user-pen"></i>
-          Chỉnh sửa thông tin
+          <i class="fa-solid fa-book-open"></i>
+          Quản lý bài viết
         </button>
       </router-link>
     </div>
@@ -27,8 +27,8 @@
     >
       <router-link to="/editprofile">
         <button>
-          <i class="fa-solid fa-user-pen"></i>
-          Chỉnh sửa thông tin
+          <i class="fa-solid fa-receipt"></i>
+          Lịch sử mua Premium
         </button>
       </router-link>
     </div>
