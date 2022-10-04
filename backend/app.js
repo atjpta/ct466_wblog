@@ -3,13 +3,13 @@ const cors = require("cors");
 const route = require('./app/routes')
 const app = express();
 
+
 app.use(cors());
-app.use(express.json({limit: '50mb'}));
-app.use(
-   express.urlencoded({
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({
         limit: '50mb',
-      extended: false,
-   })
+        extended: true,
+    })
 );
 
 app.get("/", (req, res) => {
@@ -25,18 +25,17 @@ route.vote(app);
 route.comment(app);
 
 app.use((req, res, next) => {
-    res.header(
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept" );
-    next(res.status(404).json({ message: "Resource not found"}))
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next(res.status(404).json({ message: "Resource not found" }))
 });
 app.use((error, req, res, next) => {
-   if(res == null){
-    res.status(error.status || 500 ).json({ message: error.message || "internal Server Error"})
-   }
-   else{
-    console.log(error);
-   }
+    if (res == null) {
+        res.status(error.status || 500).json({ message: error.message || "internal Server Error" })
+    }
+    else {
+        console.log(error);
+    }
 });
 
 module.exports = app;

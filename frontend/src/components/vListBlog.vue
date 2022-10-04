@@ -33,7 +33,7 @@
 
             <div class="flex justify-center">
               <button
-                @click="read(blog.id)"
+                @click="read(blog.id, blog.voted._id)"
                 class="text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
                 xem thêm
@@ -71,7 +71,8 @@ const useBlog = blogStore();
 const router = useRouter();
 const route = useRoute();
 
-function read(id) {
+async function read(id, id_vote) {
+  await useBlog.updatePushVote("view", id_vote);
   const redirectPath = route.query.redirect || {
     path: `/readblog/${id}`,
   };

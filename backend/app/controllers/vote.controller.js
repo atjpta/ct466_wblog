@@ -20,7 +20,7 @@ exports.getListVoted = async (req, res) => {
 exports.pushVoted = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(
-            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+            res.status(440).json({ Message: "thông tin không thế thay đổi" })
         )
     }
 
@@ -75,7 +75,7 @@ exports.pushVoted = async (req, res, next) => {
 exports.popVoted = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(
-            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+            res.status(441).json({ Message: "thông tin không thế thay đổi" })
         )
     }
 

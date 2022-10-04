@@ -13,7 +13,12 @@ class UserService {
     async getInfo(id) {
         return (await this.api.get(`/${id}`)).data;
     }
+
+    async getAllVote() {
+        return (await this.api.get("/")).data;
+    }
     async updateInfo(id, data) {
+        
         return (await this.api.put(`/${id}`, data)).data;
     }
 

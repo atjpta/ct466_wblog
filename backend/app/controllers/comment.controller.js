@@ -16,11 +16,17 @@ exports.getListComment = async (req, res) => {
 
 //tạo comment
 exports.createComment = async (req, res) => {
+    if (Object.keys(req.body).length === 0) {
+        return res.status(440).json({ Message: "thông tin không thế thay đổi" })
+        
+    }
     const comment = new Comment({
+        author: req.body.author,
         id_blog: req.body.id_blog,
         content: req.body.content,
-        author: req.body.author,
+        
     })
+    console.log(comment);
     const vote = new Voted({
         tim: [],
         dislike: [],
@@ -29,6 +35,7 @@ exports.createComment = async (req, res) => {
         const documentVote = await vote.save();
         comment.voted = documentVote.id;
         const document = await comment.save();
+        console.log(document);
         return res.send(document);
     }
     catch (error) {

@@ -25,15 +25,23 @@
     <!-- vote -->
     <div class="text-2xl flex justify-around border-b-4 border-black">
       <button
+        @click="vote('tim', useBlog.blog.voted.tim, useBlog.blog.voted.id)"
         class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"
       >
-        <i class="fa-solid fa-heart"></i>
+        <i
+          :class="[isVote(useBlog.blog.voted.tim) ? 'text-red-500' : '']"
+          class="fa-solid fa-heart"
+        ></i>
         <p class="mx-2">{{ useBlog.blog.voted.tim.length || 0 }}</p>
       </button>
       <button
+        @click="vote('dislike', useBlog.blog.voted.dislike, useBlog.blog.voted.id)"
         class="p-3 items-center justify-center flex h-16 hover:text-blue-500 hover:scale-150 duration-300"
       >
-        <i class="fa-solid fa-thumbs-down pt-1"></i>
+        <i
+          :class="[isVote(useBlog.blog.voted.dislike) ? 'text-blue-500' : '']"
+          class="fa-solid fa-thumbs-down pt-1"
+        ></i>
         <p class="mx-2">{{ useBlog.blog.voted.dislike.length || 0 }}</p>
       </button>
       <div class="p-3 flex items-center justify-center">
@@ -57,14 +65,28 @@ import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted, onBeforeMount } from "vue";
 import blogService from "../services/blog.service";
 import { blogStore } from "../stores/blog.store";
+import { authStore } from "../stores/auth.store";
 
 const router = useRouter();
 const route = useRoute();
-
 const useBlog = blogStore();
-
 const quill = ref();
+const useAuth = authStore();
 
+function isVote(list) {
+  return !!list.find((e) => e == useAuth.user.id);
+}
+
+function vote(type, list, id_list) {
+  const index = list.findIndex((e) => e == useAuth.user.id);
+  if (index > -1) {
+    list.splice(index, 1);
+    useBlog.updatePopVote(type, id_list);
+  } else {
+    list.push(useAuth.user.id);
+    useBlog.updatePushVote(type, id_list);
+  }
+}
 async function getApi() {
   await useBlog.findOneBlog(route.params.id);
   setContent();

@@ -3,7 +3,7 @@ import { authStore } from "./auth.store";
 import { alertStore } from "./alert.store";
 // import { useRouter, useRoute } from "vue-router";
 
-import UserService from "@/services/user.service";
+import UserService from "@/services/users.service";
 import imageService from "../services/image.service";
 
 
@@ -37,7 +37,6 @@ export const infoStore = defineStore("infoStore", {
 
 		async updateInfo(){
 			try {
-				console.log(typeof(this.infoEdit.date));
 				if(typeof(this.infoEdit.date) != 'string'){
 					this.infoEdit.date = this.infoEdit.date.join().toString();
 				}

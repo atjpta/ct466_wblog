@@ -3,6 +3,8 @@ const vote = require('../controllers/vote.controller')
 
 module.exports = (app) => {
     const router = express.Router();
+    router.route("/")
+        .get(vote.getListVoted)
     router.route("/push/:type/:id")
         .put(vote.pushVoted)
 
