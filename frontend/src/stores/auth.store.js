@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import AuthService from "@/services/auth.service";
-import testadmin from "../services/user.service";
+import testadmin from "../services/users.service";
 
 export const authStore = defineStore("authStore", {
 	id: 'auth',
@@ -29,7 +29,7 @@ export const authStore = defineStore("authStore", {
 		logout() {
 			this.user = null;
 			localStorage.removeItem("user");
-			localStorage.removeItem("info")
+			localStorage.removeItem("info");
 		},
 		async login(user) {
 			const response = await AuthService.login(user);

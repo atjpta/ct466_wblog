@@ -1,13 +1,7 @@
 <template>
   <div>
-    <div v-if="message" class="">
-      <n-alert :title="message" type="success" closable> </n-alert>
-    </div>
-    <div v-if="error" class="">
-      <n-alert :title="error" type="error" closable> </n-alert>
-    </div>
     <Form
-      v-if="!success"
+      v-if="!useAlertStore.success.set"
       @submit="handleRegister"
       :validation-schema="userFormSchema"
       class="flex justify-center my-20 bg-gradient-to-l from-sky-100 to-sky-500/50 min-w-max max-w-xl rounded-3xl p-10 mx-auto text-lg"
@@ -97,10 +91,7 @@ import { alertStore } from "@/stores/alert.store";
 const useAlertStore = alertStore();
 const useAuthStore = authStore();
 const user = ref({});
-const message = ref("");
-const error = ref("");
 const loading = ref(false);
-const success = ref(false);
 
 const userFormSchema = Yup.object().shape({
   username: Yup.string()
@@ -124,13 +115,14 @@ const userFormSchema = Yup.object().shape({
 });
 async function handleRegister(user) {
   try {
+    console.log(user);
     const data = await useAuthStore.register(user);
-    useAlertStore.message = data.message;
+
+    useAlertStore.setSuccess(data.message);
     loading.value = false;
-    useAlertStore.success = true;
-  } catch (err) {
-    useAlertStore.message = err.message;
-    useAlertStore.error = true;
+  } catch (error) {
+    console.log(error.message);
+    useAlertStore.setError("Tài khoản đã có người sử dụng");
     loading.value = false;
   }
 }

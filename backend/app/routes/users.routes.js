@@ -1,6 +1,7 @@
 const express = require("express");
 const users = require("../controllers/users.controller");
 const authJwt = require("../middlewares/authJwt");
+const multer = require('../config/multer')
 
 module.exports = (app) => {
     const router = express.Router();

@@ -1,15 +1,20 @@
 import axios from "axios";
 import { authStore } from "@/stores/auth.store";
 import app from "@/main";
-
+import { alertStore } from "@/stores/alert.store";
 const commonConfig = {
 	headers: {
 		"Content-Type": "application/json",
 		Accept: "application/json",
 	},
+	
 };
 
-export const createApiClient = (baseURL, withAuthToken = false) => {
+export const createApiClient = (baseURL, withAuthToken = false, config) => {
+	if(config){
+		commonConfig.headers["Content-Type"] = config;
+	}
+
 	const api = axios.create({
 		baseURL,
 		...commonConfig,
@@ -32,8 +37,14 @@ export const createApiClient = (baseURL, withAuthToken = false) => {
 				return response;
 			},
 			(error) => {
+				const userAlert = alertStore();
 				if (error.response.status == 403) {
+					userAlert.setInfo('Không có quyền truy cập')
 					console.log("không có quyền truy cập");
+					app.$router.push({ name: "login" });
+				}
+				if (error.response.status == 411) {
+					userAlert.setInfo('hết phiên đăng nhập, hãy đăng nhập lại')
 					app.$router.push({ name: "login" });
 				}
 				return Promise.reject(error);

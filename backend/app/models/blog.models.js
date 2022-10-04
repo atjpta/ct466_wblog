@@ -2,19 +2,26 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
     {
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
+        },
         title: String,
         summary: String,      
-        content: String,
-        cover_image: {
-
+        content: Object,
+        cover_image_Url: {
+            type: String,
+            default: 'http://localhost:8088/api/image/cuoi.gif'
         },
         voted: {
-            like: Int32Array,
-            dislike: Int32Array,
-            view: Int32Array
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "vote"
         },
-        status: Boolean,
-        deleted: Boolean,
+        premium: Boolean,
+        deleted: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     {

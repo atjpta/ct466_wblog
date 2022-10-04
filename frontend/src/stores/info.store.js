@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { authStore } from "./auth.store";
 import { alertStore } from "./alert.store";
-import { useRouter, useRoute } from "vue-router";
+// import { useRouter, useRoute } from "vue-router";
 
-import UserService from "@/services/user.service";
+import UserService from "@/services/users.service";
+import imageService from "../services/image.service";
 
-const route = useRoute();
 
 export const infoStore = defineStore("infoStore", {
     id: 'info',
@@ -14,35 +14,39 @@ export const infoStore = defineStore("infoStore", {
 			info: {
 				id: authStore().user.id,
                 name: authStore().user.name,
-                avata: '',
+                avata_Url: '',
                 date: '',
                 introduce: '',
             },
+			avatar: '',
+			infoEdit: {},
 		};
 	},
 	getters: {
 	},
 	actions: {
 		async getApiInfo(){
-			this.info = await UserService.getInfo(this.info.id)
-			localStorage.setItem("info", JSON.stringify(this.info));
-		},
-
-		getInfo() {
-			return this.info = JSON.parse(localStorage.getItem("info"));
+			try {
+				this.info = await UserService.getInfo(this.info.id)
+				this.infoEdit = this.info
+			} catch (error) {
+				alertStore().setError('lỗi lấy dữ liệu - ' + error.message );
+			}
+			
 		},
 
 		async updateInfo(){
-			
 			try {
-				const result = await UserService.updateInfo(this.info.id, this.info);
+				if(typeof(this.infoEdit.date) != 'string'){
+					this.infoEdit.date = this.infoEdit.date.join().toString();
+				}
+				const result = await UserService.updateInfo(this.infoEdit.id, this.infoEdit);
 				alertStore().setSuccess(result.message);
-				localStorage.setItem("info", JSON.stringify(this.info));
 			} catch (error) {
-				alertStore().setError('không thể cập nhật thông tin');
-				this.info = JSON.parse(localStorage.getItem("info"));
+				alertStore().setError('lỗi updata - ' + error.message );
 			}
 		},
+
 
 	},
 });

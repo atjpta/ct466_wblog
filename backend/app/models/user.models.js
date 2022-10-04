@@ -6,11 +6,10 @@ const schema = mongoose.Schema(
             type: String,
             require: [true, "username is required"],
         },
-        avatar:
-        {
-            data: Buffer,
-            contentType: String
-        },        
+        avatar_Url: {
+            type: String,
+            default: 'http://localhost:8088/api/image/cuoi.gif'
+        },     
         email: {
             type: String,
             trim: true,
@@ -20,8 +19,14 @@ const schema = mongoose.Schema(
         name: String,
         introduce: String,
         date: String,
-        vip: String,
-        follow: Array,
+        premium: {
+            type: Boolean,
+            default: false,
+        },
+        follow: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
+        }],
         roles: [
             {
               type: mongoose.Schema.Types.ObjectId,

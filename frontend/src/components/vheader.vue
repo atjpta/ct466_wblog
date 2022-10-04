@@ -4,14 +4,14 @@
       <!-- bên trái -->
       <div class="hover:text-violet-700 hover:scale-125 duration-300">
         <router-link to="/">
-          <button>WBCHAT</button>
+          <button>WBLOG</button>
         </router-link>
         <div class="animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
       </div>
       <!-- giữa -->
       <div class="flex pl-28">
         <div class="px-6 hover:text-violet-700 hover:scale-125 duration-300">
-          <router-link to="/">
+          <router-link to="/homeblog">
             <button>
               <i class="fa-solid fa-house"></i>
               Trang chủ
@@ -56,13 +56,17 @@
       </div>
 
       <div v-if="useAuthStore.user" class="flex">
-        <div class="pr-3 hover:text-violet-700 hover:scale-125 duration-300">
+        <div class="pr-5 hover:text-violet-700 hover:scale-125 duration-300">
+          <router-link to="/addblog" class=""><button>Tạo blog</button></router-link>
+        </div>
+        <div class="border-r-2"></div>
+        <div class="px-5 hover:text-violet-700 hover:scale-125 duration-300">
           <router-link to="/profile" class=""
             ><button>{{ useAuthStore.user.name }}</button></router-link
           >
         </div>
         <div class="border-r-2"></div>
-        <div class="px-3 hover:text-violet-700 hover:scale-125 duration-300">
+        <div class="px-5 hover:text-violet-700 hover:scale-125 duration-300">
           <router-link to="/login" @click.prevent="useAuthStore.logout()"
             ><button>Đăng xuất</button></router-link
           >

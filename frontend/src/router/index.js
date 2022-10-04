@@ -51,6 +51,21 @@ const routes = [
     
   },
   {
+    path: '/homeblog',
+    name: 'homeblog',
+    component: () => import('@/views/HomeBlogView.vue'),
+  },
+  {
+    path: '/readblog/:id',
+    name: 'readblog',
+    component: () => import('@/views/ReadBlogView.vue'),
+  },
+  {
+    path: '/addblog',
+    name: 'addblog',
+    component: () => import('@/views/AddBlogView.vue'),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("@/views/NotFound.vue"),

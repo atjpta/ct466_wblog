@@ -6,6 +6,10 @@ exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
 };
 
+exports.test = (req, res) => {
+    res.status(200).send("testpost");
+}
+
 exports.userBoard = (req, res) => {
     res.status(200).send("User Content.");
 };
@@ -44,7 +48,7 @@ exports.findOne = async (req, res, next) => {
             'name',
             'date',
             'introduce',
-            'avatar',
+            'avatar_Url',
         ]);
         if(!document) {
             return next (res.status(404).json({ Message: "không thể tìm thấy user"}));
@@ -75,7 +79,7 @@ exports.update = async (req, res, next) => {
         if(!document) {
             return next (res.status(404).json({ Message: "không thể tìm thấy user"}));
         }
-        return res.send({ message: "đã update thành công"});
+        return res.send({ message: "đã update thành công", body: req.body});
     }
     catch(error) {
         console.log(error);
