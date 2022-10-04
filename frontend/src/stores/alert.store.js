@@ -35,14 +35,14 @@ export const alertStore = defineStore("alertStore", {
 			this.success.set = true;
 			setTimeout(() => {
 				this.success.set = false;
-			}, 2000);
+			}, 5000);
 		},
 		setWarning(message){
 			this.warning.message = message
 			this.warning.set = true;
 			setTimeout(() => {
 				this.warning.set = false;
-			}, 2000);
+			}, 5000);
 
 		},
 		setInfo(message){
@@ -50,7 +50,7 @@ export const alertStore = defineStore("alertStore", {
 			this.info.set = true;
 			setTimeout(() => {
 				this.info.set = false;
-			}, 2000);
+			}, 5000);
 
 		},
 		setError(message){
@@ -58,7 +58,7 @@ export const alertStore = defineStore("alertStore", {
 			this.error.set = true;
 			setTimeout(() => {
 				this.error.set = false;
-			}, 2000);
+			}, 5000);
 
 		},
 	},

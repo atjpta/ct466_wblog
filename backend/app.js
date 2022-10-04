@@ -21,6 +21,8 @@ route.auth(app);
 route.users(app);
 route.image(app);
 route.blog(app);
+route.vote(app);
+route.comment(app);
 
 app.use((req, res, next) => {
     res.header(

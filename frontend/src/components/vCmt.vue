@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- input cmt -->
     <div class="mx-auto w-5/6">
       <p class="text-4xl pt-10 pb-5">nhập bình luận của bạn:</p>
       <input class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-5/6" type="text" />
@@ -13,44 +14,75 @@
       </div>
     </div>
 
+    <!-- list cmt -->
     <div
+      v-for="cmt in useBlog.blog.comment_Blog"
+      :key="cmt.id"
       class="mt-10 w-5/6 mx-auto bg-gradient-to-b from-teal-300/50 rounded-3xl shadow-xl"
     >
       <div class="p-5 h-16 flex">
         <img
           class="bg-black h-16 w-16 rounded-full"
-          src="../../public/imgs/avatar.jpg"
+          :src="cmt.author.avatar_Url || emptyImage"
           alt=""
         />
         <div class="text-3xl text-blue-900 mx-3">
-          admin
+          {{ cmt.author.name }}
           <div class="text-lg">
-            <i>thời gian đăng</i>
+            <i>{{ cmt.createdAt }}</i>
           </div>
         </div>
       </div>
-
       <div class="text-xl mt-5 pt-3 px-5">
-        ghielsssssssssssssssssssssssssssssssssssssghitr
+        {{ cmt.content }}
       </div>
+      <!-- voted cua list blog -->
       <div class="flex">
         <button
-          class="items-center justify-center flex w-1/6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          @click="vote(cmt.voted.tim)"
+          class="items-center justify-center flex w-1/6 rounded-3xl hover:text-red-500 hover:scale-150 duration-300"
         >
-          <i class="fa-solid fa-heart pt-1"></i>
-          <p class="">100</p>
+          <i
+            :class="[isVote(cmt.voted.tim) ? 'text-red-500' : '']"
+            class="fa-solid fa-heart pt"
+          ></i>
+          <p class="mx-2">{{ cmt.voted.tim.length || 0 }}</p>
         </button>
         <button
-          class="px-5 py-5 items-center justify-center flex w-1/6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          @click="vote(cmt.voted.dislike)"
+          class="px-5 py-5 items-center justify-center flex w-1/6 rounded-3xl hover:text-blue-500 hover:scale-150 duration-300"
         >
-          <i class="fa-solid fa-thumbs-down pt-1"></i>
-          <p class="">100</p>
+          <i
+            :class="[isVote(cmt.voted.dislike) ? 'text-blue-500' : '']"
+            class="fa-solid fa-thumbs-down pt"
+          ></i>
+          <p class="mx-2">{{ cmt.voted.dislike.length || 0 }}</p>
         </button>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import { blogStore } from "../stores/blog.store";
+import { authStore } from "../stores/auth.store";
+import emptyImage from "@/assets/upload-image.png";
+const useAuth = authStore();
+const useBlog = blogStore();
+
+function isVote(list) {
+  return !!list.find((e) => e == useAuth.user.id);
+}
+
+function vote(list) {
+  const index = list.findIndex((e) => e == useAuth.user.id);
+  if (index > -1) {
+    list.splice(index, 1);
+  } else {
+    list.push(useAuth.user.id);
+  }
+}
+</script>
 
 <style></style>

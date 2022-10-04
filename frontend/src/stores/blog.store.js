@@ -8,13 +8,19 @@ export const blogStore = defineStore("blogStore", {
     id: 'blog',
 	state() {
 		return {
+			comment_blog: {},
 			ListBlog: [],
 			blog: {
 				id: "",
 				author: {},
 				title: "",
-				voted: {},
+				voted: {
+					tim: [],
+					dislike: [],
+					view: [],
+				},
 				content:{},
+				comment_Blog:[],
 			},
 			image: {},
 			blogEdit: {
@@ -29,6 +35,7 @@ export const blogStore = defineStore("blogStore", {
 	getters: {
 	},
 	actions: {
+	
 		getdefault(){
 			this.blogEdit = {
 				author: authStore().user.id,
@@ -38,9 +45,18 @@ export const blogStore = defineStore("blogStore", {
 				premium: false,
 			}
 		},
+		
+		formatListBlog(){
+			// const d = new Date();
+			// this.ListBlog.forEach((item, index, arr) => {
+			// 	d.toDateString(item.createdAt);
+			// 	arr[index].createdAt = d.toString().substring(0, 24)
+			// });
+		},
 		async getListBlog(){
 			try {
 				this.ListBlog = await blogService.getListBlog()
+				this.formatListBlog();
 			} catch (error) {
 				alertStore().setError('lỗi lấy dữ liệu - ' + error.message );
 			}

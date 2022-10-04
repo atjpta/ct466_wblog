@@ -37,8 +37,9 @@ export const infoStore = defineStore("infoStore", {
 
 		async updateInfo(){
 			try {
-				if(typeof(this.infoEdit.date) == 'array'){
-					this.infoEdit.date = this.infoEdit.date.join();
+				console.log(typeof(this.infoEdit.date));
+				if(typeof(this.infoEdit.date) != 'string'){
+					this.infoEdit.date = this.infoEdit.date.join().toString();
 				}
 				const result = await UserService.updateInfo(this.infoEdit.id, this.infoEdit);
 				alertStore().setSuccess(result.message);

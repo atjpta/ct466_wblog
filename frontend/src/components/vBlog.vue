@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- blog -->
     <div class="text-6xl text-center font-bold uppercase mb-10">
       {{ useBlog.blog.title }}
     </div>
@@ -18,37 +19,63 @@
     </div>
 
     <div class="bg-white/50 mx-auto w-5/6 my-10">
-      <QuillEditor
-        v-model:content="x"
-        @ready="test($event)"
-        :readOnly="true"
-        theme="bubble"
-        :toolbar="[]"
-      />
+      <QuillEditor ref="quill" :readOnly="true" theme="bubble" :toolbar="[]" />
     </div>
-    {{ useBlog.blog.content }}
+
+    <!-- vote -->
+    <div class="text-2xl flex justify-around border-b-4 border-black">
+      <button
+        class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"
+      >
+        <i class="fa-solid fa-heart"></i>
+        <p class="mx-2">{{ useBlog.blog.voted.tim.length || 0 }}</p>
+      </button>
+      <button
+        class="p-3 items-center justify-center flex h-16 hover:text-blue-500 hover:scale-150 duration-300"
+      >
+        <i class="fa-solid fa-thumbs-down pt-1"></i>
+        <p class="mx-2">{{ useBlog.blog.voted.dislike.length || 0 }}</p>
+      </button>
+      <div class="p-3 flex items-center justify-center">
+        <i class="fa-solid fa-comments pt-1"></i>
+        <p class="mx-2">{{ useBlog.blog.comment_Blog.length || 0 }}</p>
+      </div>
+      <div class="p-3 flex items-center justify-center">
+        <i class="fa-solid fa-eye pt-1"></i>
+        <div class="mx-2">{{ useBlog.blog.voted.view.length || 0 }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount } from "vue";
 import emptyImage from "@/assets/upload-image.png";
-import { QuillEditor, Quill, Delta } from "@vueup/vue-quill";
+import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
-import { blogStore } from "../stores/blog.store";
+import { useRouter, useRoute } from "vue-router";
+import { ref, onMounted, onBeforeMount } from "vue";
 import blogService from "../services/blog.service";
+import { blogStore } from "../stores/blog.store";
+
+const router = useRouter();
+const route = useRoute();
 
 const useBlog = blogStore();
-const x = ref();
-const test = async (e) => {
-  const res = await blogService.findOneBlog("6337bcf55d7b449496c55146");
-  e.editor.delta = res.content;
-  x.value = res.content;
-  console.log("x");
-  console.log(x.value);
-  console.log(e.editor.delta);
+
+const quill = ref();
+
+async function getApi() {
+  await useBlog.findOneBlog(route.params.id);
+  setContent();
+}
+
+const setContent = () => {
+  quill.value.setContents(useBlog.blog.content);
 };
+onMounted(() => {
+  getApi();
+});
 </script>
 
 <style></style>
