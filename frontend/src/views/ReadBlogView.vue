@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white/50 w-3/5 mx-auto py-10">
+    <div class="bg-white/50 w-3/5 py-10 mx-auto">
       <div>
         <vBlogVue />
         <vCmtVue />

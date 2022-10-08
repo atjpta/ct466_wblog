@@ -1,19 +1,23 @@
 <template>
   <div>
     <!-- blog -->
-    <div class="text-6xl text-center font-bold uppercase mb-10">
-      {{ useBlog.blog.title }}
-    </div>
-    <div class="h-16 m-auto flex w-4/5">
-      <img
-        class="bg-black h-16 w-16 rounded-full"
-        :src="useBlog.blog.author.avatar_Url || emptyImage"
-        alt=""
-      />
-      <div class="text-3xl text-blue-900 mx-3">
-        {{ useBlog.blog.author.name }}
-        <div class="text-lg">
-          <i>{{ useBlog.blog.time }}</i>
+    <div class="">
+      <!-- <img :src="useBlog.blog.cover_image_Url" class="absolute w-3/5 z-0 top-32" alt="" /> -->
+
+      <div class="text-6xl text-center font-bold uppercase mb-10">
+        {{ useBlog.blog.title }}
+      </div>
+      <div class="h-16 m-auto flex w-4/5">
+        <img
+          class="bg-black h-16 w-16 rounded-full"
+          :src="useBlog.blog.author.avatar_Url || emptyImage"
+          alt=""
+        />
+        <div class="text-3xl text-blue-900 mx-3">
+          {{ useBlog.blog.author.name }}
+          <div class="text-lg">
+            <i>{{ useBlog.blog.time }}</i>
+          </div>
         </div>
       </div>
     </div>
@@ -72,7 +76,6 @@ const route = useRoute();
 const useBlog = blogStore();
 const quill = ref();
 const useAuth = authStore();
-
 function isVote(list) {
   return !!list.find((e) => e == useAuth.user.id);
 }

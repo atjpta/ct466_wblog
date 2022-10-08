@@ -55,9 +55,12 @@ exports.findOneBlog = async (req, res, next) => {
                 avatar_Url: document.author.avatar_Url,
             },
             title: document.title,
+            summary: document.summary,
+            cover_image_Url: document.cover_image_Url,
             voted: document.voted,
             content: document.content,
             comment_Blog: comment_Blog,
+            premium: document.premium,
             time: document.createdAt,
         });
     }

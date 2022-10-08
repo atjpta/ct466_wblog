@@ -87,6 +87,7 @@ async function createComment() {
   try {
     await useBlog.createComment(comment_Blog.value);
     await useBlog.findOneBlog(useBlog.blog.id);
+    comment_Blog.value.content = "";
   } catch (error) {
     alertStore().setError("không thể thêm comment");
   }

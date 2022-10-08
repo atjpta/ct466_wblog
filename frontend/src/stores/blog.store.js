@@ -2,8 +2,6 @@ import { defineStore } from "pinia";
 import { alertStore } from "./alert.store";
 import { authStore } from "./auth.store";
 import blogService from "../services/blog.service";
-import userService from "../services/vote.service";
-import imageService from "../services/image.service";
 import voteService from "../services/vote.service";
 import commentBlogService from "../services/commentBlog.service";
 export const blogStore = defineStore("blogStore", {
@@ -37,6 +35,7 @@ export const blogStore = defineStore("blogStore", {
 	getters: {
 	},
 	actions: {
+	
 		async createComment(data){
 			const document = await commentBlogService.create(data);
 			console.log(document);

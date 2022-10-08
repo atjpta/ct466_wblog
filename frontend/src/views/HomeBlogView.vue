@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vListBlogVue />
+    <vListBlogVue class="pb-20" />
   </div>
 </template>
 

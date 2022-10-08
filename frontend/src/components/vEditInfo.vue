@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto">
     <p class="text-4xl mt-5">Tên:</p>
     <div class="mt-2">
       <input
@@ -13,7 +13,7 @@
         as-single
         :formatter="formatter"
         v-model="useInfo.infoEdit.date"
-        :placeholder="useInfo.info.date || 'chưa thêm ngày sinh'"
+        :placeholder="useInfo.infoEdit.date || 'chưa thêm ngày sinh'"
       />
     </div>
 
@@ -26,8 +26,8 @@
       <div class="w-3/5 border-b-2 border-black"></div>
     </div>
 
-    <div class="flex justify-end m-10 mt-10 text-2xl">
-      <div v-show="!loading" class="flex justify-center pt-10">
+    <div class="flex justify-end mx-10 text-2xl">
+      <div v-show="!loading" class="flex justify-center">
         <button
           @click="update()"
           class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
@@ -36,7 +36,7 @@
         </button>
       </div>
 
-      <div v-show="loading" class="flex justify-center pt-10">
+      <div v-show="loading" class="flex justify-center">
         <div
           class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center pt-10 ml-10">
+      <div class="flex justify-center ml-10">
         <button
           @click="cancel()"
           class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
@@ -99,6 +99,9 @@ function cancel() {
   };
   router.push(redirectPath);
 }
+onMounted(() => {
+  useInfo.getApiInfo();
+});
 </script>
 
 <style></style>

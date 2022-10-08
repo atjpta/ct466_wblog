@@ -1,13 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import welcome from '../views/WelcomeView.vue'
 import { authStore } from "@/stores/auth.store";
-
+import {blogStore} from '@/stores/blog.store'
 
 // khi đăng nhập sẽ chuyển sang trang rooms
 const redirectIfLoggedIn = (_to, _from) => {
 	if (authStore().isUserLoggedIn) {
 		return {
 			name: "home",
+		};
+	}
+};
+
+const redirectEditBlog = (_to, _from) => {
+	if (blogStore().blog.author.id != authStore().user.id ) {
+		return {
+			name: "NotFound",
 		};
 	}
 };
@@ -57,8 +65,14 @@ const routes = [
   },
   {
     path: '/readblog/:id',
-    name: 'readblog',
+    name: 'readblog', 
     component: () => import('@/views/ReadBlogView.vue'),
+  },
+  {
+    path: '/editblog/:id',
+    name: 'editblog',
+    component: () => import('@/views/EditBlogView.vue'),
+    beforeEnter: redirectEditBlog,
   },
   {
     path: '/addblog',

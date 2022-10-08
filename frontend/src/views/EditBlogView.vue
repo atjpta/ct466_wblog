@@ -55,15 +55,6 @@
           />
         </div>
       </div>
-      <div class="mt-10 mx-auto w-5/6 text-4xl">
-        <select
-          v-model="useBlog.blogEdit.premium"
-          class="text-4xl w-1/4 rounded-2xl bg-white/5 shadow-violet-700 shadow-md h-16 hover:text-purple-700 hover:scale-125 duration-300"
-        >
-          <option value="false">Miễn phí</option>
-          <option value="true">Có thu phí</option>
-        </select>
-      </div>
     </div>
     <div class="flex justify-end mx-10 text-2xl">
       <div v-show="!loading" class="flex justify-center">
@@ -71,7 +62,7 @@
           @click="createBlog()"
           class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
-          Tạo
+          cập nhật
         </button>
       </div>
 
@@ -80,7 +71,7 @@
           class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           <i class="fa-solid fa-spinner animate-spin px-4"></i>
-          Đang tạo
+          Đang cập nhật
         </div>
       </div>
 
@@ -120,7 +111,15 @@ async function createBlog() {
     if (useBlog.image.value) {
       await imgageService.uploadImage(useBlog.image);
     }
-    const id = await useBlog.createBlog();
+    const data = {
+      id: useBlog.blogEdit.id,
+      title: useBlog.blogEdit.title,
+      summary: useBlog.blogEdit.summary,
+      cover_image_Url: useBlog.blogEdit.cover_image_Url,
+      content: useBlog.blogEdit.content,
+    };
+    const id = data.id;
+    await useBlog.updateBlog(id, data);
     const redirectPath = route.query.redirect || {
       path: `/readblog/${id}`,
     };
@@ -143,6 +142,18 @@ function previewFiles(event) {
   useBlog.image = new FormData();
   useBlog.image.append("image", file);
 }
+
+async function getApi() {
+  await useBlog.findOneBlog(route.params.id);
+  setContent();
+}
+
+const setContent = () => {
+  quill.value.setContents(useBlog.blogEdit.content);
+};
+onMounted(() => {
+  getApi();
+});
 </script>
 
 <style></style>

@@ -14,7 +14,7 @@ import vAlertVue from "@/components/vAlert.vue";
       background-image: url(../public/imgs/bg.jpg);
     "
   >
-    <Vheader />
+    <Vheader class="" />
     <vAlertVue />
     <router-view />
   </div>
