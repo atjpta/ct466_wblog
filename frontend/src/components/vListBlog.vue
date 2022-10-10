@@ -2,7 +2,7 @@
   <div class="">
     <div
       v-if="isOpen"
-      class="fixed top-1/3 inset-x-1/4 rounded-2xl h-1/4 bg-white shadow-lg shadow-blue-500"
+      class="top-1/3 lg:inset-x-1/4 inset-x-10 fixed rounded-2xl h-1/4 bg-white shadow-lg shadow-blue-500"
     >
       <div>
         <div class="text-center text-2xl py-12">Bạn có chắc chắn muốn xóa?</div>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div
-      class="bg-white/50 w-9/12 mx-auto rounded-2xl mt-20"
+      class="bg-white/50 lg:w-9/12 mx-auto rounded-2xl mt-20"
       v-for="blog in useBlog.ListBlog"
       :key="blog.id"
     >

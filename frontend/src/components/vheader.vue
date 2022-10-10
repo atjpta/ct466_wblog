@@ -182,6 +182,18 @@
               <div
                 class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
+                <router-link to="/addblog">
+                  <button>
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    Tạo bài viết
+                  </button>
+                </router-link>
+              </div>
+            </li>
+            <li class="mt-3">
+              <div
+                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+              >
                 <router-link to="/profile">
                   <button>
                     <i class="fa-solid fa-address-card"></i>

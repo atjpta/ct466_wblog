@@ -8,6 +8,8 @@ exports.getListBlog = async (req, res) => {
     try {
         const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
         ).populate(
+            'hashtag'
+        ).populate(
             'author', 'name avatar_Url'
         ).populate(
             'voted', 'tim dislike view'
@@ -18,6 +20,7 @@ exports.getListBlog = async (req, res) => {
             "cover_image_Url",
             "voted",
             "premium",
+            "hashtag",
             "_id",
             "createdAt",
         ]);
@@ -34,7 +37,7 @@ exports.findOneBlog = async (req, res, next) => {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
 
-    const cmt = await Comment.find({id_blog: id}).sort({'createdAt': -1}).populate('author', 'name avatar_Url').populate(
+    const cmt = await Comment.find({id_blog: id}).sort({'createdAt': -1}).populate('hashtag').populate('author', 'name avatar_Url').populate(
         'voted', 'tim dislike'
     );
     try {
@@ -80,6 +83,7 @@ exports.createBlog = async (req, res) => {
         title: req.body.title,
         summary: req.body.summary,
         content: req.body.content,
+        hashtag: req.body.hashtag,
         cover_image_Url: req.body.cover_image_Url,
         premium: req.body.premium,
     })

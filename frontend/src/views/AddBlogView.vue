@@ -1,49 +1,52 @@
 <template>
-  <div class="bg-white/50 w-3/5 m-auto">
+  <div class="bg-white/50 lg:w-3/5 m-auto">
     <div class="text-6xl py-10 text-center">TẠO BÀI VIẾT</div>
     <div class="">
+      <!-- tiêu đề bài viết  -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Nhập tiêu đề bài viết:</p>
         <input
           v-model="useBlog.blogEdit.title"
-          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-5/6"
+          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
           type="text"
         />
       </div>
-
+      <!-- tóm tắt bài viết  -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Nhập tóm tắt nội dung bài viết:</p>
         <input
           v-model="useBlog.blogEdit.summary"
-          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-5/6"
+          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
           type="text"
         />
       </div>
-
+      <!-- ảnh bìa bài viết -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Chọn ảnh bìa bài viết:</p>
-        <div class="flex">
+        <div class="flex justify-center">
           <img
-            class="h-[400px] w-[700px]"
+            class=""
             :src="img || useBlog.blogEdit.cover_image_Url || emptyImage"
             alt=""
           />
         </div>
-        <div
-          class="flex justify-center text-xl my-10 p-3 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
-        >
-          <i class="fa-regular fa-image mt-2 mr-3"></i>
-          <div>
-            <input
-              class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
-              accept="image/*"
-              type="file"
-              @change="previewFiles($event)"
-            />
+        <div class="flex justify-center">
+          <div
+            class="flex justify-center text-xl my-10 p-3 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
+          >
+            <i class="fa-regular fa-image mt-2 mr-3"></i>
+            <div class="">
+              <input
+                class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
+                accept="image/*"
+                type="file"
+                @change="previewFiles($event)"
+              />
+            </div>
           </div>
         </div>
       </div>
-
+      <!-- noi dung bài viết -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">nhập dung bài viết:</p>
         <div class="bg-white/50">
@@ -55,10 +58,49 @@
           />
         </div>
       </div>
+      <!-- hashtag -->
+      <div class="mt-10 mx-auto w-5/6">
+        <div class="mt-10 text-4xl">Thêm hashtag mới</div>
+        <div class="mt-10">
+          <input
+            v-model="useBlog.blogEdit.title"
+            class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
+            type="text"
+          />
+          <div class="">
+            <button
+              @click="addNewHashtag()"
+              class="active:bg-violet-700/30 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-full hover:text-blue-900 hover:scale-125 duration-300"
+            >
+              Thêm
+            </button>
+          </div>
+        </div>
+        <div class="mt-10 text-4xl">Thêm hashtag đã có</div>
+        <div class="mt-10">
+          <input
+            v-model="useBlog.blogEdit.title"
+            class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
+            type="text"
+          />
+          <div class="overflow-y-auto h-52 text-2xl w-full">
+            <div v-for="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="i" class="">
+              <button
+                @click="addHashtag()"
+                class="w-full active:bg-violet-700/30 hover:bg-violet-700/70 text-left p-3 px-10 hover:text-blue-900 duration-300"
+              >
+                Tạo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- premium -->
       <div class="mt-10 mx-auto w-5/6 text-4xl">
+        <div class="mt-10 text-4xl">Mức giá bài viết</div>
         <select
           v-model="useBlog.blogEdit.premium"
-          class="text-4xl w-1/4 rounded-2xl bg-white/5 shadow-violet-700 shadow-md h-16 hover:text-purple-700 hover:scale-125 duration-300"
+          class="mt-10 text-2xl rounded-2xl bg-white/5 shadow-violet-700 shadow-md hover:text-purple-700 hover:scale-125 duration-300"
         >
           <option value="false">Miễn phí</option>
           <option value="true">Có thu phí</option>
@@ -69,7 +111,7 @@
       <div v-show="!loading" class="flex justify-center">
         <button
           @click="createBlog()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="active:bg-violet-700/30 my-20 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           Tạo
         </button>
@@ -77,7 +119,7 @@
 
       <div v-show="loading" class="flex justify-center">
         <div
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="my-20 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           <i class="fa-solid fa-spinner animate-spin px-4"></i>
           Đang tạo
@@ -87,7 +129,7 @@
       <div class="flex justify-center ml-10">
         <button
           @click="cancel()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="my-20 p-3 px-5 text-2xl text-center active:bg-red-700/30 shadow-red-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           Hủy
         </button>
@@ -130,6 +172,10 @@ async function createBlog() {
   } finally {
     loading.value = false;
   }
+}
+
+function cancel() {
+  router.back();
 }
 
 function previewFiles(event) {

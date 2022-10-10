@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white/50 w-3/5 m-auto">
-    <div class="text-6xl py-10 text-center">TẠO BÀI VIẾT</div>
+  <div class="bg-white/50 lg:w-3/5 m-auto">
+    <div class="text-6xl py-10 text-center">SỬA BÀI VIẾT</div>
     <div class="">
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Nhập tiêu đề bài viết:</p>
         <input
           v-model="useBlog.blogEdit.title"
-          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-5/6"
+          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
           type="text"
         />
       </div>
@@ -15,31 +15,33 @@
         <p class="text-4xl pt-10 pb-5">Nhập tóm tắt nội dung bài viết:</p>
         <input
           v-model="useBlog.blogEdit.summary"
-          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-5/6"
+          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
           type="text"
         />
       </div>
 
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Chọn ảnh bìa bài viết:</p>
-        <div class="flex">
+        <div class="flex justify-center">
           <img
             class="h-[400px] w-[700px]"
             :src="img || useBlog.blogEdit.cover_image_Url || emptyImage"
             alt=""
           />
         </div>
-        <div
-          class="flex justify-center text-xl my-10 p-3 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
-        >
-          <i class="fa-regular fa-image mt-2 mr-3"></i>
-          <div>
-            <input
-              class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
-              accept="image/*"
-              type="file"
-              @change="previewFiles($event)"
-            />
+        <div class="flex justify-center">
+          <div
+            class="flex justify-center text-xl my-10 p-3 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
+          >
+            <i class="fa-regular fa-image mt-2 mr-3"></i>
+            <div class="">
+              <input
+                class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
+                accept="image/*"
+                type="file"
+                @change="previewFiles($event)"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -59,8 +61,8 @@
     <div class="flex justify-end mx-10 text-2xl">
       <div v-show="!loading" class="flex justify-center">
         <button
-          @click="createBlog()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          @click="updateBlog()"
+          class="active:bg-violet-700/30 my-20 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           cập nhật
         </button>
@@ -68,7 +70,7 @@
 
       <div v-show="loading" class="flex justify-center">
         <div
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="my-20 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           <i class="fa-solid fa-spinner animate-spin px-4"></i>
           Đang cập nhật
@@ -78,7 +80,7 @@
       <div class="flex justify-center ml-10">
         <button
           @click="cancel()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="my-20 p-3 px-5 text-2xl text-center active:bg-red-700/30 shadow-red-700 shadow-md rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           Hủy
         </button>
@@ -105,7 +107,7 @@ const route = useRoute();
 const useBlog = blogStore();
 const loading = ref(false);
 
-async function createBlog() {
+async function updateBlog() {
   try {
     loading.value = true;
     if (useBlog.image.value) {
@@ -129,6 +131,10 @@ async function createBlog() {
   } finally {
     loading.value = false;
   }
+}
+
+function cancel() {
+  router.back();
 }
 
 function previewFiles(event) {

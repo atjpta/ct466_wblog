@@ -4,7 +4,7 @@ const image = require('./image.routes');
 const blog = require('./blog.routes');
 const comment = require('./comment.routes')
 const vote = require ('./vote.routes')
-
+const hashtag = require('./hashtag.routes')
 
 module.exports = {
     auth,
@@ -13,4 +13,5 @@ module.exports = {
     blog,
     comment,
     vote,
+    hashtag,
 }

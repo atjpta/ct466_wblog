@@ -17,6 +17,12 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "vote"
         },
+        hashtag: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "hashtag"
+            },
+        ],
         premium: Boolean,
         deleted: {
             type: Boolean,
