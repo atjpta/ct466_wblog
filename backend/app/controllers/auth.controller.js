@@ -86,6 +86,7 @@ exports.signin = (req, res) => {
         name: user.name,
         roles: authorities,
         accessToken: token,
+        avatar_Url : user.avatar_Url,
       });
     });
 };

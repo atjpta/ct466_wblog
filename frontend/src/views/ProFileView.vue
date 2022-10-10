@@ -1,9 +1,9 @@
 <template>
   <div>
     <div
-      class="bg-gradient-to-l rounded-2xl from-sky-100 to-sky-500/50 w-3/4 min-w-max mx-auto flex"
+      class="bg-gradient-to-l rounded-2xl from-sky-100 to-sky-500/50 w-3/4 min-w-max mx-auto lg:flex"
     >
-      <div class="w-1/4 m-10">
+      <div class="w-2/4 mx-10">
         <vAvatarVue></vAvatarVue>
 
         <div
@@ -17,7 +17,7 @@
           </router-link>
         </div>
       </div>
-      <div class="w-3/4">
+      <div class="w-2/4 mx-10">
         <VInfo></VInfo>
         <div></div>
       </div>

@@ -2,8 +2,6 @@
   <div>
     <!-- blog -->
     <div class="">
-      <!-- <img :src="useBlog.blog.cover_image_Url" class="absolute w-3/5 z-0 top-32" alt="" /> -->
-
       <div class="text-6xl text-center font-bold uppercase mb-10">
         {{ useBlog.blog.title }}
       </div>

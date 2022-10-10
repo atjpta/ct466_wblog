@@ -1,14 +1,14 @@
 <template>
-  <div class="mx-auto">
+  <div class="mx-auto my-10">
     <p class="text-4xl mt-5">Tên:</p>
     <div class="mt-2">
       <input
         v-model="useInfo.infoEdit.name"
-        class="text-blue-600 text-3xl w-3/5 font-bold bg-slate-50/5 border-b-2 border-black"
+        class="text-blue-600 text-3xl lg:w-3/5 w-[200px] font-bold bg-slate-50/5 border-b-2 border-black"
       />
     </div>
     <p class="text-4xl mt-5">ngày sinh:</p>
-    <div class="mt-5 w-1/6">
+    <div class="mt-5 lg:w-2/6">
       <vue-tailwind-datepicker
         as-single
         :formatter="formatter"
@@ -21,34 +21,34 @@
       <p class="text-3xl">Giới thiệu:</p>
       <textarea
         v-model="useInfo.infoEdit.introduce"
-        class="mt-3 text-xl h-[200px] w-3/5 bg-slate-50/5 border-black border-opacity-0"
+        class="mt-3 text-xl h-[200px] lg:w-3/5 w-[200px] bg-slate-50/5 border-black border-opacity-0"
       ></textarea>
-      <div class="w-3/5 border-b-2 border-black"></div>
+      <div class="lg:w-3/5 w-[200px] border-b-2 border-black"></div>
     </div>
-
-    <div class="flex justify-end mx-10 text-2xl">
-      <div v-show="!loading" class="flex justify-center">
+    <!-- btn  -->
+    <div class="flex justify-evenly text-2xl">
+      <div v-show="!loading" class="m-10 flex justify-center">
         <button
           @click="update()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           Lưu
         </button>
       </div>
 
-      <div v-show="loading" class="flex justify-center">
+      <div v-show="loading" class="m-10 flex justify-center">
         <div
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           <i class="fa-solid fa-spinner animate-spin px-4"></i>
           Lưu
         </div>
       </div>
 
-      <div class="flex justify-center ml-10">
+      <div class="m-10 flex justify-center">
         <button
           @click="cancel()"
-          class="my-20 p-3 text-2xl text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+          class="active:bg-red-500/30 truncate text-base flex justify-center shadow-red-500 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
         >
           Hủy
         </button>

@@ -21,7 +21,7 @@ exports.getListBlog = async (req, res) => {
             "_id",
             "createdAt",
         ]);
-        return res.json(listBlog);
+        return res.send(listBlog);
     } catch (error) {
         res.status(500).send("lỗi khi tin Blog")
     }
@@ -42,10 +42,12 @@ exports.findOneBlog = async (req, res, next) => {
         let comment_Blog = [];
         if (cmt) {
             comment_Blog = cmt
+            comment_Blog.createdAt =  new Date(comment_Blog.createdAt).toLocaleString()
         }
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm Blog" }));
         }
+        let d = new Date(document.createdAt);
         // return res.send(document)
         return res.send({
             id: document.id,

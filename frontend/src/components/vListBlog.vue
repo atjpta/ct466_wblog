@@ -32,7 +32,7 @@
       :key="blog.id"
     >
       <div class="">
-        <div class="flex flex-row h-auto shadow-lg">
+        <div class="lg:flex flex-row h-auto shadow-lg">
           <div class="basis-4/5 p-5 flex justify-center">
             <img
               class="h-[400px] w-auto"
@@ -66,27 +66,29 @@
             <div class="flex justify-evenly">
               <button
                 @click="read(blog.id, blog.voted._id)"
-                class="truncate text-xl text-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                class="truncate active:bg-violet-700/30 text-xl text-center shadow-violet-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
                 Xem thêm
               </button>
               <button
                 v-if="blog.author._id == useAuth.user.id"
                 @click="edit(blog.id)"
-                class="text-xl text-center shadow-yellow-700 shadow-md p-4 px-12 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                class="active:bg-yellow-700/30 text-xl text-center shadow-yellow-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
                 Sửa
               </button>
               <button
                 v-if="blog.author._id == useAuth.user.id"
                 @click="isOpen = blog.id"
-                class="text-xl text-center shadow-red-700 shadow-md p-4 px-12 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                class="text-xl text-centr active:bg-red-700/30 shadow-red-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
                 Xóa
               </button>
             </div>
           </div>
-          <div class="text-3xl text-center w-auto pt-10">
+          <div
+            class="flex flex-row lg:flex-col justify-evenly text-3xl text-center w-auto pt-10"
+          >
             <div class="p-5">
               <i class="fa-solid fa-heart"></i>
               <p>{{ blog.voted.tim.length || 0 }}</p>

@@ -7,17 +7,22 @@ import {blogStore} from '@/stores/blog.store'
 const redirectIfLoggedIn = (_to, _from) => {
 	if (authStore().isUserLoggedIn) {
 		return {
-			name: "home",
+			name: "homeblog",
 		};
 	}
 };
 
 const redirectEditBlog = (_to, _from) => {
-	if (blogStore().blog.author.id != authStore().user.id ) {
-		return {
-			name: "NotFound",
-		};
-	}
+  const list = blogStore().ListBlog
+  list.forEach(blog => {
+    if (blog.id == _to.params.id && blog.author.id != authStore().user.id) {
+      return {
+        name: "NotFound",
+      };
+    }
+  })
+  
+	
 };
 
 const routes = [

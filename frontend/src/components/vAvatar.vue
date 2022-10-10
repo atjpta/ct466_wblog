@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="my-5">
-      <div class="mx-auto flex justify-center">
+      <div class="py-10 w-64 mx-auto flex justify-center">
         <img
           class="bg-black/50 h-64 w-64 rounded-full"
           :src="useInfo.avatar || useInfo.info.avatar_Url"
@@ -13,9 +13,7 @@
       >
         <i class="fa-regular fa-image mt-2 mr-3"></i>
         <div>
-          <div></div>
           <input
-            placeholder="chọn avatar"
             class="file:text-black file:bg-white/0 file:border-0 w-24 hover:file:text-purple-700"
             accept="image/*"
             type="file"

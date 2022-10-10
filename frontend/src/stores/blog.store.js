@@ -35,6 +35,10 @@ export const blogStore = defineStore("blogStore", {
 	getters: {
 	},
 	actions: {
+
+		setTime(time){
+			return new Date(time).toLocaleString();
+		},
 	
 		async createComment(data){
 			const document = await commentBlogService.create(data);
@@ -65,17 +69,13 @@ export const blogStore = defineStore("blogStore", {
 			}
 		},
 
-		formatListBlog() {
-			// const d = new Date();
-			// this.ListBlog.forEach((item, index, arr) => {
-			// 	d.toDateString(item.createdAt);
-			// 	arr[index].createdAt = d.toString().substring(0, 24)
-			// });
-		},
+	
 		async getListBlog() {
 			try {
 				this.ListBlog = await blogService.getListBlog()
-				this.formatListBlog();
+				this.ListBlog.forEach((blog, i) => {
+					this.ListBlog[i].createdAt = this.setTime(blog.createdAt);
+				});
 			} catch (error) {
 				alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
 			}
@@ -95,6 +95,11 @@ export const blogStore = defineStore("blogStore", {
 			try {
 
 				this.blog = await blogService.findOneBlog(id);
+				this.blog.time = this.setTime(this.blog.time)
+				this.blog.comment_Blog.forEach((cmt, i) => {
+					this.blog.comment_Blog[i].createdAt = this.setTime(cmt.createdAt);
+				});
+				
 				this.blogEdit = this.blog
 			} catch (error) {
 				alertStore().setError('lỗi khi tìm blog - ' + error.message);

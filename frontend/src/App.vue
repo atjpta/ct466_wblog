@@ -6,7 +6,7 @@ import vAlertVue from "@/components/vAlert.vue";
 
 <template>
   <div
-    class="min-h-screen"
+    class="min-h-screen text-black"
     style="
       background-size: cover;
       background-repeat: no-repeat;
