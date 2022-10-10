@@ -32,17 +32,13 @@
       :key="blog.id"
     >
       <div class="">
-        <div class="lg:flex flex-row h-auto shadow-lg">
-          <div class="basis-4/5 p-5 flex justify-center">
-            <img
-              class="h-[400px] w-auto"
-              :src="blog.cover_image_Url || emptyImage"
-              alt=""
-            />
+        <div class="xl:flex flex-row h-auto shadow-lg">
+          <div class="basis-4/5 p-5 h-auto flex justify-center">
+            <img class="" :src="blog.cover_image_Url || emptyImage" alt="" />
           </div>
 
           <div class="basis-2/4 p-5 h-[450px]">
-            <div class="text-4xl font-bold py-5 uppercase">
+            <div class="text-center text-4xl font-bold py-5 uppercase">
               {{ blog.title }}
             </div>
             <div class="h-16 m-auto flex">
@@ -87,7 +83,7 @@
             </div>
           </div>
           <div
-            class="flex flex-row lg:flex-col justify-evenly text-3xl text-center w-auto pt-10"
+            class="flex flex-row xl:flex-col justify-evenly text-3xl text-center w-auto pt-10"
           >
             <div class="p-5">
               <i class="fa-solid fa-heart"></i>

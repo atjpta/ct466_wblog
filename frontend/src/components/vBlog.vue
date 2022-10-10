@@ -25,7 +25,7 @@
     </div>
 
     <!-- vote -->
-    <div class="text-2xl flex justify-around border-b-4 border-black">
+    <div class="lg:text-2xl text-base flex justify-around border-b-4 border-black">
       <button
         @click="vote('tim', useBlog.blog.voted.tim, useBlog.blog.voted.id)"
         class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"

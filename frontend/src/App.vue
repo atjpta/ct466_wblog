@@ -6,13 +6,8 @@ import vAlertVue from "@/components/vAlert.vue";
 
 <template>
   <div
-    class="min-h-screen text-black"
-    style="
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-image: url(../public/imgs/bg.jpg);
-    "
+    class="min-h-screen text-black bg-cover bg-fixed"
+    style="background-image: url(../public/imgs/bg.jpg)"
   >
     <Vheader class="" />
     <vAlertVue />

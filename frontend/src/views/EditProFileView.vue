@@ -1,12 +1,12 @@
 <template>
   <div>
     <div
-      class="pb-10 bg-gradient-to-l rounded-2xl from-sky-100 to-sky-500/50 w-3/4 min-w-max mx-auto lg:flex"
+      class="pb-10 bg-gradient-to-r from-sky-500/50 via-sky-100/50 to-sky-500/50 rounded-2xl w-3/4 mx-auto lg:flex"
     >
-      <div class="w-2/4 mx-10">
+      <div class="basis-1/2 flex justify-center">
         <vAvatarVue></vAvatarVue>
       </div>
-      <div class="w-2/4 mx-10">
+      <div class="basis-1/2 flex justify-center">
         <VEditInfo />
       </div>
     </div>

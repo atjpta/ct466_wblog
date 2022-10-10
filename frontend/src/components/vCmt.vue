@@ -37,11 +37,11 @@
           </div>
         </div>
       </div>
-      <div class="text-xl mt-5 pt-3 px-5">
+      <div class="text-xl mt-10 pt-3 px-5">
         {{ cmt.content }}
       </div>
       <!-- voted cua list blog -->
-      <div class="flex">
+      <div class="flex mx-5">
         <button
           @click="vote('tim', cmt.voted.tim, cmt.voted._id)"
           class="items-center justify-center flex w-1/6 rounded-3xl hover:text-red-500 hover:scale-150 duration-300"

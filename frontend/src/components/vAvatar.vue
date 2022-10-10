@@ -24,7 +24,7 @@
 
       <div v-if="useInfo.avatar" class="flex justify-around px-10">
         <div
-          class="flex justify-center text-xl p-4 w-5/12 text-center shadow-blue-600 shadow-md h-16 rounded-3xl hover:text-blue-700 hover:scale-125 duration-300"
+          class="active:bg-blue-600/30 flex justify-center text-xl p-4 w-5/12 text-center shadow-blue-600 shadow-md h-16 rounded-3xl hover:text-blue-700 hover:scale-125 duration-300"
         >
           <div v-if="!loading">
             <button @click="updateAvatar()">Lưu</button>
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div
-          class="flex justify-center text-xl p-4 w-5/12 text-center shadow-red-400 shadow-md h-16 rounded-3xl hover:text-red-400 hover:scale-125 duration-300"
+          class="active:bg-red-400/30 flex justify-center text-xl p-4 w-5/12 text-center shadow-red-400 shadow-md h-16 rounded-3xl hover:text-red-400 hover:scale-125 duration-300"
         >
           <div>
             <button @click="cancel()">Hủy</button>

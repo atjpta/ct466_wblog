@@ -161,7 +161,7 @@
         <div v-else class="dropdown">
           <label tabindex="0">
             <div
-              class="flex justify-start mx-10 active:bg-violet-700/30 truncate text-xl p-1 shadow-violet-700 shadow-md rounded-lg hover:text-blue-900 duration-300"
+              class="flex justify-start mx-10 active:bg-violet-700/30 truncate text-xl p-1 shadow-violet-700 shadow-md rounded-lg hover:text-blue-900 hover:scale-125 duration-300"
               v-if="useAuthStore.user"
             >
               <img
