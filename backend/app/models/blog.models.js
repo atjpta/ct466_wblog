@@ -19,9 +19,9 @@ const schema = mongoose.Schema(
         },
         hashtag: [
             {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: "hashtag"
-            },
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "hashtag"
+            }
         ],
         premium: Boolean,
         deleted: {

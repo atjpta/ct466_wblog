@@ -60,40 +60,7 @@
       </div>
       <!-- hashtag -->
       <div class="mt-10 mx-auto w-5/6">
-        <div class="mt-10 text-4xl">Thêm hashtag mới</div>
-        <div class="mt-10">
-          <input
-            v-model="useBlog.blogEdit.title"
-            class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
-            type="text"
-          />
-          <div class="">
-            <button
-              @click="addNewHashtag()"
-              class="active:bg-violet-700/30 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-full hover:text-blue-900 hover:scale-125 duration-300"
-            >
-              Thêm
-            </button>
-          </div>
-        </div>
-        <div class="mt-10 text-4xl">Thêm hashtag đã có</div>
-        <div class="mt-10">
-          <input
-            v-model="useBlog.blogEdit.title"
-            class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
-            type="text"
-          />
-          <div class="overflow-y-auto h-52 text-2xl w-full">
-            <div v-for="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="i" class="">
-              <button
-                @click="addHashtag()"
-                class="w-full active:bg-violet-700/30 hover:bg-violet-700/70 text-left p-3 px-10 hover:text-blue-900 duration-300"
-              >
-                Tạo
-              </button>
-            </div>
-          </div>
-        </div>
+        <vhashtag />
       </div>
       <!-- premium -->
       <div class="mt-10 mx-auto w-5/6 text-4xl">
@@ -140,14 +107,16 @@
   </div>
 </template>
 <script setup>
+import vhashtag from "../components/vEditHashtag.vue";
 import { blogStore } from "../stores/blog.store";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import emptyImage from "@/assets/upload-image.png";
 import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import imgageService from "../services/image.service";
+import { hashtagStore } from "../stores/hashtag.store";
 
 const img = ref();
 const quill = ref();
@@ -155,14 +124,19 @@ const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const loading = ref(false);
+const useHashtag = hashtagStore();
 
 async function createBlog() {
   try {
+    await useHashtag.createHashtag();
+    useHashtag.addHashtagToBlog();
+
     loading.value = true;
     if (useBlog.image.value) {
       await imgageService.uploadImage(useBlog.image);
     }
     const id = await useBlog.createBlog();
+    await useHashtag.addBlogToHashtag(id);
     const redirectPath = route.query.redirect || {
       path: `/readblog/${id}`,
     };
@@ -189,6 +163,13 @@ function previewFiles(event) {
   useBlog.image = new FormData();
   useBlog.image.append("image", file);
 }
+
+onMounted(() => {
+  useBlog.getdefault();
+  useHashtag.selectedHashtag = [];
+  useHashtag.newHashtag = [];
+  useHashtag.listAddHashtagToBlog = [];
+});
 </script>
 
 <style></style>

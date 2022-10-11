@@ -5,6 +5,7 @@ module.exports = (app) => {
     const router = express.Router();
     router.route("/")
         .get(vote.getListVoted)
+        .delete(vote.deleteAllVoted)
     router.route("/push/:type/:id")
         .put(vote.pushVoted)
 

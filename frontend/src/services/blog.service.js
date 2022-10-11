@@ -25,6 +25,13 @@ class BlogService {
     async restoreBlog(id){
         return (await this.api.put(`/retore/${id}`)).data
     }
+
+    async addhashtag(id, hashtag) {
+        return (await this.api.put(`/addhashtag/${id}`, hashtag)).data;
+    }
+    async removehashtag(id, hashtag) {
+        return (await this.api.put(`/removehashtag/${id}`, hashtag)).data;
+    }
     
 }
 export default new BlogService();

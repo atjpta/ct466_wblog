@@ -8,7 +8,7 @@ exports.getListBlog = async (req, res) => {
     try {
         const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
         ).populate(
-            'hashtag'
+            'hashtag', 'name'
         ).populate(
             'author', 'name avatar_Url'
         ).populate(
@@ -37,11 +37,11 @@ exports.findOneBlog = async (req, res, next) => {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
 
-    const cmt = await Comment.find({id_blog: id}).sort({'createdAt': -1}).populate('hashtag').populate('author', 'name avatar_Url').populate(
+    const cmt = await Comment.find({id_blog: id}).sort({'createdAt': -1}).populate('author', 'name avatar_Url').populate(
         'voted', 'tim dislike'
-    );
+    ).exec();
     try {
-        const document = await Blog.findOne(condition).populate("author").populate('voted').exec();
+        const document = await Blog.findOne(condition).populate('hashtag').populate("author").populate('voted').exec();
         let comment_Blog = [];
         if (cmt) {
             comment_Blog = cmt
@@ -50,8 +50,6 @@ exports.findOneBlog = async (req, res, next) => {
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm Blog" }));
         }
-        let d = new Date(document.createdAt);
-        // return res.send(document)
         return res.send({
             id: document.id,
             author: {
@@ -64,6 +62,7 @@ exports.findOneBlog = async (req, res, next) => {
             cover_image_Url: document.cover_image_Url,
             voted: document.voted,
             content: document.content,
+            hashtag: document.hashtag,
             comment_Blog: comment_Blog,
             premium: document.premium,
             time: document.createdAt,
@@ -131,6 +130,69 @@ exports.updateBlog = async (req, res, next) => {
         )
     }
 }
+
+
+//add Hashtag to blog 
+exports.addHashtagtoBlog = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+    const { id } = req.params;
+    const condition = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+
+    try {
+        const document = await Blog.findByIdAndUpdate(condition, {
+            $addToSet: { hashtag: req.body.hashtag }
+        }, {
+            new: true
+        });
+        if (!document) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy Hashtag" }));
+        }
+        return res.send({ message: "đã them blog vào hashtag thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update Hashtag với id = ${req.params.id} ` })
+        )
+    }
+}
+// remove Hashtag in blog 
+exports.removeHashtagtoBlog = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+    const { id } = req.params;
+    const condition = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+
+    try {
+        const document = await Blog.findByIdAndUpdate(condition, {
+            $pull: { hashtag: req.body.hashtag }
+        }, {
+            new: true
+        });
+        if (!document) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy Hashtag" }));
+        }
+        return res.send({ message: "đã them blog vào hashtag thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update Hashtag với id = ${req.params.id} ` })
+        )
+    }
+}
+
 
 
 exports.deleteBlog = async (req, res, next) => {

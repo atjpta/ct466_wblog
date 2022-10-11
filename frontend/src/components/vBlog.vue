@@ -20,6 +20,20 @@
       </div>
     </div>
 
+    <!-- hashtag -->
+    <div class="mt-10 w-4/5 mx-auto flex flex-wrap">
+      <div class="mx-3 text-xl">HashTag:</div>
+      <div v-for="Hashtag in useBlog.blog.hashtag" :key="Hashtag.id || Hashtag._id">
+        <div>
+          <button
+            @click="search(Hashtag.id || Hashtag._id)"
+            class="active:bg-violet-700/30 link text-xl text-center hover:text-blue-900 hover:scale-125 duration-300"
+          >
+            <i class="m-1 text-xl">{{ Hashtag.name }}</i>
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="bg-white/50 mx-auto w-5/6 my-10">
       <QuillEditor ref="quill" :readOnly="true" theme="bubble" :toolbar="[]" />
     </div>
@@ -68,12 +82,14 @@ import { ref, onMounted, onBeforeMount } from "vue";
 import blogService from "../services/blog.service";
 import { blogStore } from "../stores/blog.store";
 import { authStore } from "../stores/auth.store";
+import { hashtagStore } from "../stores/hashtag.store";
 
 const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const quill = ref();
 const useAuth = authStore();
+const useHashtag = hashtagStore();
 function isVote(list) {
   return !!list.find((e) => e == useAuth.user.id);
 }
@@ -87,6 +103,13 @@ function vote(type, list, id_list) {
     list.push(useAuth.user.id);
     useBlog.updatePushVote(type, id_list);
   }
+}
+function search(id) {
+  console.log(id);
+  const redirectPath = route.query.redirect || {
+    path: `/searchashtag/${id}`,
+  };
+  router.push(redirectPath);
 }
 async function getApi() {
   await useBlog.findOneBlog(route.params.id);

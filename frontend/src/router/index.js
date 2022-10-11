@@ -84,6 +84,12 @@ const routes = [
     name: 'addblog',
     component: () => import('@/views/AddBlogView.vue'),
   },
+
+  {
+    path: '/searchashtag/:id',
+    name: 'searchashtag',
+    component: () => import('@/views/SearchHashtagView.vue'),
+  },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",

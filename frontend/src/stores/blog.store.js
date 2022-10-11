@@ -4,6 +4,7 @@ import { authStore } from "./auth.store";
 import blogService from "../services/blog.service";
 import voteService from "../services/vote.service";
 import commentBlogService from "../services/commentBlog.service";
+import { hashtagStore } from "./hashtag.store";
 export const blogStore = defineStore("blogStore", {
 	id: 'blog',
 	state() {
@@ -21,6 +22,8 @@ export const blogStore = defineStore("blogStore", {
 				},
 				content: {},
 				comment_Blog: [],
+				hashtag:[],
+
 			},
 			image: {},
 			blogEdit: {
@@ -29,6 +32,7 @@ export const blogStore = defineStore("blogStore", {
 				summary: '',
 				content: {},
 				premium: false,
+				hashtag:[],
 			},
 		};
 	},
@@ -66,6 +70,7 @@ export const blogStore = defineStore("blogStore", {
 				summary: '',
 				content: {},
 				premium: false,
+				hashtag: [],
 			}
 		},
 
@@ -81,10 +86,23 @@ export const blogStore = defineStore("blogStore", {
 			}
 		},
 
+		async addhashtagToBlog(id){
+			try {
+				hashtagStore().listAddHashtagToBlog.forEach(async e  =>  {
+					await blogService.addhashtag(id, {hashtag: e})
+				})
+			} catch (error) {
+				console.log(error + 'addhashtagToBlog' );
+			}
+		},
+
 		async createBlog() {
 			try {
+				this.blogEdit.hashtag = hashtagStore.listAddHashtagToBlog
 				const result = await blogService.createBlog(this.blogEdit);
+				await this.addhashtagToBlog(result)
 				alertStore().setSuccess('tạo Blog thành công ');
+				hashtagStore.listAddHashtagToBlog = [];
 				return result;
 			} catch (error) {
 				alertStore().setError('lỗi khi tạo blog - ' + error.message);
@@ -99,7 +117,7 @@ export const blogStore = defineStore("blogStore", {
 				this.blog.comment_Blog.forEach((cmt, i) => {
 					this.blog.comment_Blog[i].createdAt = this.setTime(cmt.createdAt);
 				});
-				
+				hashtagStore().selectedHashtag = this.blog.hashtag
 				this.blogEdit = this.blog
 			} catch (error) {
 				alertStore().setError('lỗi khi tìm blog - ' + error.message);
@@ -110,6 +128,7 @@ export const blogStore = defineStore("blogStore", {
 			try {
 				const result = await blogService.updateBlog(id, data);
 				alertStore().setSuccess('Update thành công');
+				hashtagStore.listAddHashtagToBlog = [];
 			} catch (error) {
 				alertStore().setError('lỗi updata blog- ' + error.message);
 			}

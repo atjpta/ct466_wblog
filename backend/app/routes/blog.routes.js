@@ -15,5 +15,12 @@ module.exports = (app) => {
 
     router.route("/retore/:id")
         .put(blog.restoreBlog)
+
+    router.route("/addhashtag/:id")
+        .put(blog.addHashtagtoBlog)
+
+    router.route("/removehashtag/:id")
+        .put(blog.removeHashtagtoBlog)
+
     app.use("/api/blog", router); 
 };

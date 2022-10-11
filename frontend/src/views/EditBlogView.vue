@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-
+      <!-- nội dung bài viết -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">nhập dung bài viết:</p>
         <div class="bg-white/50">
@@ -57,6 +57,10 @@
           />
         </div>
       </div>
+    </div>
+    <!-- hashtag -->
+    <div class="mt-10 mx-auto w-5/6">
+      <vEditHashtag />
     </div>
     <div class="flex justify-end mx-10 text-2xl">
       <div v-show="!loading" class="flex justify-center">
@@ -99,6 +103,8 @@ import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import imgageService from "../services/image.service";
+import vEditHashtag from "../components/vEditHashtag.vue";
+import { hashtagStore } from "../stores/hashtag.store";
 
 const img = ref();
 const quill = ref();
@@ -106,6 +112,7 @@ const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const loading = ref(false);
+const useHashtag = hashtagStore();
 
 async function updateBlog() {
   try {
@@ -113,12 +120,18 @@ async function updateBlog() {
     if (useBlog.image.value) {
       await imgageService.uploadImage(useBlog.image);
     }
+    useHashtag.addHashtagToBlog();
+    await useHashtag.removeBlogToHashtag(useBlog.blogEdit.id);
+    await useHashtag.createHashtag();
+    await useHashtag.addBlogToHashtag(useBlog.blogEdit.id);
+
     const data = {
       id: useBlog.blogEdit.id,
       title: useBlog.blogEdit.title,
       summary: useBlog.blogEdit.summary,
       cover_image_Url: useBlog.blogEdit.cover_image_Url,
       content: useBlog.blogEdit.content,
+      hashtag: useHashtag.listAddHashtagToBlog,
     };
     const id = data.id;
     await useBlog.updateBlog(id, data);
@@ -159,6 +172,8 @@ const setContent = () => {
 };
 onMounted(() => {
   getApi();
+  useHashtag.newHashtag = [];
+  useHashtag.listAddHashtagToBlog = [];
 });
 </script>
 

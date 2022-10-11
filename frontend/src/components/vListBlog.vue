@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    {{ renderKey }}
     <div
       v-if="isOpen"
       class="top-1/3 lg:inset-x-1/4 inset-x-10 fixed rounded-2xl h-1/4 bg-white shadow-lg shadow-blue-500"
@@ -28,7 +29,7 @@
     </div>
     <div
       class="bg-white/50 lg:w-9/12 mx-auto rounded-2xl mt-20"
-      v-for="blog in useBlog.ListBlog"
+      v-for="blog in data"
       :key="blog.id"
     >
       <div class="">
@@ -37,8 +38,8 @@
             <img class="" :src="blog.cover_image_Url || emptyImage" alt="" />
           </div>
 
-          <div class="basis-2/4 p-5 h-[450px]">
-            <div class="text-center text-4xl font-bold py-5 uppercase">
+          <div class="basis-2/4 p-5 h-[500px]">
+            <div class="w-72 text-center text-4xl font-bold py-5 uppercase">
               {{ blog.title }}
             </div>
             <div class="h-16 m-auto flex">
@@ -55,7 +56,21 @@
               </div>
             </div>
 
-            <div class="mt-5 h-40 indent-10 text-xl text-ellipsis overflow-hidden">
+            <!-- hashtag -->
+            <div class="flex flex-wrap">
+              <div class="mx-3 text-xl">HashTag:</div>
+              <div v-for="Hashtag in blog.hashtag" :key="Hashtag.id || Hashtag._id">
+                <div>
+                  <button
+                    @click="search(Hashtag.id || Hashtag._id)"
+                    class="active:bg-violet-700/30 link text-xl text-center hover:text-blue-900 hover:scale-125 duration-300"
+                  >
+                    <i class="m-1 text-xl">{{ Hashtag.name }}</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5 h-32 indent-10 text-xl text-ellipsis overflow-hidden">
               {{ blog.summary }}
             </div>
 
@@ -106,20 +121,34 @@
 
 <script setup>
 import { useRouter, useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { blogStore } from "../stores/blog.store";
 import emptyImage from "@/assets/upload-image.png";
 import { authStore } from "../stores/auth.store";
+import { hashtagStore } from "../stores/hashtag.store";
+const props = defineProps({
+  data: Array,
+});
 const useAuth = authStore();
 const useBlog = blogStore();
 const router = useRouter();
 const route = useRoute();
 const isOpen = ref("");
+const useHashtag = hashtagStore();
+// const useHashtag = hashtagStore();
 async function read(id, id_vote) {
   await useBlog.updatePushVote("view", id_vote);
   const redirectPath = route.query.redirect || {
     path: `/readblog/${id}`,
   };
+  router.push(redirectPath);
+}
+
+async function search(id) {
+  const redirectPath = route.query.redirect || {
+    path: `/searchashtag/${id}`,
+  };
+  useHashtag.findBlogOnHashtag(id);
   router.push(redirectPath);
 }
 
