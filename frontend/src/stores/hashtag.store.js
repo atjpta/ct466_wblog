@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { alertStore } from "./alert.store";
 import commentBlogService from "../services/commentBlog.service";
 import hashtagService from "../services/hashtag.service";
-import {blogStore} from "./blog.store";
+import { blogStore } from "./blog.store";
 export const hashtagStore = defineStore("hashtagStore", {
 	id: 'hashtag',
 	state() {
@@ -10,24 +10,23 @@ export const hashtagStore = defineStore("hashtagStore", {
 			listHashtag: [],
 			resultSearch: {},
 			selectedHashtag: [],
-			newHashtag:[],
+			newHashtag: [],
 			listAddHashtagToBlog: []
 
 		};
 	},
 	getters: {
-		
+
 	},
 	actions: {
-
-		addHashtagToBlog(){
+		addHashtagToBlog() {
 			this.selectedHashtag.forEach(e => {
 				this.listAddHashtagToBlog.push(e.id)
 			})
 		},
 
-		async getListHashtag(){
-			
+		async getListHashtag() {
+
 			try {
 				this.listHashtag = await hashtagService.getListHashtag();
 			} catch (error) {
@@ -35,11 +34,11 @@ export const hashtagStore = defineStore("hashtagStore", {
 			}
 		},
 
-		async createHashtag(){
+		async createHashtag() {
 			try {
-				this.newHashtag.forEach( async (e, i) => {
-					
-					let id = await hashtagService.createHashtag({name: e.name});
+				this.newHashtag.forEach(async (e, i) => {
+
+					let id = await hashtagService.createHashtag({ name: e.name });
 					// console.log(id);
 					this.listAddHashtagToBlog.push(id)
 				})
@@ -48,7 +47,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 			}
 		},
 
-		async deleteAllHashtag(){
+		async deleteAllHashtag() {
 			try {
 				await hashtagService.deleteAllHashtag();
 			} catch (error) {
@@ -56,7 +55,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 			}
 		},
 
-		async findBlogOnHashtag(id){
+		async findBlogOnHashtag(id) {
 			try {
 				this.resultSearch = await hashtagService.findBlogOnHashtag(id)
 			} catch (error) {
@@ -64,25 +63,25 @@ export const hashtagStore = defineStore("hashtagStore", {
 			}
 		},
 
-		async addBlogToHashtag(blog){
+		async addBlogToHashtag(blog) {
 			try {
 				this.listAddHashtagToBlog.forEach(async e => {
-					await hashtagService.addBlogToHashtag(e, {blog: blog})
+					await hashtagService.addBlogToHashtag(e, { blog: blog })
 				})
 			} catch (error) {
 				console.log(error + 'loi addBlogToHashtag ');
 			}
 		},
 
-		
-		async removeBlogToHashtag(blog){
+
+		async removeBlogToHashtag(blog) {
 			const listRemove = blogStore().blog.hashtag.filter(hashtag => {
 				this.selectedHashtag.indexOf(hashtag.name) == -1
 			})
 			try {
 				listRemove.forEach(async e => {
 					console.log(e);
-					await hashtagService.removeBlogToHashtag(e.id, {blog: blog})
+					await hashtagService.removeBlogToHashtag(e.id, { blog: blog })
 				})
 			} catch (error) {
 				console.log(error + 'loi removeBlogToHashtag ');

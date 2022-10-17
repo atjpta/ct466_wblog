@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import welcome from '../views/WelcomeView.vue'
 import { authStore } from "@/stores/auth.store";
-import {blogStore} from '@/stores/blog.store'
+import { blogStore } from '@/stores/blog.store'
 
 // khi đăng nhập sẽ chuyển sang trang rooms
 const redirectIfLoggedIn = (_to, _from) => {
-	if (authStore().isUserLoggedIn) {
-		return {
-			name: "homeblog",
-		};
-	}
+  if (authStore().isUserLoggedIn) {
+    return {
+      name: "homeblog",
+    };
+  }
 };
 
 const redirectEditBlog = (_to, _from) => {
@@ -21,8 +21,8 @@ const redirectEditBlog = (_to, _from) => {
       };
     }
   })
-  
-	
+
+
 };
 
 const routes = [
@@ -32,36 +32,36 @@ const routes = [
     component: welcome,
     // này để các trang không cần đăng nhập
     meta: {
-			publicPage: true,
-		},
-		beforeEnter: redirectIfLoggedIn,
+      publicPage: true,
+    },
+    beforeEnter: redirectIfLoggedIn,
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/LoginView.vue'),
     meta: {
-			publicPage: true,
-		},
-		beforeEnter: redirectIfLoggedIn,
+      publicPage: true,
+    },
+    beforeEnter: redirectIfLoggedIn,
   },
   {
     path: '/trang2',
     name: 'trang2',
     component: () => import('@/views/Trang2View.vue'),
-    
+
   },
   {
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/ProFileView.vue'),
-    
+
   },
   {
     path: '/editprofile',
     name: 'editprofile',
     component: () => import('@/views/EditProFileView.vue'),
-    
+
   },
   {
     path: '/homeblog',
@@ -70,19 +70,19 @@ const routes = [
   },
   {
     path: '/readblog/:id',
-    name: 'readblog', 
+    name: 'readblog',
     component: () => import('@/views/ReadBlogView.vue'),
   },
   {
     path: '/editblog/:id',
     name: 'editblog',
-    component: () => import('@/views/EditBlogView.vue'),
+    component: () => import('@/views/blog/EditBlogView.vue'),
     beforeEnter: redirectEditBlog,
   },
   {
     path: '/addblog',
     name: 'addblog',
-    component: () => import('@/views/AddBlogView.vue'),
+    component: () => import('@/views/blog/AddBlogView.vue'),
   },
 
   {
@@ -100,7 +100,7 @@ const routes = [
     name: "NotFound",
     component: () => import("@/views/NotFound.vue"),
   },
-    
+
 ];
 
 const router = createRouter({
@@ -110,16 +110,16 @@ const router = createRouter({
 
 // nếu vào trang private thì nó sẽ bắt đăng nhập, nếu đăng nhập thành công sẽ chuyển sang trang mà đang muốn vào
 router.beforeEach((to, _from) => {
-	const authRequired = !to.meta.publicPage;
-	const auth = authStore();
+  const authRequired = !to.meta.publicPage;
+  const auth = authStore();
 
-	if (authRequired && !auth.isUserLoggedIn) {
-		const query = to.fullPath === "/" ? {} : { redirect: to.fullPath };
-		return {
-			name: "login",
-			query,
-		};
-	}
+  if (authRequired && !auth.isUserLoggedIn) {
+    const query = to.fullPath === "/" ? {} : { redirect: to.fullPath };
+    return {
+      name: "login",
+      query,
+    };
+  }
 });
 
 

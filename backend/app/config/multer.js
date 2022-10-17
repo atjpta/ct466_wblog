@@ -1,8 +1,8 @@
 const multer = require("multer");
-const {GridFsStorage} = require("multer-gridfs-storage");
-const  config = require('./index')
+const { GridFsStorage } = require("multer-gridfs-storage");
+const config = require('./index')
 
-exports.Music =  multer({
+exports.Music = multer({
   storage: new GridFsStorage({
     url: config.db.uri,
     file: (req, file) => {
@@ -18,7 +18,7 @@ exports.Music =  multer({
   })
 });
 
-exports.Image =  multer({
+exports.Image = multer({
   storage: new GridFsStorage({
     url: config.db.uri,
     file: (req, file) => {

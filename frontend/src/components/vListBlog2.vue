@@ -74,10 +74,12 @@
             <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
           </div>
           <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">{{ blog.title }}</div>
+          <div class="text-3xl font-bold uppercase pt-3">
+            {{ blog.title }}
+          </div>
 
           <div class="">
-            <!-- <div class="pt-5">
+            <div class="pt-5">
               <div class="flex justify-evenly">
                 <button
                   @click="read(blog.id, blog.voted._id)"
@@ -100,7 +102,7 @@
                   Xóa
                 </button>
               </div>
-            </div> -->
+            </div>
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
               <div class="flex">
                 <i class="fa-solid fa-heart pt-1 px-3"></i>
@@ -168,7 +170,9 @@
             <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
           </div>
           <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">{{ blog.title }}</div>
+          <div class="text-3xl font-bold uppercase pt-3">
+            {{ blog.title }}
+          </div>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
@@ -238,7 +242,9 @@
             <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
           </div>
           <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">{{ blog.title }}</div>
+          <div class="text-3xl font-bold uppercase pt-3">
+            {{ blog.title }}
+          </div>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
@@ -307,7 +313,9 @@
             <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
           </div>
           <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">{{ blog.title }}</div>
+          <div class="text-3xl font-bold uppercase pt-3">
+            {{ blog.title }}
+          </div>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">

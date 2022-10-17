@@ -4,34 +4,35 @@ const Role = require("../models/role.models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signup = (req, res, next) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     name: req.body.name,
     password: bcrypt.hashSync(req.body.password, 8),
   });
-  user.save((err, user) => {
+  user.save((err, user, next) => {
     if (err) {
-      res.status(500).send({ message: err });
-      return;
+      return next(
+        res.status(500).json({ Message: `${err} ` })
+      )
     }
     if (req.body.roles) {
-      Role.find({ name: { $in: req.body.roles }}, (err, roles) => {
+      Role.find({ name: { $in: req.body.roles } }, (err, roles) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        user.roles = roles.map(role => role._id);
+        console.log(user.roles);
+        user.save(err => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
-          user.roles = roles.map(role => role._id);
-          console.log(user.roles);
-          user.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            res.send({ message: "Đăng kí tài khoản thành công!!" });
-          });
-        }
+          res.send({ message: "Đăng kí tài khoản thành công!!" });
+        });
+      }
       );
     } else {
       Role.findOne({ name: "user" }, (err, role) => {
@@ -79,14 +80,14 @@ exports.signin = (req, res) => {
       });
       const authorities = [];
       for (let i = 0; i < user.roles.length; i++) {
-        authorities.push( user.roles[i].name);
+        authorities.push(user.roles[i].name);
       }
       res.status(200).send({
         id: user._id,
         name: user.name,
         roles: authorities,
         accessToken: token,
-        avatar_Url : user.avatar_Url,
+        avatar_Url: user.avatar_Url,
       });
     });
 };
