@@ -9,6 +9,7 @@ export const blogStore = defineStore("blogStore", {
 	id: 'blog',
 	state() {
 		return {
+			data: {},
 			comment_blog: {},
 			ListBlog: [],
 			blog: {
@@ -76,20 +77,38 @@ export const blogStore = defineStore("blogStore", {
 
 	
 		async getListBlog() {
+			const data = {
+				arr1: [],
+				arr2: [],
+				arr3: [],
+			};
 			try {
 				this.ListBlog = await blogService.getListBlog()
 				this.ListBlog.forEach((blog, i) => {
 					this.ListBlog[i].createdAt = this.setTime(blog.createdAt);
+					if(i%3 == 0){
+						data.arr1.push(this.ListBlog[i])
+					}
+					else if(i%3 == 1){
+						data.arr2.push(this.ListBlog[i])
+					}
+					else if(i%3 == 2){
+						data.arr3.push(this.ListBlog[i])
+					}
 				});
+				
 			} catch (error) {
 				alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
 			}
+			this.data = data;
+			this.data.ListBlog = this.ListBlog;
 		},
 
 		async addhashtagToBlog(id){
 			try {
 				hashtagStore().listAddHashtagToBlog.forEach(async e  =>  {
 					await blogService.addhashtag(id, {hashtag: e})
+					// console.log('đã them '+ e);
 				})
 			} catch (error) {
 				console.log(error + 'addhashtagToBlog' );

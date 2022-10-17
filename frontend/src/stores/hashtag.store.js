@@ -40,7 +40,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 				this.newHashtag.forEach( async (e, i) => {
 					
 					let id = await hashtagService.createHashtag({name: e.name});
-
+					// console.log(id);
 					this.listAddHashtagToBlog.push(id)
 				})
 			} catch (error) {

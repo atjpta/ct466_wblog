@@ -98,7 +98,7 @@
             </div>
           </div>
           <div
-            class="flex flex-row xl:flex-col justify-evenly text-3xl text-center w-auto pt-10"
+            class="flex flex-row xl:flex-col justify-evenly text-3xl text-center w-auto"
           >
             <div class="p-5">
               <i class="fa-solid fa-heart"></i>

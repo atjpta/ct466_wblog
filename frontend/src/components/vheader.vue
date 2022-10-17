@@ -29,8 +29,8 @@
               >
                 <!-- <router-link to="/trang2"> -->
                 <button>
-                  <i class="fa-solid fa-circle-question"></i>
-                  Giúp đỡ
+                  <i class="fa-solid fa-shop"></i>
+                  Cửa hàng
                 </button>
                 <!-- </router-link> -->
               </div>
@@ -39,11 +39,8 @@
                   <div
                     class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
                   >
-                    <router-link to="/">
-                      <button>
-                        <i class="fa-solid fa-phone"></i>
-                        submenu 1
-                      </button>
+                    <router-link to="/recharge">
+                      <button>Nạp tiền</button>
                     </router-link>
                   </div>
                 </li>
@@ -52,10 +49,7 @@
                     class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
                   >
                     <router-link to="/">
-                      <button>
-                        <i class="fa-solid fa-phone"></i>
-                        submenu 2
-                      </button>
+                      <button>Mua VIP</button>
                     </router-link>
                   </div>
                 </li>
@@ -103,8 +97,8 @@
             >
               <!-- <router-link to="/homeblog"> -->
               <button>
-                <i class="fa-solid fa-house"></i>
-                giúp đỡ
+                <i class="fa-solid fa-shop"></i>
+                Cửa hàng
               </button>
               <!-- </router-link> -->
             </div>
@@ -113,11 +107,8 @@
                 <div
                   class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
                 >
-                  <router-link to="/">
-                    <button>
-                      <i class="fa-solid fa-phone"></i>
-                      submenu 1
-                    </button>
+                  <router-link to="/recharge">
+                    <button>Nạp tiền</button>
                   </router-link>
                 </div>
               </li>
@@ -126,10 +117,7 @@
                   class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
                 >
                   <router-link to="/">
-                    <button>
-                      <i class="fa-solid fa-phone"></i>
-                      submenu 2
-                    </button>
+                    <button>Mua VIP</button>
                   </router-link>
                 </div>
               </li>
