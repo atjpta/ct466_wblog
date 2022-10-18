@@ -194,7 +194,7 @@
               <div
                 class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
-                <router-link to="/">
+                <router-link to="/myblog">
                   <button>
                     <i class="fa-solid fa-list"></i>
                     Quản lý bài viết
@@ -208,7 +208,8 @@
               >
                 <router-link to="/login" @click.prevent="useAuthStore.logout()"
                   ><button>
-                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Đăng xuất
                   </button></router-link
                 >
               </div>

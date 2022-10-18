@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white/50 lg:w-3/5 m-auto">
     <div class="text-6xl py-10 text-center">TẠO BÀI VIẾT</div>
-    <vEditBlog v-model:blog="blog" />
+    <vEditBlog v-model:blog="useBlog.blogEdit" />
     <div class="flex justify-end mx-10 text-2xl">
       <div v-show="!loading" class="flex justify-center">
         <button
@@ -52,7 +52,7 @@ const loading = ref(false);
 async function createBlog() {
   try {
     loading.value = true;
-    const id = await useBlog.createBlog(blog.value);
+    const id = await useBlog.createBlog(useBlog.blogEdit);
     const redirectPath = route.query.redirect || {
       path: `/readblog/${id}`,
     };

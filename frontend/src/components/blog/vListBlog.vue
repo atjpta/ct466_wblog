@@ -44,7 +44,11 @@
               alt=""
             />
             <div class="text-2xl p-2 text-blue-900 mx-3">
-              {{ blog.author.name }}
+              <button class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50">
+                <router-link :to="`/user/${blog.author._id}`">
+                  {{ blog.author.name }}
+                </router-link>
+              </button>
               <div class="text-sm">
                 <i>{{ blog.createdAt }}</i>
               </div>
@@ -68,41 +72,18 @@
               </div>
             </div>
           </div>
-          <!-- ảnh bìa -->
-          <div class="pt-3 h-auto flex justify-center">
-            <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
-            <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
-          </div>
-          <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">
-            {{ blog.title }}
-          </div>
-
-          <div class="">
-            <div class="pt-5">
-              <div class="flex justify-evenly">
-                <button
-                  @click="read(blog.id, blog.voted._id)"
-                  class="truncate active:bg-violet-700/30 text-xl text-center shadow-violet-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                >
-                  Xem thêm
-                </button>
-                <button
-                  v-if="blog.author._id == useAuth.user.id"
-                  @click="edit(blog.id)"
-                  class="active:bg-yellow-700/30 text-xl text-center shadow-yellow-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                >
-                  Sửa
-                </button>
-                <button
-                  v-if="blog.author._id == useAuth.user.id"
-                  @click="isOpen = blog.id"
-                  class="text-xl text-centr active:bg-red-700/30 shadow-red-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                >
-                  Xóa
-                </button>
-              </div>
+          <button @click="read(blog.id, blog.voted._id)">
+            <!-- ảnh bìa -->
+            <div class="pt-3 h-auto flex justify-center">
+              <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
+              <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
             </div>
+            <!-- tiêu đề -->
+            <div class="text-3xl font-bold uppercase pt-3">
+              {{ blog.title }}
+            </div>
+          </button>
+          <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
               <div class="flex">
                 <i class="fa-solid fa-heart pt-1 px-3"></i>
@@ -140,7 +121,11 @@
               alt=""
             />
             <div class="text-2xl p-2 text-blue-900 mx-3">
-              {{ blog.author.name }}
+              <button class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50">
+                <router-link :to="`/user/${blog.author._id}`">
+                  {{ blog.author.name }}
+                </router-link>
+              </button>
               <div class="text-sm">
                 <i>{{ blog.createdAt }}</i>
               </div>
@@ -164,15 +149,17 @@
               </div>
             </div>
           </div>
-          <!-- ảnh bìa -->
-          <div class="pt-3 h-auto flex justify-center">
-            <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
-            <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
-          </div>
-          <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">
-            {{ blog.title }}
-          </div>
+          <button @click="read(blog.id, blog.voted._id)">
+            <!-- ảnh bìa -->
+            <div class="pt-3 h-auto flex justify-center">
+              <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
+              <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
+            </div>
+            <!-- tiêu đề -->
+            <div class="text-3xl font-bold uppercase pt-3">
+              {{ blog.title }}
+            </div>
+          </button>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
@@ -212,7 +199,11 @@
               alt=""
             />
             <div class="text-2xl p-2 text-blue-900 mx-3">
-              {{ blog.author.name }}
+              <button class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50">
+                <router-link :to="`/user/${blog.author._id}`">
+                  {{ blog.author.name }}
+                </router-link>
+              </button>
               <div class="text-sm">
                 <i>{{ blog.createdAt }}</i>
               </div>
@@ -236,15 +227,17 @@
               </div>
             </div>
           </div>
-          <!-- ảnh bìa -->
-          <div class="pt-3 h-auto flex justify-center">
-            <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
-            <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
-          </div>
-          <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">
-            {{ blog.title }}
-          </div>
+          <button @click="read(blog.id, blog.voted._id)">
+            <!-- ảnh bìa -->
+            <div class="pt-3 h-auto flex justify-center">
+              <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
+              <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
+            </div>
+            <!-- tiêu đề -->
+            <div class="text-3xl font-bold uppercase pt-3">
+              {{ blog.title }}
+            </div>
+          </button>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
@@ -283,7 +276,11 @@
               alt=""
             />
             <div class="text-2xl p-2 text-blue-900 mx-3">
-              {{ blog.author.name }}
+              <button class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50">
+                <router-link :to="`/user/${blog.author._id}`">
+                  {{ blog.author.name }}
+                </router-link>
+              </button>
               <div class="text-sm">
                 <i>{{ blog.createdAt }}</i>
               </div>
@@ -307,15 +304,17 @@
               </div>
             </div>
           </div>
-          <!-- ảnh bìa -->
-          <div class="pt-3 h-auto flex justify-center">
-            <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
-            <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
-          </div>
-          <!-- tiêu đề -->
-          <div class="text-3xl font-bold uppercase pt-3">
-            {{ blog.title }}
-          </div>
+          <button @click="read(blog.id, blog.voted._id)">
+            <!-- ảnh bìa -->
+            <div class="pt-3 h-auto flex justify-center">
+              <img class="rounded-2xl" :src="blog.cover_image_Url || emptyImage" alt="" />
+              <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
+            </div>
+            <!-- tiêu đề -->
+            <div class="text-3xl font-bold uppercase pt-3">
+              {{ blog.title }}
+            </div>
+          </button>
 
           <div class="">
             <div class="flex justify-evenly text-xl text-center w-auto py-3">
@@ -342,10 +341,10 @@
 <script setup>
 import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted, nextTick } from "vue";
-import { blogStore } from "../stores/blog.store";
+import { blogStore } from "../../stores/blog.store";
 import emptyImage from "@/assets/upload-image.png";
-import { authStore } from "../stores/auth.store";
-import { hashtagStore } from "../stores/hashtag.store";
+import { authStore } from "../../stores/auth.store";
+import { hashtagStore } from "../../stores/hashtag.store";
 const props = defineProps({
   data: Object,
 });
@@ -389,7 +388,7 @@ function cancel() {
   isOpen.value = "";
 }
 onMounted(() => {
-  useBlog.getListBlog();
+  // useBlog.getListBlog();
 });
 </script>
 

@@ -12,7 +12,11 @@
           alt=""
         />
         <div class="text-3xl text-blue-900 mx-3">
-          {{ useBlog.blog.author.name }}
+          <button>
+            <router-link :to="`/user/${useBlog.blog.author._id}`">
+              {{ useBlog.blog.author.name }}
+            </router-link>
+          </button>
           <div class="text-lg">
             <i>{{ useBlog.blog.time }}</i>
           </div>
@@ -66,7 +70,9 @@
       </div>
       <div class="p-3 flex items-center justify-center">
         <i class="fa-solid fa-eye pt-1"></i>
-        <div class="mx-2">{{ useBlog.blog.voted.view.length || 0 }}</div>
+        <div class="mx-2">
+          {{ useBlog.blog.voted.view.length || 0 }}
+        </div>
       </div>
     </div>
   </div>
@@ -79,10 +85,10 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted, onBeforeMount } from "vue";
-import blogService from "../services/blog.service";
-import { blogStore } from "../stores/blog.store";
-import { authStore } from "../stores/auth.store";
-import { hashtagStore } from "../stores/hashtag.store";
+import blogService from "../../services/blog.service";
+import { blogStore } from "../../stores/blog.store";
+import { authStore } from "../../stores/auth.store";
+import { hashtagStore } from "../../stores/hashtag.store";
 
 const router = useRouter();
 const route = useRoute();

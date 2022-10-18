@@ -51,6 +51,7 @@ async function updateBlog() {
   try {
     loading.value = true;
     const id = await useBlog.updateBlog();
+
     const redirectPath = route.query.redirect || {
       path: `/readblog/${id}`,
     };

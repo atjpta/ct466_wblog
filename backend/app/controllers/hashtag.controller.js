@@ -27,12 +27,12 @@ exports.findBlogOnHashtag = async (req, res, next) => {
             .populate({
                 path: 'blog',
                 select: 'author title summary cover_image_Url voted premium hashtag _id createdAt',
+                match: { deleted: false },
                 populate: {
-                    path: 'author voted hashtag', 
+                    path: 'author voted hashtag',
                     select: 'name avatar_Url tim dislike view'
                 }
             })
-            .sort({'blog.createdAt': -1})
             .exec();
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm blog từ Hashtag này" }));
@@ -44,20 +44,72 @@ exports.findBlogOnHashtag = async (req, res, next) => {
             res.status(500).json({ Message: ` không thể tìm thấy Hashtag với id = ${req.params.id} ${error} ` })
         )
     }
+
+
 }
+
+checkDuplicateHashtag = async (name) => {
+    const document = await Hashtag.findOne({
+        name: name,
+    })
+    if (document) {
+        return document.id;
+    }
+    else return 0;
+
+};
 
 //tạo Hashtag
 exports.createHashtag = async (req, res) => {
-    const hashtag = new Hashtag({
-       name: req.body.name,
-    })
+    const list = req.body.list;
+    const id_blog = req.body.id_blog
     try {
-        const document = await hashtag.save();
-        return res.send(document.id);
+        await list.forEach(async (e, i) => {
+            // console.log('là lần ' + i);
+            let check = await checkDuplicateHashtag(e.name)
+            if (!e.id && check == 0) {
+                let hashtag = new Hashtag({
+                    name: e.name,
+                })
+
+                try {
+                    const document = await hashtag.save();
+                    e.id = document.id;
+                    // console.log(document + "1");
+                }
+                catch (error) {
+                    return res.status(500).send({ Message: "Không thể tạo Hashtag - " + error.message })
+                }
+            } else e.id = check;
+            try {
+                const document2 = await Hashtag.findByIdAndUpdate({ _id: e.id }, {
+                    $addToSet: { blog: id_blog }
+                }, {
+                    new: true
+                });
+                const document3 = await Blog.findByIdAndUpdate({ _id: id_blog }, {
+                    $addToSet: { hashtag: e.id }
+                }, {
+                    new: true
+                });
+                // console.log(document2 + "2");
+                // console.log(document3 + "3");
+
+            }
+            catch (error) {
+                console.log(error);
+                return next(
+                    res.status(500).json({ Message: ` không thể update Hashtag với id = ${id_blog} ` })
+                )
+            }
+
+        });
+        return res.send(id_blog);
+
+    } catch (error) {
+        console.log("lỗi " + error);
     }
-    catch (error) {
-        return res.status(500).send({ Message: "Không thể tạo Hashtag - " + error.message })
-    }
+
 }
 
 //add id_blog to Hashtag 

@@ -73,6 +73,7 @@
         </select>
       </div>
     </div>
+    {{ blog }}
   </div>
 </template>
 <script setup>
@@ -105,12 +106,17 @@ async function getApi() {
 const setContent = () => {
   quill.value.setContents(useBlog.blogEdit.content);
 };
+
+function clear() {
+  useBlog.blogEdit = { premium: false };
+  quill.value.setContents("");
+}
 onMounted(() => {
   if (props.blog.edit) {
     getApi();
     useHashtag.newHashtag = [];
     useHashtag.listAddHashtagToBlog = [];
-  }
+  } else clear();
 });
 </script>
 

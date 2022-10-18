@@ -2,15 +2,15 @@ import { createApiClient } from "./api.service";
 
 class HashtagService {
     constructor(baseUrl = "/api/hashtag") {
-		this.api = createApiClient(baseUrl, true, 'application/json');
-	}
+        this.api = createApiClient(baseUrl, true, 'application/json');
+    }
     async getListHashtag() {
         return (await this.api.get("/")).data;
     }
     async createHashtag(data) {
         return (await this.api.post("/", data)).data;
     }
-    async deleteAllHashtag(){
+    async deleteAllHashtag() {
         return (await this.api.delete("/")).data
     }
     async findBlogOnHashtag(id) {

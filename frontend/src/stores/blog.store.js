@@ -14,8 +14,22 @@ export const blogStore = defineStore("blogStore", {
 			data: {},
 			comment_blog: {},
 			ListBlog: [],
-			blog: {},
+			blog: {
+				id: "",
+				author: {},
+				title: "",
+				voted: {
+					tim: [],
+					dislike: [],
+					view: [],
+				},
+				content: {},
+				comment_Blog: [],
+				hashtag: [],
+
+			},
 			blogEdit: {},
+			hashtag: null,
 		};
 	},
 	getters: {
@@ -78,37 +92,46 @@ export const blogStore = defineStore("blogStore", {
 			this.data.ListBlog = this.ListBlog;
 		},
 
-		async addhashtagToBlog(id) {
+		async getBlogUser(id) {
+			const data = {
+				arr1: [],
+				arr2: [],
+				arr3: [],
+			};
 			try {
-				hashtagStore().listAddHashtagToBlog.forEach(async e => {
-					await blogService.addhashtag(id, { hashtag: e })
-					// console.log('đã them '+ e);
-				})
+				this.ListBlog = await blogService.getBlogUser(id)
+				this.ListBlog.forEach((blog, i) => {
+					this.ListBlog[i].createdAt = this.setTime(blog.createdAt);
+					if (i % 3 == 0) {
+						data.arr1.push(this.ListBlog[i])
+					}
+					else if (i % 3 == 1) {
+						data.arr2.push(this.ListBlog[i])
+					}
+					else if (i % 3 == 2) {
+						data.arr3.push(this.ListBlog[i])
+					}
+				});
+
 			} catch (error) {
-				console.log(error + 'addhashtagToBlog');
+				alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
 			}
+			this.data = data;
+			this.data.ListBlog = this.ListBlog;
 		},
+
 
 		async createBlog(blog) {
 			try {
 				blog.author = authStore().user.id;
-				// tạo hashtag moi
-				await hashtagStore().createHashtag();
-				// thêm hashtag vào list hashtag blog
-				hashtagStore().addHashtagToBlog();
 				// upload ảnh lên server
 				if (imageStore().image) {
 					blog.cover_image_Url = await imageStore().uploadImage();
 				}
-				blog.hashtag = hashtagStore.listAddHashtagToBlog
-				const result = await blogService.createBlog(blog);
-				// thêm bài viết vào hashtag
-				await hashtagStore().addBlogToHashtag(result);
-				// them hashtag vào bai viết
-				await this.addhashtagToBlog(result)
+				const result1 = await blogService.createBlog(blog);
+				const result2 = await hashtagStore().createHashtag(result1);
 				alertStore().setSuccess('tạo Blog thành công ');
-				hashtagStore().listAddHashtagToBlog = [];
-				return result;
+				return result2;
 			} catch (error) {
 				alertStore().setError('lỗi khi tạo blog - ' + error.message);
 			}
@@ -121,13 +144,7 @@ export const blogStore = defineStore("blogStore", {
 				if (imageStore().image) {
 					this.blogEdit.cover_image_Url = await imageStore().uploadImage();
 				}
-
-				hashtagStore().addHashtagToBlog();
 				await hashtagStore().removeBlogToHashtag(this.blogEdit.id);
-				await hashtagStore().createHashtag();
-				await hashtagStore().addBlogToHashtag(this.blogEdit.id);
-
-
 				const data = {
 					id: this.blogEdit.id,
 					title: this.blogEdit.title,
@@ -138,9 +155,11 @@ export const blogStore = defineStore("blogStore", {
 				};
 
 				const result = await blogService.updateBlog(data.id, data);
+				const result2 = await hashtagStore().createHashtag(this.blogEdit.id);
 				alertStore().setSuccess('Update thành công');
 				hashtagStore().listAddHashtagToBlog = [];
-				return data.id;
+				hashtagStore().selectedHashtag = [];
+				return result2;
 			} catch (error) {
 				alertStore().setError('lỗi updata blog- ' + error.message);
 			}

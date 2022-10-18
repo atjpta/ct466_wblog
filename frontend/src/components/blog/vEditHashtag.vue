@@ -128,6 +128,7 @@ function addNewHashtag() {
 }
 
 function removeHashtag(index) {
+  useHashtag.listRemove.push(useHashtag.selectedHashtag[index]);
   useHashtag.selectedHashtag.splice(index, 1);
 }
 

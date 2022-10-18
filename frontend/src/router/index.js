@@ -66,12 +66,17 @@ const routes = [
   {
     path: '/homeblog',
     name: 'homeblog',
-    component: () => import('@/views/HomeBlogView.vue'),
+    component: () => import('@/views/blog/HomeBlogView.vue'),
+  },
+  {
+    path: '/myblog',
+    name: 'myblog',
+    component: () => import('@/views/manage/myBlogView.vue'),
   },
   {
     path: '/readblog/:id',
     name: 'readblog',
-    component: () => import('@/views/ReadBlogView.vue'),
+    component: () => import('@/views/blog/ReadBlogView.vue'),
   },
   {
     path: '/editblog/:id',
@@ -85,10 +90,17 @@ const routes = [
     component: () => import('@/views/blog/AddBlogView.vue'),
   },
 
+
+  {
+    path: '/user/:id',
+    name: 'user',
+    component: () => import('@/views/oderUser/ProFileOtherView.vue'),
+  },
+
   {
     path: '/searchashtag/:id',
     name: 'searchashtag',
-    component: () => import('@/views/SearchHashtagView.vue'),
+    component: () => import('@/views/search/SearchHashtagView.vue'),
   },
   {
     path: '/recharge',

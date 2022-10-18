@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import vCmtVue from "../components/vCmt.vue";
-import vBlogVue from "../components/vBlog.vue";
+import vCmtVue from "../../components/blog/vCmt.vue";
+import vBlogVue from "../../components/blog/vBlog.vue";
 </script>
 
 <style></style>

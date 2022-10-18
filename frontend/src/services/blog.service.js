@@ -2,15 +2,15 @@ import { createApiClient } from "./api.service";
 
 class BlogService {
     constructor(baseUrl = "/api/blog") {
-		this.api = createApiClient(baseUrl, true);
-	}
+        this.api = createApiClient(baseUrl, true);
+    }
     async getListBlog() {
         return (await this.api.get("/")).data;
     }
     async createBlog(data) {
         return (await this.api.post("/", data)).data;
     }
-    async deleteAllBlog(){
+    async deleteAllBlog() {
         return (await this.api.delete("/")).data
     }
     async findOneBlog(id) {
@@ -19,10 +19,10 @@ class BlogService {
     async updateBlog(id, data) {
         return (await this.api.put(`/${id}`, data)).data;
     }
-    async deleteBlog(id){
+    async deleteBlog(id) {
         return (await this.api.delete(`/${id}`)).data
     }
-    async restoreBlog(id){
+    async restoreBlog(id) {
         return (await this.api.put(`/retore/${id}`)).data
     }
 
@@ -32,11 +32,14 @@ class BlogService {
     async removehashtag(id, hashtag) {
         return (await this.api.put(`/removehashtag/${id}`, hashtag)).data;
     }
-    
+    async getBlogUser(id) {
+        return (await this.api.get(`/blogUser/${id}`)).data;
+    }
+
 }
 export default new BlogService();
 
 
 
 
-   
+

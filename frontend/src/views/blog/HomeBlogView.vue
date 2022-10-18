@@ -1,13 +1,13 @@
 <template>
   <div>
     <vListBlogVue :data="useBlog.data" class="pb-20" />
-  </div>   
+  </div>
 </template>
 
 <script setup>
-import vListBlogVue from "../components/vListBlog2.vue";
+import vListBlogVue from "../../components/blog/vListBlog.vue";
 import { ref, onMounted } from "vue";
-import { blogStore } from "../stores/blog.store";
+import { blogStore } from "../../stores/blog.store";
 const useBlog = blogStore();
 onMounted(() => {
   useBlog.getListBlog();

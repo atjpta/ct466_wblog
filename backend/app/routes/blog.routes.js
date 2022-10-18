@@ -13,6 +13,9 @@ module.exports = (app) => {
         .put(blog.updateBlog)
         .delete(blog.deleteBlog)
 
+    router.route("/blogUser/:id")
+        .get(blog.getListBlogUser)
+
     router.route("/retore/:id")
         .put(blog.restoreBlog)
 
@@ -22,5 +25,5 @@ module.exports = (app) => {
     router.route("/removehashtag/:id")
         .put(blog.removeHashtagtoBlog)
 
-    app.use("/api/blog", router); 
+    app.use("/api/blog", router);
 };

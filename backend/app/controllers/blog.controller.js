@@ -13,7 +13,7 @@ exports.getListBlog = async (req, res) => {
             'author', 'name avatar_Url'
         ).populate(
             'voted', 'tim dislike view'
-        ).sort({'createdAt': -1}
+        ).sort({ 'createdAt': -1 }
         ).select([
             "title",
             "summary",
@@ -30,6 +30,25 @@ exports.getListBlog = async (req, res) => {
     }
 };
 
+exports.getListBlogUser = async (req, res) => {
+    const { id } = req.params;
+    const condition = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+    try {
+        const listBlog = await Blog.find({ author: condition, deleted: false })
+            .populate({
+                path: 'author voted hashtag',
+                select: 'name avatar_Url tim dislike view'
+            })
+            .sort({ 'createdAt': -1 })
+            .exec();
+        return res.send(listBlog);
+    } catch (error) {
+        res.status(500).send("lỗi khi getMyListBlog")
+    }
+};
+
 //lấy 1 bài blog
 exports.findOneBlog = async (req, res, next) => {
     const { id } = req.params;
@@ -37,15 +56,15 @@ exports.findOneBlog = async (req, res, next) => {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
 
-    const cmt = await Comment.find({id_blog: id}).sort({'createdAt': -1}).populate('author', 'name avatar_Url').populate(
+    const cmt = await Comment.find({ id_blog: id }).sort({ 'createdAt': -1 }).populate('author', 'name avatar_Url').populate(
         'voted', 'tim dislike'
     ).exec();
     try {
-        const document = await Blog.findOne(condition).populate('hashtag').populate("author").populate('voted').exec();
+        const document = await Blog.findOne(condition).populate('hashtag', 'name').populate("author").populate('voted').exec();
         let comment_Blog = [];
         if (cmt) {
             comment_Blog = cmt
-            comment_Blog.createdAt =  new Date(comment_Blog.createdAt).toLocaleString()
+            comment_Blog.createdAt = new Date(comment_Blog.createdAt).toLocaleString()
         }
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm Blog" }));
@@ -121,7 +140,7 @@ exports.updateBlog = async (req, res, next) => {
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy Blog" }));
         }
-        return res.send({ message: "đã update thành công", body: req.body });
+        return res.send(id);
     }
     catch (error) {
         console.log(error);
@@ -153,7 +172,7 @@ exports.addHashtagtoBlog = async (req, res, next) => {
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy Hashtag" }));
         }
-        return res.send({ message: "đã them blog vào hashtag thành công", body: req.body });
+        return res.send({ message: "đã them hashtag  vào blog thành công", body: req.body });
     }
     catch (error) {
         console.log(error);
