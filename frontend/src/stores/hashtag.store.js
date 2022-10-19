@@ -33,6 +33,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 
 
 		async createHashtag(id_blog) {
+			this.listCreateHashtag = [];
 			try {
 				this.newHashtag.forEach(async (e) => {
 					this.listCreateHashtag.push(e)

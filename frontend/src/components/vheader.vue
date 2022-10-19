@@ -12,128 +12,131 @@
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52"
           >
             <li class="mt-3">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/homeblog">
+              <router-link to="/homeblog">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
                   <button>
                     <i class="fa-solid fa-house"></i>
                     Trang chủ
                   </button>
-                </router-link>
-              </div>
+                </div>
+              </router-link>
             </li>
-            <li class="mt-5" tabindex="0">
+            <li class="mt-5">
+              <!-- <router-link to="#"> -->
               <div
                 class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
               >
-                <!-- <router-link to="/trang2"> -->
                 <button>
                   <i class="fa-solid fa-shop"></i>
                   Cửa hàng
                 </button>
-                <!-- </router-link> -->
               </div>
+              <!-- </router-link> -->
+
               <ul class="p-2 bg-white">
                 <li>
-                  <div
-                    class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                  >
-                    <router-link to="/recharge">
+                  <router-link to="/recharge">
+                    <div
+                      class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                    >
                       <button>Nạp tiền</button>
-                    </router-link>
-                  </div>
+                    </div>
+                  </router-link>
                 </li>
                 <li>
-                  <div
-                    class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                  >
-                    <router-link to="/">
+                  <router-link to="/">
+                    <div
+                      class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                    >
                       <button>Mua VIP</button>
-                    </router-link>
-                  </div>
+                    </div>
+                  </router-link>
                 </li>
               </ul>
             </li>
             <li class="mt-5">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/">
+              <router-link to="/">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
                   <button>
                     <i class="fa-solid fa-phone"></i>
                     Liên hệ
                   </button>
-                </router-link>
-              </div>
+                </div>
+              </router-link>
             </li>
           </ul>
         </div>
-        <div class="mx-10 hover:text-violet-700 hover:scale-125 duration-300">
-          <router-link to="/">
+        <router-link to="/">
+          <div class="mx-10 hover:text-violet-700 hover:scale-125 duration-300">
             <button>WBLOG</button>
-          </router-link>
-          <div class="animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
-        </div>
+            <div class="animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
+          </div>
+        </router-link>
       </div>
+
       <!-- ở giữa -->
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">
           <li class="mx-5">
-            <div
-              class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-            >
-              <router-link to="/homeblog">
+            <router-link to="/homeblog">
+              <div
+                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+              >
                 <button>
                   <i class="fa-solid fa-house"></i>
                   Trang chủ
                 </button>
-              </router-link>
-            </div>
+              </div>
+            </router-link>
           </li>
-          <li class="mx-5" tabindex="0">
+          <li class="mx-5">
+            <!-- <router-link to="#"> -->
             <div
               class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
             >
-              <!-- <router-link to="/homeblog"> -->
               <button>
                 <i class="fa-solid fa-shop"></i>
                 Cửa hàng
               </button>
-              <!-- </router-link> -->
             </div>
+            <!-- </router-link> -->
+
             <ul class="p-2 bg-white/50">
               <li>
-                <div
-                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                >
-                  <router-link to="/recharge">
+                <router-link to="/recharge">
+                  <div
+                    class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                  >
                     <button>Nạp tiền</button>
-                  </router-link>
-                </div>
+                  </div>
+                </router-link>
               </li>
               <li>
-                <div
-                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-                >
-                  <router-link to="/">
+                <router-link to="/">
+                  <div
+                    class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                  >
                     <button>Mua VIP</button>
-                  </router-link>
-                </div>
+                  </div>
+                </router-link>
               </li>
             </ul>
           </li>
           <li class="mx-5">
-            <div
-              class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-            >
-              <router-link to="/">
+            <router-link to="/">
+              <div
+                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+              >
                 <button>
                   <i class="fa-solid fa-phone"></i>
                   Liên hệ
                 </button>
-              </router-link>
-            </div>
+              </div>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -167,52 +170,52 @@
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52"
           >
             <li class="mt-3">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/addblog">
+              <router-link to="/addblog">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
                   <button>
                     <i class="fa-solid fa-file-circle-plus"></i>
                     Tạo bài viết
                   </button>
-                </router-link>
-              </div>
+                </div>
+              </router-link>
             </li>
             <li class="mt-3">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/profile">
+              <router-link to="/profile">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
                   <button>
                     <i class="fa-solid fa-address-card"></i>
                     Thông tin cá nhân
                   </button>
-                </router-link>
-              </div>
+                </div>
+              </router-link>
             </li>
             <li class="mt-5">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/myblog">
+              <router-link to="/myblog">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
                   <button>
                     <i class="fa-solid fa-list"></i>
                     Quản lý bài viết
                   </button>
-                </router-link>
-              </div>
+                </div>
+              </router-link>
             </li>
             <li class="mt-5">
-              <div
-                class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
-              >
-                <router-link to="/login" @click.prevent="useAuthStore.logout()"
-                  ><button>
+              <router-link to="/login" @click.prevent="useAuthStore.logout()">
+                <div
+                  class="active:bg-violet-700/30 truncate text-base flex justify-center shadow-violet-700 shadow-md p-4 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+                >
+                  <button>
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Đăng xuất
-                  </button></router-link
-                >
-              </div>
+                  </button>
+                </div>
+              </router-link>
             </li>
           </ul>
         </div>

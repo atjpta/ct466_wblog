@@ -131,6 +131,8 @@ export const blogStore = defineStore("blogStore", {
 				const result1 = await blogService.createBlog(blog);
 				const result2 = await hashtagStore().createHashtag(result1);
 				alertStore().setSuccess('tạo Blog thành công ');
+				hashtagStore().listAddHashtagToBlog = [];
+				hashtagStore().selectedHashtag = [];
 				return result2;
 			} catch (error) {
 				alertStore().setError('lỗi khi tạo blog - ' + error.message);
@@ -151,7 +153,7 @@ export const blogStore = defineStore("blogStore", {
 					summary: this.blogEdit.summary,
 					cover_image_Url: this.blogEdit.cover_image_Url,
 					content: this.blogEdit.content,
-					hashtag: hashtagStore().listAddHashtagToBlog,
+					hashtag: [],
 				};
 
 				const result = await blogService.updateBlog(data.id, data);

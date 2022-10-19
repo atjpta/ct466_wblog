@@ -136,6 +136,7 @@ function removeNewHashtag(index) {
   useHashtag.newHashtag.splice(index, 1);
 }
 async function getApi() {
+  useHashtag.listRemove = [];
   await useHashtag.getListHashtag();
 }
 
