@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white/50 lg:w-3/5 m-auto">
+  <div class="bg-white/50 rounded-2xl lg:w-3/5 m-auto">
     <div class="text-6xl py-10 text-center">TẠO BÀI VIẾT</div>
     <vEditBlog v-model:blog="useBlog.blogEdit" />
     <div class="flex justify-end mx-10 text-2xl">

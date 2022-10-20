@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[200px] text-center m-3 relative text-lg font-semibold">
+  <div class="w-[200px] mx-auto text-center m-3 relative text-lg font-semibold">
     <div>
       <div class="" @mouseenter="open = true" @mouseleave="open = false">
         <!-- tiêu đề  -->
@@ -12,13 +12,14 @@
         <!-- noi dung  -->
         <div
           v-show="open"
-          class="bg-gradient-to-r from-green-400/50 to-blue-500/50 w-[200px] z-50 absolute mx-auto rounded-2xl py-5 space-y-3"
+          class="bg-gradient-to-r from-green-400/50 to-blue-500/50 w-[300px] z-50 absolute right-0 mx-auto rounded-2xl py-5 space-y-3"
         >
           <div v-for="i in data" :key="i.name">
             <router-link :to="i.url">
               <div
-                class="cursor-pointer w-[150px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate shadow-teal-500 shadow-md p-4 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                class="cursor-pointer w-[250px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate shadow-teal-500 shadow-md p-4 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
               >
+                <i :class="i.icon"></i>
                 {{ i.name }}
               </div>
             </router-link>
