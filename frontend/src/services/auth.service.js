@@ -2,7 +2,7 @@ import { createApiClient } from "./api.service";
 
 class authService {
 	constructor(baseUrl = "/api/auth") {
-		this.api = createApiClient(baseUrl);
+		this.api = createApiClient(baseUrl, true, 'application/json');
 	}
 
 	async login(user) {

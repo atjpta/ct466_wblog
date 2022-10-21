@@ -2,10 +2,13 @@ import { createApiClient } from "./api.service";
 
 class BlogService {
     constructor(baseUrl = "/api/blog") {
-        this.api = createApiClient(baseUrl, true);
+        this.api = createApiClient(baseUrl, true, 'application/json');
     }
     async getListBlog() {
         return (await this.api.get("/")).data;
+    }
+    async getListBlogNextPage(page) {
+        return (await this.api.get(`/page/${page}`)).data;
     }
     async createBlog(data) {
         return (await this.api.post("/", data)).data;

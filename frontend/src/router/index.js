@@ -103,6 +103,11 @@ const routes = [
     component: () => import('@/views/search/SearchHashtagView.vue'),
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search/SearchView.vue'),
+  },
+  {
     path: '/recharge',
     name: 'recharge',
     component: () => import('@/views/shop/RechargeView.vue'),

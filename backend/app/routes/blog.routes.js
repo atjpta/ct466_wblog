@@ -15,7 +15,10 @@ module.exports = (app) => {
 
     router.route("/blogUser/:id")
         .get(blog.getListBlogUser)
-
+    
+    router.route("/page/:page")
+        .get(blog.getListBlogNextPage)
+    
     router.route("/retore/:id")
         .put(blog.restoreBlog)
 

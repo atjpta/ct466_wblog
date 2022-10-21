@@ -4,7 +4,7 @@ const image = require('./Image.controller')
 const blog = require('./blog.controller')
 const comment = require('./comment.controller')
 const voted = require('./vote.controller')
-
+const search = require('./search.controller')
 
 module.exports = {
     auth,
@@ -13,4 +13,5 @@ module.exports = {
     blog,
     comment,
     voted,
+    search,
 }

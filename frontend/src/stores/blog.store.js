@@ -36,6 +36,41 @@ export const blogStore = defineStore("blogStore", {
 	},
 	actions: {
 
+		async getListBlogNextPage(page) {
+			const newList = await blogService.getListBlogNextPage(page);
+			const last5e = this.ListBlog.slice(-5, -1)
+			let n = 5;
+			if (newList.length < n) {
+				n = newList.legth
+			}
+			const first5e = newList.slice(0, n)
+			let indexRemove
+			for (let index = 0; index < n; index++) {
+				indexRemove = 0;
+				if (last5e.indexOf(first5e[index]) > -1) {
+					newList.splice(indexRemove, 1);
+					indexRemove--
+				}
+				indexRemove++
+				
+			}
+			this.ListBlog = [...this.ListBlog, ...newList]
+			newList.forEach((blog, i) => {
+				newList[i].createdAt = this.setTime(blog.createdAt);
+				if (i % 3 == 0) {
+					this.data.arr1.push(newList[i])
+				}
+				else if (i % 3 == 1) {
+					this.data.arr2.push(newList[i])
+				}
+				else if (i % 3 == 2) {
+					this.data.arr3.push(newList[i])
+				}
+			});
+			this.data.ListBlog = this.ListBlog;
+			return n;
+		},
+
 		setTime(time) {
 			return new Date(time).toLocaleString();
 		},

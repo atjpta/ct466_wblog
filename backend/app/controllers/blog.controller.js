@@ -3,7 +3,7 @@ const db = require("../models");
 const Blog = db.blog;
 const Comment = db.comment;
 const Voted = db.vote;
-//lấy ds blog
+//lấy ds blog giới hạn 9
 exports.getListBlog = async (req, res) => {
     try {
         const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
@@ -23,13 +23,50 @@ exports.getListBlog = async (req, res) => {
             "hashtag",
             "_id",
             "createdAt",
-        ]);
+        ]).limit(9);
+        if (!listBlog) {
+            return next(res.status(404).json({ Message: "không thể getListBlogUser" }));
+        }
         return res.send(listBlog);
     } catch (error) {
-        res.status(500).send("lỗi khi tin Blog")
+        return next(res.status(500).send("lỗi khi getListBlog"))
     }
 };
 
+//lấy ds blog từ trang 2 trở lên
+exports.getListBlogNextPage = async (req, res) => {
+    const { page } = req.params;
+    try {
+        const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
+        ).populate(
+            'hashtag', 'name'
+        ).populate(
+            'author', 'name avatar_Url'
+        ).populate(
+            'voted', 'tim dislike view'
+        ).sort({ 'createdAt': -1 }
+        ).select([
+            "title",
+            "summary",
+            "cover_image_Url",
+            "voted",
+            "premium",
+            "hashtag",
+            "_id",
+            "createdAt",
+        ]).limit(9).skip(9*page)
+            ;
+        if (!listBlog) {
+            return next(res.status(404).json({ Message: "không thể getListBlog2" }));
+        }
+        return res.send(listBlog);
+    } catch (error) {
+        return next(res.status(500).send("lỗi khi getListBlog2"))
+
+    }
+};
+
+// lấy ds bài viết theo user  giới hạn 9 
 exports.getListBlogUser = async (req, res) => {
     const { id } = req.params;
     const condition = {
@@ -43,9 +80,36 @@ exports.getListBlogUser = async (req, res) => {
             })
             .sort({ 'createdAt': -1 })
             .exec();
+        if (!listBlog) {
+            return next(res.status(404).json({ Message: "không thể getListBlogUser" }));
+        }
         return res.send(listBlog);
     } catch (error) {
-        res.status(500).send("lỗi khi getMyListBlog")
+        return next(res.status(500).send("lỗi khi getListBlogUser"))
+
+    }
+};
+// lấy ds bài viết theo user  từ trang 2 trở lên
+exports.getListBlogUserNextPage = async (req, res) => {
+    const { id, page } = req.params;
+    const condition = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+    try {
+        const listBlog = await Blog.find({ author: condition, deleted: false })
+            .populate({
+                path: 'author voted hashtag',
+                select: 'name avatar_Url tim dislike view'
+            })
+            .sort({ 'createdAt': -1 })
+            .limit(9).skip(9 * page);
+        if (!listBlog) {
+            return next(res.status(404).json({ Message: "không thể getListBlogUser2" }));
+        }
+        return res.send(listBlog);
+    } catch (error) {
+        return next(res.status(500).send("lỗi khi getListBlogUser2g"))
+
     }
 };
 
@@ -67,7 +131,7 @@ exports.findOneBlog = async (req, res, next) => {
             comment_Blog.createdAt = new Date(comment_Blog.createdAt).toLocaleString()
         }
         if (!document) {
-            return next(res.status(404).json({ Message: "không thể tìm Blog" }));
+            return next(res.status(404).json({ Message: "không thể findOneBlog" }));
         }
         return res.send({
             id: document.id,
@@ -105,6 +169,7 @@ exports.createBlog = async (req, res) => {
         cover_image_Url: req.body.cover_image_Url,
         premium: req.body.premium,
     })
+    console.log(blog);
     const vote = new Voted({
         tim: [],
         dislike: [],
@@ -114,10 +179,13 @@ exports.createBlog = async (req, res) => {
         const documentVote = await vote.save();
         blog.voted = documentVote.id;
         const document = await blog.save();
+        if (!document) {
+            return next(res.status(404).json({ Message: "không thể createBlog" }));
+        }
         return res.send(document.id);
     }
     catch (error) {
-        return res.status(500).send({ Message: "Không thể tạo blog - " + error.message })
+        return next(res.status(500).send("lỗi khi createBlog"))
     }
 }
 

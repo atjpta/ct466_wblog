@@ -34,7 +34,7 @@
         :key="blog.id"
       >
         <div
-          class="w-[400px] mx-auto rounded-2xl px-5 bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
+          class="w-[400px] mx-auto rounded-2xl px-5 backdrop-blur-sm bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
         >
           <!-- tác giả -->
           <div class="flex pt-5">
@@ -131,7 +131,7 @@
         :key="blog.id"
       >
         <div
-          class="w-[400px] mx-auto rounded-2xl px-5 bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
+          class="w-[400px] mx-auto rounded-2xl px-5 backdrop-blur-sm bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
         >
           <!-- tác giả -->
           <div class="flex pt-5">
@@ -227,7 +227,7 @@
         :key="blog.id"
       >
         <div
-          class="w-[400px] mx-auto rounded-2xl px-5 bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
+          class="w-[400px] mx-auto rounded-2xl px-5 backdrop-blur-sm bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
         >
           <!-- tác giả -->
           <div class="flex pt-5">
@@ -322,7 +322,7 @@
         :key="blog.id"
       >
         <div
-          class="w-[400px] mx-auto rounded-2xl px-5 bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
+          class="w-[400px] mx-auto rounded-2xl px-5 backdrop-blur-sm bg-gradient-to-r from-green-400/30 to-blue-500/30 hover:from-pink-500/30 hover:to-yellow-500/30"
         >
           <!-- tác giả -->
           <div class="flex pt-5">
