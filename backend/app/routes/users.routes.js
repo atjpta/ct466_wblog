@@ -16,6 +16,12 @@ module.exports = (app) => {
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.delete)
         .delete(users.delete)
 
+    router.route('/addFollow/:id')
+        .put(users.addFollow)
+    
+    router.route('/removeFollow/:id')
+        .put(users.removeFollow)
+    
     router.route("/test/all")
         .get(users.allAccess); 
     router.route("/test/user")

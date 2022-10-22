@@ -23,7 +23,13 @@ const schema = mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        // user follow ...
         follow: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
+        }],
+        // user dc follow bởi ...
+        followBy: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         }],

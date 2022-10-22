@@ -51,6 +51,8 @@ exports.findOne = async (req, res, next) => {
             'date',
             'introduce',
             'avatar_Url',
+            'follow',
+            'followed'
         ]);
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
@@ -87,6 +89,89 @@ exports.update = async (req, res, next) => {
         console.log(error);
         return next(
             res.status(500).json({ Message: ` không thể update user với id = ${req.params.id} ` })
+        )
+    }
+}
+
+// thêm follow 
+exports.addFollow = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+
+    const { id } = req.params;
+    const { follow } = req.body;
+    const condition1 = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+    const condition2 = {
+        _id: follow && mongoose.isValidObjectId(follow) ? follow : null,
+    };
+
+    try {
+
+        const document1 = await user.findByIdAndUpdate(condition1, {
+            $addToSet: { follow: follow }
+        }, {
+            new: true
+        });
+        const document2 = await user.findByIdAndUpdate(condition2, {
+            $addToSet: { followBy: id }
+        }, {
+            new: true
+        });
+        if (!document1 || !document2) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy addFollow" }));
+        }
+        return res.send({ message: "đã them  addFollow thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update addFollow ${error}`  })
+        )
+    }
+}
+
+
+// xóa follow 
+exports.removeFollow = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+    const { id } = req.params;
+    const { follow } = req.body;
+    const condition1 = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+    const condition2 = {
+        _id: follow && mongoose.isValidObjectId(follow) ? follow : null,
+    };
+
+    try {
+        const document1 = await user.findByIdAndUpdate(condition1, {
+            $pull: { follow: follow }
+        }, {
+            new: true
+        });
+        const document2 = await user.findByIdAndUpdate(condition2, {
+            $pull: { followBy: id }
+        }, {
+            new: true
+        });
+        if (!document1 || !document2) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy rempveFollow" }));
+        }
+        return res.send({ message: "đã them rempveFollow thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update rempveFollow ` })
         )
     }
 }
