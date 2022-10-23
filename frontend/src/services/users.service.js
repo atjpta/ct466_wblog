@@ -18,8 +18,15 @@ class UserService {
         return (await this.api.get("/")).data;
     }
     async updateInfo(id, data) {
-
         return (await this.api.put(`/${id}`, data)).data;
+    }
+
+    async addFollow(id, data) {
+        return (await this.api.put(`/addFollow/${id}`, data)).data;
+    }
+
+    async removeFollow(id, data) {
+        return (await this.api.put(`/removeFollow/${id}`, data)).data;
     }
 
     async testuser() {

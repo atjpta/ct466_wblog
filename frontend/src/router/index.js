@@ -108,6 +108,11 @@ const routes = [
     component: () => import('@/views/search/SearchView.vue'),
   },
   {
+    path: '/follow',
+    name: 'follow',
+    component: () => import('@/views/search/blogFollowView.vue'),
+  },
+  {
     path: '/recharge',
     name: 'recharge',
     component: () => import('@/views/shop/RechargeView.vue'),

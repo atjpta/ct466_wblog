@@ -4,29 +4,43 @@
       class="pb-10 rounded-2xl bg-gradient-to-r from-sky-500/50 via-sky-100/50 to-sky-500/50 w-3/4 mx-auto lg:flex"
     >
       <div class="basis-1/2 flex justify-center">
-        <div>
-          <div class="py-10 w-64 mx-auto flex justify-center">
+        <div class="py-10 w-64 mx-auto flex justify-center">
+          <div class="">
             <img
               class="bg-black/50 h-64 w-64 rounded-full"
               :src="useInfo.info_user.avatar_Url"
               alt=""
             />
-          </div>
-          <div v-if="!follow" class="mx-auto flex justify-center">
-            <button
-              @click="follow = !follow"
-              class="truncate active:bg-violet-700/30 text-xl text-center shadow-violet-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+            <div v-show="loading" class="flex justify-center mt-5">
+              <div
+                class="cursor-wait mx-auto w-[150px] active:bg-violet-500/50 text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
+              >
+                <i class="fa-solid fa-spinner animate-spin px-4"></i>
+                Đang xử lý
+              </div>
+            </div>
+            <div
+              v-if="!useInfo.setFollow && !loading"
+              class="mx-auto flex justify-center mt-5"
             >
-              Theo dõi
-            </button>
-          </div>
-          <div v-if="follow" class="mx-auto flex justify-center">
-            <button
-              @click="follow = !follow"
-              class="truncate active:bg-red-700/30 text-xl text-center shadow-red-700 shadow-md p-4 px-6 rounded-3xl hover:text-blue-900 hover:scale-125 duration-300"
+              <button
+                @click="addFollow(useInfo.info_user.id)"
+                class="hover:scale-125 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/30 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+              >
+                Theo dõi
+              </button>
+            </div>
+            <div
+              v-if="useInfo.setFollow && !loading"
+              class="mx-auto flex justify-center mt-5"
             >
-              Hủy theo dõi
-            </button>
+              <button
+                @click="removeFollow(useInfo.info_user.id)"
+                class="hover:scale-125 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/30 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+              >
+                Hủy theo dõi
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -67,7 +81,35 @@ const useInfo = infoStore();
 const useBlog = blogStore();
 const route = useRoute();
 
-const follow = ref(false);
+const loading = ref(false);
+
+async function addFollow(follow) {
+  try {
+    loading.value = true;
+    await useInfo.addFollow(follow);
+    useInfo.setFollow = true;
+  } catch (error) {
+    useInfo.setFollow = false;
+    console.log("lỗi addFollow trong trang profileother");
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+}
+
+async function removeFollow(follow) {
+  try {
+    loading.value = true;
+    await useInfo.removeFollow(follow);
+    useInfo.setFollow = false;
+  } catch (error) {
+    useInfo.setFollow = true;
+    console.log("lỗi removeFollow trong trang profileother");
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+}
 
 onMounted(() => {
   useBlog.getBlogUser(route.params.id);

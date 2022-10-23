@@ -25,12 +25,12 @@
       <div class="justify-between hidden xl:flex">
         <!-- nút thứ 1 -->
         <div class="w-[200px] m-2 mx-auto">
-          <router-link to="/homeblog">
+          <router-link to="/follow">
             <div
               class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
             >
-              <i class="fa-solid fa-house"></i>
-              menu
+              <i class="fa-solid fa-heart"></i>
+              Theo dõi
             </div>
           </router-link>
         </div>
@@ -86,12 +86,14 @@
       <div class="flex justify-between">
         <div>
           <div class="w-[200px] m-2 mx-auto">
-            <div
-              class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
-            >
-              <i class="fa-solid fa-house"></i>
-              menu
-            </div>
+            <router-link to="/follow">
+              <div
+                class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+              >
+                <i class="fa-solid fa-heart"></i>
+                Theo dõi
+              </div>
+            </router-link>
           </div>
           <!-- nút thứ 2 -->
           <div class="w-[200px] m-2 mx-auto">

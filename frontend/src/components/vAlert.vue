@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="z-50 fixed top-20 right-5">
+    <div class="fixed top-20 right-5">
       <div v-if="useAlert.info.set" class="h-12 w-auto py-2 px-10 text-xl bg-sky-200">
         <i class="fa-solid fa-circle-info mr-10 text-blue-600"></i>
         {{ useAlert.info.message || "đây là cảnh báo bình thường" }}

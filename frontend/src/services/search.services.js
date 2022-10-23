@@ -7,6 +7,9 @@ class BlogService {
     async getListSearch() {
         return (await this.api.get("/")).data;
     }
+    async getListFollow(id) {
+        return (await this.api.get(`/follow/${id}`)).data;
+    }
 }
 export default new BlogService();
 

@@ -52,7 +52,7 @@ exports.findOne = async (req, res, next) => {
             'introduce',
             'avatar_Url',
             'follow',
-            'followed'
+            'followBy'
         ]);
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
