@@ -1,11 +1,51 @@
 <template>
   <div>
+    <div
+      class="bg-white dark:text-white dark:bg-gray-700 fixed left-64 top-1/3 border-2 p-2 rounded-2xl z-50"
+    >
+      <div>
+        <img
+          class="w-16 h-16 bg-fixed rounded-full"
+          :src="useBlog.blog.author.avatar_Url"
+          alt=""
+        />
+      </div>
+      <div
+        class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center mt-5"
+      >
+        <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
+      </div>
+      <div class="text-xl text-center">+1</div>
+      <div
+        class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center"
+      >
+        <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
+      </div>
+
+      <div
+        class="cursor-pointer text-center mt-3 hover:bg-violet-500/30 active:bg-violet-500/50"
+      >
+        <i class="p-2 text-2xl fa-solid fa-bookmark"></i>
+      </div>
+    </div>
+
     <!-- blog -->
-    <div class="">
-      <div class="text-6xl text-center font-bold uppercase mb-10">
+    <div class="relative">
+      <div
+        :style="`background-image: url(${useBlog.blog.cover_image_Url})`"
+        class="h-96 bg-cover bg-local"
+      ></div>
+      <!-- <div>
+        <img
+          class="bg-fixed rounded-2xl opacity-70"
+          :src="useBlog.blog.cover_image_Url"
+          alt=""
+        />
+      </div> -->
+      <div class="text-center text-6xl font-bold uppercase mt-5">
         {{ useBlog.blog.title }}
       </div>
-      <div class="h-16 m-auto flex w-4/5">
+      <!-- <div class="h-16 m-auto flex w-11/12">
         <img
           class="bg-black h-16 w-16 rounded-full"
           :src="useBlog.blog.author.avatar_Url || emptyImage"
@@ -21,29 +61,29 @@
             <i>{{ useBlog.blog.time }}</i>
           </div>
         </div>
-      </div>
+      </div> -->
+    </div>
+
+    <div class="my-10 rounded-2xl">
+      <QuillEditor ref="quill" :readOnly="true" theme="bubble" :toolbar="[]" />
     </div>
 
     <!-- hashtag -->
-    <div class="mt-10 w-4/5 mx-auto flex flex-wrap">
-      <div class="mx-3 text-xl">HashTag:</div>
+    <div class="mt-10 w-11/12 mx-auto flex flex-wrap">
       <div v-for="Hashtag in useBlog.blog.hashtag" :key="Hashtag.id || Hashtag._id">
         <div>
           <button
             @click="search(Hashtag.id || Hashtag._id)"
             class="active:bg-violet-700/30 link text-xl text-center hover:text-blue-900 hover:scale-125 duration-300"
           >
-            <i class="m-1 text-xl">{{ Hashtag.name }}</i>
+            <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
           </button>
         </div>
       </div>
     </div>
-    <div class="bg-white/50 mx-auto w-5/6 my-10">
-      <QuillEditor ref="quill" :readOnly="true" theme="bubble" :toolbar="[]" />
-    </div>
 
     <!-- vote -->
-    <div class="lg:text-2xl text-base flex justify-around border-b-4 border-black">
+    <div class="lg:text-2xl text-base flex justify-evenly border-b-4 border-black">
       <button
         @click="vote('tim', useBlog.blog.voted.tim, useBlog.blog.voted.id)"
         class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"

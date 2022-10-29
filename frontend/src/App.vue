@@ -7,10 +7,11 @@ const route = useRoute();
 </script>
 
 <template>
-  <div
+  <!-- <div
     class="min-h-screen text-black bg-cover bg-fixed"
     style="background-image: url(../public/imgs/bg.jpg)"
-  >
+  > -->
+  <div class="bg-slate-100 dark:bg-gray-500 text-black min-h-screen">
     <Vheader class="" />
     <vAlertVue />
 

@@ -11,35 +11,29 @@
               :src="useInfo.info_user.avatar_Url"
               alt=""
             />
-            <div v-show="loading" class="flex justify-center mt-5">
+            <div>
               <div
-                class="cursor-wait mx-auto w-[150px] active:bg-violet-500/50 text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
-              >
-                <i class="fa-solid fa-spinner animate-spin px-4"></i>
-                Đang xử lý
-              </div>
-            </div>
-            <div
-              v-if="!useInfo.setFollow && !loading"
-              class="mx-auto flex justify-center mt-5"
-            >
-              <button
                 @click="addFollow(useInfo.info_user.id)"
-                class="hover:scale-125 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/30 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+                v-if="!useInfo.setFollow && !loading"
+                class="mt-7 p-3 bg-violet-500/10 cursor-pointer rounded-2xl uppercase font-semibold text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
               >
-                Theo dõi
-              </button>
-            </div>
-            <div
-              v-if="useInfo.setFollow && !loading"
-              class="mx-auto flex justify-center mt-5"
-            >
-              <button
+                Quan tâm
+              </div>
+
+              <div
+                v-show="loading"
+                class="disabled:bg-gray-400 disabled:cursor-wait mt-7 p-3 bg-violet-500/10 cursor-pointer rounded-2xl uppercase font-semibold text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
+              >
+                Quan tâm
+              </div>
+
+              <div
                 @click="removeFollow(useInfo.info_user.id)"
-                class="hover:scale-125 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/30 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+                v-if="useInfo.setFollow && !loading"
+                class="mt-7 p-3 bg-red-500/10 cursor-pointer rounded-2xl uppercase font-semibold text-center truncate hover:text-red-700 hover:bg-red-500/30 active:bg-red-500/50 hover:scale-110 duration-300"
               >
-                Hủy theo dõi
-              </button>
+                Hủy Quan tâm
+              </div>
             </div>
           </div>
         </div>
@@ -62,6 +56,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center text-3xl m-5">
+      Các bài viết của {{ useInfo.info_user.name }}
     </div>
     <vListBlogVue :data="useBlog.data" class="pb-20" />
   </div>

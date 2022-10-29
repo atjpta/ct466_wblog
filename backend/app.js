@@ -23,8 +23,10 @@ route.image(app);
 route.blog(app);
 route.vote(app);
 route.comment(app);
-route.hashtag(app)
-route.search(app)
+route.hashtag(app);
+route.search(app);
+route.gem(app);
+route.premium(app)
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

@@ -7,10 +7,10 @@
       :class="[
         idSelect == title.id
           ? classSelect ||
-            ' bg-teal-500/50 hover:text-violet-700 hover:scale-100 duration-0 '
+            ' bg-violet-500/80 hover:text-violet-700 hover:scale-100 duration-0 '
           : classCustom,
       ]"
-      class="text-xl mx-auto p-4 my-5 text-center shadow-violet-700 shadow-md w-72 h-16 rounded-3xl hover:text-purple-700 hover:scale-125 duration-300"
+      class="cursor-pointer bg-violet-500/10 rounded-2xl uppercase font-semibold w-[200px] px-10 m-2 py-3 text-lg text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-125 duration-300"
     >
       <!-- <router-link to="#"> -->
       <button>

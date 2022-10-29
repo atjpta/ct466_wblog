@@ -169,7 +169,6 @@ exports.createBlog = async (req, res) => {
         cover_image_Url: req.body.cover_image_Url,
         premium: req.body.premium,
     })
-    console.log(blog);
     const vote = new Voted({
         tim: [],
         dislike: [],

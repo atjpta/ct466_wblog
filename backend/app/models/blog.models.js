@@ -11,7 +11,6 @@ const schema = mongoose.Schema(
         content: Object,
         cover_image_Url: {
             type: String,
-            default: 'http://localhost:8088/api/image/cuoi.gif'
         },
         voted: {
             type: mongoose.Schema.Types.ObjectId,

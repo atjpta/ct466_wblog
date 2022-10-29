@@ -13,6 +13,9 @@ class UserService {
     async getInfo(id) {
         return (await this.api.get(`/${id}`)).data;
     }
+    async getGemPremium(id) {
+        return (await this.api.get(`/wallet/${id}`)).data;
+    }
 
     async getAllVote() {
         return (await this.api.get("/")).data;

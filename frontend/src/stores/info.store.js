@@ -28,9 +28,11 @@ export const infoStore = defineStore("infoStore", {
 				introduce: '',
 			},
 			setFollow: false,
+			wallet: {},
 		};
 	},
 	getters: {
+
 	},
 	actions: {
 
@@ -65,7 +67,24 @@ export const infoStore = defineStore("infoStore", {
 			} catch (error) {
 				alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
 			}
+		},
 
+
+		/*Hàm tính khoảng cách giữa 2 ngày trong javascript*/
+		get_day_of_time (d1, d2) {
+			let ms1 = d1.getTime();
+			let ms2 = d2.getTime();
+			return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
+		},
+
+
+		async getWallet() {
+			try {
+				this.wallet = await UserService.getGemPremium(authStore().user.id)
+				this.wallet.premium = this.get_day_of_time(new Date(), new Date(this.wallet.premium))
+			} catch (error) {
+				alertStore().setError('lỗi lấy getWallet - ' + error.message);
+			}
 		},
 
 		async getInfoUser(id) {

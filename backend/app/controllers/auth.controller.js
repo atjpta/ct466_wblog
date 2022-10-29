@@ -82,6 +82,7 @@ exports.signin = (req, res) => {
       for (let i = 0; i < user.roles.length; i++) {
         authorities.push(user.roles[i].name);
       }
+      console.log(user);
       res.status(200).send({
         id: user._id,
         name: user.name,

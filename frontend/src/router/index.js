@@ -39,7 +39,16 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    component: () => import('@/views/auth/LoginView.vue'),
+    meta: {
+      publicPage: true,
+    },
+    beforeEnter: redirectIfLoggedIn,
+  },
+  {
+    path: '/registration',
+    name: 'registration',
+    component: () => import('@/views/auth/registrationView.vue'),
     meta: {
       publicPage: true,
     },
@@ -113,9 +122,9 @@ const routes = [
     component: () => import('@/views/search/blogFollowView.vue'),
   },
   {
-    path: '/recharge',
-    name: 'recharge',
-    component: () => import('@/views/shop/RechargeView.vue'),
+    path: '/shop',
+    name: 'shop',
+    component: () => import('@/views/shop/ShopView.vue'),
   },
   {
     path: "/:pathMatch(.*)*",

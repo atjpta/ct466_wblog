@@ -6,7 +6,8 @@ import voteService from "../services/vote.service";
 import commentBlogService from "../services/commentBlog.service";
 import { hashtagStore } from "./hashtag.store";
 import { imageStore } from "./image.store";
-
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 export const blogStore = defineStore("blogStore", {
 	id: 'blog',
 	state() {
@@ -72,7 +73,8 @@ export const blogStore = defineStore("blogStore", {
 		},
 
 		setTime(time) {
-			return new Date(time).toLocaleString();
+			dayjs.extend(relativeTime)
+			return dayjs(time).fromNow()
 		},
 
 		async createComment(data) {

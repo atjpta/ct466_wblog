@@ -6,6 +6,8 @@ const comment = require('./comment.routes');
 const vote = require ('./vote.routes');
 const hashtag = require('./hashtag.routes');
 const search = require('./search.routes');
+const gem = require('./gem.routes')
+const premium = require('./premium.routes')
 
 module.exports = {
     auth,
@@ -16,4 +18,6 @@ module.exports = {
     vote,
     hashtag,
     search,
+    gem,
+    premium,
 }

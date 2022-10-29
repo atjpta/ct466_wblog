@@ -1,24 +1,27 @@
 <template>
-  <div class="w-[200px] mx-auto text-center m-2 relative text-lg font-semibold">
+  <div class="m-2 relative text-lg font-semibold">
     <div>
       <div class="" @mouseenter="open = true" @mouseleave="open = false">
         <!-- tiêu đề  -->
-        <div
-          class="w-[200px] mx-auto hover:bg-violet-500/20 truncate shadow-violet-500 shadow-md rounded-2xl hover:text-fuchsia-800 flex justify-center"
-        >
-          <img class="rounded-full w-12 h-12" :src="avatar" alt="" />
-          <div class="p-3">{{ name }}</div>
+        <div class="mx-auto w-16">
+          <!-- <i class="fa-solid fa-crown text-2xl p-3 animate-pulse text-yellow-400"></i> -->
+          <img class="rounded-full w-12 h-12 mt-1" :src="avatar" alt="" />
         </div>
         <!-- noi dung  -->
         <div
-          v-show="open"
-          class="backdrop-blur-sm bg-gradient-to-r from-green-400/50 to-blue-500/50 w-[300px] z-50 absolute right-0 mx-auto rounded-2xl py-4 space-y-3"
+          v-if="open"
+          class="bg-white dark:bg-gray-700 border-2 w-[300px] z-50 absolute right-0 mx-auto rounded-2xl py-4 space-y-3"
         >
+          <div class="flex mx-auto w-[250px]">
+            <img class="rounded-full w-12 h-12 mt-1" :src="avatar" alt="" />
+
+            <div class="p-3">{{ name }}</div>
+          </div>
           <div v-for="i in data" :key="i.name">
             <div v-if="i.url != '/login'">
               <router-link :to="i.url">
                 <div
-                  class="backdrop-blur-sm cursor-pointer w-[250px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate shadow-teal-500 shadow-md p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                  class="cursor-pointer w-[250px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                 >
                   <i :class="i.icon"></i>
                   {{ i.name }}
@@ -30,7 +33,7 @@
               <router-link :to="i.url">
                 <div
                   @click="logout()"
-                  class="backdrop-blur-sm cursor-pointer w-[250px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate shadow-teal-500 shadow-md p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                  class="cursor-pointer w-[250px] mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                 >
                   <i :class="i.icon"></i>
                   {{ i.name }}

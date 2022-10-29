@@ -39,6 +39,29 @@ exports.getAllUsers = async (req, res, next) => {
         )
     }
 };
+
+exports.getGemPremium = async (req, res, next) => {
+    const { id } = req.params;
+    const condition = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+
+    try {
+        const document = await user.findOne(condition).select([
+            'gem',
+            'premium',
+        ]);
+        if (!document) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
+        }
+        return res.send(document);
+    }
+    catch (error) {
+        return next(
+            res.status(500).json({ Message: ` không thể tìm thấy user với id = ${req.params.id} ` })
+        )
+    }
+}
 exports.findOne = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
