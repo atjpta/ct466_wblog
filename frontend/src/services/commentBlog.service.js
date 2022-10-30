@@ -7,5 +7,9 @@ class CommentService {
     async create(data) {
         return (await this.api.post("/", data)).data;
     }
+
+    async createCommentChild(data, id) {
+        return (await this.api.put(`/${id}`, data)).data;
+    }
 }
 export default new CommentService();

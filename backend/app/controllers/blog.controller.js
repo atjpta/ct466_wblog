@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+const { populate } = require("../models/user.models");
 const Blog = db.blog;
 const Comment = db.comment;
 const Voted = db.vote;
@@ -120,10 +121,18 @@ exports.findOneBlog = async (req, res, next) => {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
 
-    const cmt = await Comment.find({ id_blog: id }).sort({ 'createdAt': -1 }).populate('author', 'name avatar_Url').populate(
-        'voted', 'tim dislike'
-    ).exec();
+   
     try {
+        const cmt = await Comment.find({ id_blog: id }).sort({ 'createdAt': -1 }).populate('author', 'name avatar_Url').populate(
+            'voted', 'tim dislike'
+        ).populate({
+            path: 'cmt_child',
+            options: { sort: { createdAt: -1 } },
+            populate: {
+                path: 'author voted',
+                select: 'tim dislike name avatar_Url'
+            }
+        }).exec();
         const document = await Blog.findOne(condition).populate('hashtag', 'name').populate("author").populate('voted').exec();
         let comment_Blog = [];
         if (cmt) {

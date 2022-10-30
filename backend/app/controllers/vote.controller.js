@@ -38,6 +38,11 @@ exports.pushVoted = async (req, res, next) => {
             }, {
                 new: true
             });
+            document = await Voted.findByIdAndUpdate(condition, {
+                $pull: { dislike: req.body.id_user }
+            }, {
+                new: true
+            });
 
         }
 
@@ -47,12 +52,17 @@ exports.pushVoted = async (req, res, next) => {
             }, {
                 new: true
             });
+            document = await Voted.findByIdAndUpdate(condition, {
+                $pull: { tim: req.body.id_user }
+            }, {
+                new: true
+            });
 
         }
 
         else if (type == 'view') {
             document = await Voted.findByIdAndUpdate(condition, {
-                $addToSet: { view: req.body.id_user }
+                $inc: { view: 1 }
             }, {
                 new: true
             });
@@ -103,14 +113,6 @@ exports.popVoted = async (req, res, next) => {
                 new: true
             });
 
-        }
-
-        else if (type == 'view') {
-            document = await Voted.findByIdAndUpdate(condition, {
-                $pull: { view: req.body.id_user }
-            }, {
-                new: true
-            });
         }
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy Voted" }));

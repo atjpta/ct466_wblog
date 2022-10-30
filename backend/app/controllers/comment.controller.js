@@ -26,7 +26,6 @@ exports.createComment = async (req, res) => {
         content: req.body.content,
         
     })
-    console.log(comment);
     const vote = new Voted({
         tim: [],
         dislike: [],
@@ -35,7 +34,36 @@ exports.createComment = async (req, res) => {
         const documentVote = await vote.save();
         comment.voted = documentVote.id;
         const document = await comment.save();
-        console.log(document);
+        return res.send(document);
+    }
+    catch (error) {
+        return res.status(500).send({ Message: "Không thể tạo comment - " + error.message })
+    }
+}
+
+
+//tạo comment con
+exports.createCommentChild = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return res.status(440).json({ Message: "thông tin không thế thay đổi" })
+
+    }
+    const comment = new Comment({
+        author: req.body.author,
+        content: req.body.content,
+    })
+    const vote = new Voted({
+        tim: [],
+        dislike: [],
+    })
+    try {
+        
+        const documentVote = await vote.save();
+        comment.voted = documentVote.id;
+        const documentchild = await comment.save();
+        const document = await Comment.findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { cmt_child: documentchild.id } }, {
+            new: true
+        });
         return res.send(document);
     }
     catch (error) {

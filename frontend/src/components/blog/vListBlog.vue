@@ -451,7 +451,7 @@
         <div
           v-show="!loading && endList == 9"
           @click="NextPage()"
-          class="hover:scale-125 bg-white dark:bg-gray-700 dark:text-white/50 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-white dark:bg-gray-700 dark:text-white/70 truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+          class="hover:scale-125 bg-white dark:bg-gray-700 dark:text-white/50 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-white truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
         >
           Xem thêm
         </div>

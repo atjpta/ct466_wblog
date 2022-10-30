@@ -7,6 +7,9 @@ module.exports = (app) => {
         .get(comment.getListComment)
         .post(comment.createComment)
         .delete(comment.deleteAllComment)
+    
+    router.route("/:id")
+        .put(comment.createCommentChild)
 
     app.use("/api/comment", router);
 };

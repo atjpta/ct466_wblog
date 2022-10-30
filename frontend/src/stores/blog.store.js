@@ -82,6 +82,11 @@ export const blogStore = defineStore("blogStore", {
 			console.log(document);
 		},
 
+		async createCommentChild(data, id) {
+			const document = await commentBlogService.createCommentChild(data, id);
+			console.log(document);
+		},
+
 		async updatePushVote(type, id_list) {
 			try {
 				await voteService.pushVoted(type, id_list, authStore().user.id);
@@ -211,6 +216,9 @@ export const blogStore = defineStore("blogStore", {
 				this.blog.time = this.setTime(this.blog.time)
 				this.blog.comment_Blog.forEach((cmt, i) => {
 					this.blog.comment_Blog[i].createdAt = this.setTime(cmt.createdAt);
+					this.blog.comment_Blog[i].cmt_child.forEach((child, j) => {
+						this.blog.comment_Blog[i].cmt_child[j].createdAt = this.setTime(child.createdAt);
+					})
 				});
 				hashtagStore().selectedHashtag = this.blog.hashtag
 				this.blogEdit = this.blog

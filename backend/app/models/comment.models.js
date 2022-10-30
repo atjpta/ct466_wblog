@@ -15,7 +15,13 @@ const schema = mongoose.Schema(
         voted: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "vote"
-        }
+        },
+        cmt_child: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "comment"
+        }]
+
+        
         
     },
 

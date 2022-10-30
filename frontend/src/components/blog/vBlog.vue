@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- thanh bên trái -->
     <div
       class="bg-white dark:text-white dark:bg-gray-700 fixed left-64 top-1/3 border-2 p-2 rounded-2xl z-50"
     >
@@ -11,12 +12,14 @@
         />
       </div>
       <div
+        @click="vote('tim', useBlog.blog.voted, useBlog.blog.voted.id)"
         class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center mt-5"
       >
         <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
       </div>
-      <div class="text-xl text-center">+1</div>
+      <div class="text-xl text-center">{{ rateVote }}</div>
       <div
+        @click="vote('dislike', useBlog.blog.voted, useBlog.blog.voted.id)"
         class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center"
       >
         <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
@@ -84,7 +87,7 @@
 
     <!-- vote -->
     <div class="lg:text-2xl text-base flex justify-evenly border-b-4 border-black">
-      <button
+      <!-- <button
         @click="vote('tim', useBlog.blog.voted.tim, useBlog.blog.voted.id)"
         class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"
       >
@@ -103,7 +106,7 @@
           class="fa-solid fa-thumbs-down pt-1"
         ></i>
         <p class="mx-2">{{ useBlog.blog.voted.dislike.length || 0 }}</p>
-      </button>
+      </button> -->
       <div class="p-3 flex items-center justify-center">
         <i class="fa-solid fa-comments pt-1"></i>
         <p class="mx-2">{{ useBlog.blog.comment_Blog.length || 0 }}</p>
@@ -124,7 +127,7 @@ import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import { useRouter, useRoute } from "vue-router";
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted, onBeforeMount, computed } from "vue";
 import blogService from "../../services/blog.service";
 import { blogStore } from "../../stores/blog.store";
 import { authStore } from "../../stores/auth.store";
@@ -136,20 +139,53 @@ const useBlog = blogStore();
 const quill = ref();
 const useAuth = authStore();
 const useHashtag = hashtagStore();
+
+const rateVote = computed(() => {
+  const rate = useBlog.blog.voted.tim.length - useBlog.blog.voted.dislike.length;
+  if (rate > 0) {
+    return `+${rate}`;
+  }
+  return rate;
+});
+
 function isVote(list) {
   return !!list.find((e) => e == useAuth.user.id);
 }
 
 function vote(type, list, id_list) {
-  const index = list.findIndex((e) => e == useAuth.user.id);
-  if (index > -1) {
-    list.splice(index, 1);
-    useBlog.updatePopVote(type, id_list);
-  } else {
-    list.push(useAuth.user.id);
-    useBlog.updatePushVote(type, id_list);
+  if (type == "tim") {
+    const indexTim = list.tim.findIndex((e) => e == useAuth.user.id);
+    const indexDislike = list.dislike.findIndex((e) => e == useAuth.user.id);
+
+    if (indexTim > -1) {
+      list.tim.splice(indexTim, 1);
+      useBlog.updatePopVote(type, id_list);
+    } else {
+      if (indexDislike > -1) {
+        list.dislike.splice(indexDislike, 1);
+      }
+      list.tim.push(useAuth.user.id);
+      useBlog.updatePushVote(type, id_list);
+    }
+  }
+
+  if (type == "dislike") {
+    const indexTim = list.tim.findIndex((e) => e == useAuth.user.id);
+    const indexDislike = list.dislike.findIndex((e) => e == useAuth.user.id);
+
+    if (indexDislike > -1) {
+      list.dislike.splice(indexDislike, 1);
+      useBlog.updatePopVote(type, id_list);
+    } else {
+      if (indexTim > -1) {
+        list.tim.splice(indexTim, 1);
+      }
+      list.dislike.push(useAuth.user.id);
+      useBlog.updatePushVote(type, id_list);
+    }
   }
 }
+
 function search(id) {
   console.log(id);
   const redirectPath = route.query.redirect || {
