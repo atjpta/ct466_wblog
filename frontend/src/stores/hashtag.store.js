@@ -74,6 +74,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 				this.resultSearch = await hashtagService.findBlogOnHashtag(id)
 				this.resultSearch.blog.reverse()
 				this.resultSearch.blog.forEach((blog, i) => {
+					this.resultSearch.blog[i].id = this.resultSearch.blog[i]._id
 					this.resultSearch.blog[i].createdAt = this.setTime(blog.createdAt);
 					if (i % 3 == 0) {
 						data.arr1.push(this.resultSearch.blog[i])

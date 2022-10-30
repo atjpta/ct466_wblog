@@ -17,6 +17,7 @@ export const infoStore = defineStore("infoStore", {
 				avata_Url: '',
 				date: '',
 				introduce: '',
+				followBlog: [],
 			},
 			avatar: '',
 			infoEdit: {},
@@ -56,6 +57,28 @@ export const infoStore = defineStore("infoStore", {
 			} catch (error) {
 				alertStore().setError('không thể hủy theo dõi')
 				console.log("lỗi removeFollow");
+				console.log(error);
+			}
+		},
+
+		async addFollowBlog(followBlog) {
+			try {
+				await usersService.addFollowBlog(authStore().user.id, { followBlog: followBlog })
+				alertStore().setSuccess('đã theo dõi blog thành công')
+			} catch (error) {
+				alertStore().setError('không thể theo dõi blog')
+				console.log("lỗi addFollowBlog");
+				console.log(error);
+			}
+		},
+
+		async removeFollowBlog(followBlog) {
+			try {
+				await usersService.removeFollowBlog(authStore().user.id, { followBlog: followBlog })
+				alertStore().setSuccess('đã hủy theo dõi blog thành công')
+			} catch (error) {
+				alertStore().setError('không thể hủy theo dõi blog')
+				console.log("lỗi removeFollowBlog");
 				console.log(error);
 			}
 		},

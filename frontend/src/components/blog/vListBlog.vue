@@ -64,7 +64,7 @@
                 >
                   <router-link :to="`/editblog/${blog.id}`">
                     <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
@@ -72,7 +72,7 @@
                   <div class="border-r-2"></div>
                   <div
                     @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                   >
                     <i class="fa-solid fa-trash"></i>
                   </div>
@@ -168,7 +168,7 @@
                 >
                   <router-link :to="`/editblog/${blog.id}`">
                     <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
@@ -176,7 +176,7 @@
                   <div class="border-r-2"></div>
                   <div
                     @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                   >
                     <i class="fa-solid fa-trash"></i>
                   </div>
@@ -273,7 +273,7 @@
                 >
                   <router-link :to="`/editblog/${blog.id}`">
                     <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
@@ -281,7 +281,7 @@
                   <div class="border-r-2"></div>
                   <div
                     @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                   >
                     <i class="fa-solid fa-trash"></i>
                   </div>
@@ -377,7 +377,7 @@
                 >
                   <router-link :to="`/editblog/${blog.id}`">
                     <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
@@ -385,7 +385,7 @@
                   <div class="border-r-2"></div>
                   <div
                     @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:text-teal-800 hover:scale-125 duration-300"
+                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
                   >
                     <i class="fa-solid fa-trash"></i>
                   </div>

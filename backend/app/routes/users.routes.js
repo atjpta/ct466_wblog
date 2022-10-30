@@ -25,6 +25,12 @@ module.exports = (app) => {
     router.route('/removeFollow/:id')
         .put(users.removeFollow)
     
+    router.route('/addFollowBlog/:id')
+        .put(users.addFollowBlog)
+
+    router.route('/removeFollowBlog/:id')
+        .put(users.removeFollowBlog)
+    
     router.route("/test/all")
         .get(users.allAccess); 
     router.route("/test/user")

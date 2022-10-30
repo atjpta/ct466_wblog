@@ -34,6 +34,10 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         }],
+        followBlog: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "blog"
+        }],
         roles: [
             {
               type: mongoose.Schema.Types.ObjectId,

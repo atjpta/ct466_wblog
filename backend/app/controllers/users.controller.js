@@ -75,7 +75,8 @@ exports.findOne = async (req, res, next) => {
             'introduce',
             'avatar_Url',
             'follow',
-            'followBy'
+            'followBy',
+            'followBlog',
         ]);
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
@@ -154,6 +155,79 @@ exports.addFollow = async (req, res, next) => {
         console.log(error);
         return next(
             res.status(500).json({ Message: ` không thể update addFollow ${error}`  })
+        )
+    }
+}
+
+
+// thêm follow Blog
+exports.addFollowBlog = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+
+    const { id } = req.params;
+    const { followBlog } = req.body;
+    const condition1 = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+
+    try {
+
+        const document1 = await user.findByIdAndUpdate(condition1, {
+            $addToSet: { followBlog: followBlog }
+        }, {
+            new: true
+        });
+        console.log(document1);
+
+        if (!document1 ) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy addFollow" }));
+        }
+        return res.send({ message: "đã them  addFollow thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update addFollow ${error}` })
+        )
+    }
+}
+
+
+// xóa follow blog
+exports.removeFollowBlog = async (req, res, next) => {
+    if (Object.keys(req.body).length === 0) {
+        return next(
+            res.status(400).json({ Message: "thông tin không thế thay đổi" })
+        )
+    }
+
+    const { id } = req.params;
+    const { followBlog } = req.body;
+    const condition1 = {
+        _id: id && mongoose.isValidObjectId(id) ? id : null,
+    };
+
+    try {
+
+        const document1 = await user.findByIdAndUpdate(condition1, {
+            $pull: { followBlog: followBlog }
+        }, {
+            new: true
+        });
+        if (!document1) {
+            return next(res.status(404).json({ Message: "không thể tìm thấy addFollow" }));
+        }
+        console.log(document1);
+        return res.send({ message: "đã them  addFollow thành công", body: req.body });
+    }
+    catch (error) {
+        console.log(error);
+        return next(
+            res.status(500).json({ Message: ` không thể update addFollow ${error}` })
         )
     }
 }

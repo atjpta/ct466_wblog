@@ -32,6 +32,14 @@ class UserService {
         return (await this.api.put(`/removeFollow/${id}`, data)).data;
     }
 
+    async addFollowBlog(id, data) {
+        return (await this.api.put(`/addFollowBlog/${id}`, data)).data;
+    }
+
+    async removeFollowBlog(id, data) {
+        return (await this.api.put(`/removeFollowBlog/${id}`, data)).data;
+    }
+
     async testuser() {
         // return (await this.api.get(`/test/user`)).data;
         return console.log((await this.api.get(`/test/user`)).data);

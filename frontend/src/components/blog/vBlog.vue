@@ -4,31 +4,53 @@
     <div
       class="bg-white dark:text-white dark:bg-gray-700 fixed left-64 top-1/3 border-2 p-2 rounded-2xl z-50"
     >
-      <div>
-        <img
-          class="w-16 h-16 bg-fixed rounded-full"
-          :src="useBlog.blog.author.avatar_Url"
-          alt=""
-        />
-      </div>
-      <div
-        @click="vote('tim', useBlog.blog.voted, useBlog.blog.voted.id)"
-        class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center mt-5"
-      >
-        <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
-      </div>
-      <div class="text-xl text-center">{{ rateVote }}</div>
-      <div
-        @click="vote('dislike', useBlog.blog.voted, useBlog.blog.voted.id)"
-        class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center"
-      >
-        <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
+      <router-link :to="`/user/${useBlog.blog.author.id}`">
+        <div>
+          <img
+            class="w-16 h-16 bg-fixed rounded-full"
+            :src="useBlog.blog.author.avatar_Url"
+            alt=""
+          />
+        </div>
+      </router-link>
+      <div v-if="useAuth.user.id != useBlog.blog.author.id">
+        <div
+          @click="vote('tim', useBlog.blog.voted, useBlog.blog.voted.id)"
+          class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center mt-5"
+        >
+          <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
+        </div>
+        <div class="text-xl text-center">{{ rateVote }}</div>
+        <div
+          @click="vote('dislike', useBlog.blog.voted, useBlog.blog.voted.id)"
+          class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center"
+        >
+          <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
+        </div>
+
+        <div
+          class="cursor-pointer text-center mt-3 hover:bg-violet-500/30 active:bg-violet-500/50"
+        >
+          <i
+            @click="followBlog"
+            :class="[markBlog > -1 ? 'text-sky-500' : '']"
+            class="p-2 text-2xl fa-solid fa-bookmark"
+          ></i>
+        </div>
       </div>
 
-      <div
-        class="cursor-pointer text-center mt-3 hover:bg-violet-500/30 active:bg-violet-500/50"
-      >
-        <i class="p-2 text-2xl fa-solid fa-bookmark"></i>
+      <div v-if="useAuth.user.id == useBlog.blog.author.id" class="opacity-30">
+        <div class="text-center mt-5">
+          <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
+        </div>
+        <div class="text-xl text-center">{{ rateVote }}</div>
+        <div class="text-center">
+          <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
+        </div>
+
+        <div class="text-center mt-3">
+          <i class="p-2 text-2xl fa-solid fa-bookmark"></i>
+        </div>
       </div>
     </div>
 
@@ -132,13 +154,18 @@ import blogService from "../../services/blog.service";
 import { blogStore } from "../../stores/blog.store";
 import { authStore } from "../../stores/auth.store";
 import { hashtagStore } from "../../stores/hashtag.store";
-
+import { infoStore } from "../../stores/info.store";
 const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const quill = ref();
+const useInfo = infoStore();
 const useAuth = authStore();
 const useHashtag = hashtagStore();
+
+const markBlog = computed(() => {
+  return useInfo.info.followBlog.findIndex((e) => e == useBlog.blog.id);
+});
 
 const rateVote = computed(() => {
   const rate = useBlog.blog.voted.tim.length - useBlog.blog.voted.dislike.length;
@@ -148,24 +175,35 @@ const rateVote = computed(() => {
   return rate;
 });
 
+async function followBlog() {
+  const index = useInfo.info.followBlog.findIndex((e) => e == useBlog.blog.id);
+  if (index > -1) {
+    useInfo.info.followBlog.splice(index, 1);
+    await useInfo.removeFollowBlog(useBlog.blog.id);
+  } else {
+    useInfo.info.followBlog.push(useBlog.blog.id);
+    await useInfo.addFollowBlog(useBlog.blog.id);
+  }
+}
+
 function isVote(list) {
   return !!list.find((e) => e == useAuth.user.id);
 }
 
-function vote(type, list, id_list) {
+async function vote(type, list, id_list) {
   if (type == "tim") {
     const indexTim = list.tim.findIndex((e) => e == useAuth.user.id);
     const indexDislike = list.dislike.findIndex((e) => e == useAuth.user.id);
 
     if (indexTim > -1) {
       list.tim.splice(indexTim, 1);
-      useBlog.updatePopVote(type, id_list);
+      await useBlog.updatePopVote(type, id_list);
     } else {
       if (indexDislike > -1) {
         list.dislike.splice(indexDislike, 1);
       }
       list.tim.push(useAuth.user.id);
-      useBlog.updatePushVote(type, id_list);
+      await useBlog.updatePushVote(type, id_list);
     }
   }
 
@@ -195,6 +233,7 @@ function search(id) {
 }
 async function getApi() {
   await useBlog.findOneBlog(route.params.id);
+  await useInfo.getApiInfo();
   setContent();
 }
 
