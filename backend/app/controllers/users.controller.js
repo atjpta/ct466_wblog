@@ -27,10 +27,8 @@ exports.getAllUsers = async (req, res, next) => {
     try {
         const users = await user.find({ _id: { $ne: req.params.id } }).select([
             "name",
-            "email",
-            "username",
-            "roles",
-            "_id",
+            "id",
+            "avatar_Url",
         ]);
         return res.json(users);
     } catch (ex) {

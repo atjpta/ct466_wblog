@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 const isDarkMode = ref();
 
@@ -30,6 +30,11 @@ const setDarkMode = computed(() => {
   } else html.classList.add("dark");
   localStorage.setItem("themeDark", isDarkMode.value);
   return isDarkMode.value;
+});
+onMounted(() => {
+  if (localStorage.getItem("themeDark") == "null") {
+    isDarkMode.value = "dark";
+  }
 });
 </script>
 

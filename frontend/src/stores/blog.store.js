@@ -25,7 +25,7 @@ export const blogStore = defineStore("blogStore", {
 					view: [],
 				},
 				content: {},
-				comment_Blog: [],
+				comment_Blog: {},
 				hashtag: [],
 
 			},

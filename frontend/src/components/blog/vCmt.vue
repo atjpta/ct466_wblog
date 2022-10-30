@@ -1,32 +1,15 @@
 <template>
   <div>
     <!-- input cmt -->
-    <div class="mx-auto w-5/6">
-      <p class="text-4xl pt-10 pb-5">Nhập bình luận của bạn:</p>
-      <div class="flex">
-        <input
-          v-model="comment_Blog.content"
-          class="bg-white dark:text-white dark:bg-gray-700 border-0 border-b-2 text-xl mb-5 w-5/6"
-          type="text"
-        />
-        <div class="flex justify-start mb-5">
-          <button
-            @click="createComment()"
-            class="cursor-pointer rounded-2xl uppercase font-semibold w-[150px] px-5 mx-2 text-xl text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
-          >
-            <i class="fa-solid fa-paper-plane"></i>
-            gửi
-          </button>
-        </div>
-      </div>
+    <div class="w-4/5 mx-auto">
+      <vInputCmtVue />
     </div>
-
     <!-- list cmt -->
-    <div v-for="cmt in useBlog.blog.comment_Blog" :key="cmt.id" class="">
+    <div v-for="cmt in listcmt" :key="cmt.id" class="">
       <!-- list cmt cha -->
       <div>
         <div
-          class="mt-10 w-5/6 mx-auto bg-slate-100 dark:bg-gray-500 rounded-3xl shadow-xl"
+          class="mt-10 w-5/6 mx-auto bg-slate-100 dark:bg-gray-800 rounded-3xl shadow-xl"
         >
           <div class="p-5 h-16 flex">
             <img
@@ -41,8 +24,29 @@
               </div>
             </div>
           </div>
-          <div class="text-xl mt-10 pt-3 px-5">
-            {{ cmt.content }}
+          <!-- các tag name -->
+          <div class="flex justify-start mt-7 mx-7">
+            <div
+              v-for="user in cmt.listTagName"
+              :key="user.id"
+              class="border-2 w-fit p-2 rounded-md"
+            >
+              <div class="hover:scale-125 duration-300 hover:bg-violet-500">
+                <router-link :to="`/user/${user._id}`" class="">
+                  {{ user.name }}
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <!-- noi dung cmt -->
+          <div class="mx-5">
+            <QuillEditor
+              :content="cmt.content"
+              ref="quill"
+              :readOnly="true"
+              theme="bubble"
+              :toolbar="[]"
+            />
           </div>
           <!-- voted cua list blog -->
           <div class="flex mx-5">
@@ -77,27 +81,13 @@
         </div>
         <!-- input phản hồi -->
         <div v-if="open == cmt.id" class="mx-auto w-5/6">
-          <p class="text-4xl pt-10 pb-5">Nhập phản hồi của bạn:</p>
-          <div class="flex">
-            <input
-              v-model="comment_BlogChild.content"
-              class="bg-white dark:text-white dark:bg-gray-700 border-0 border-b-2 text-xl mb-5 w-5/6"
-              type="text"
-            />
-            <div class="flex justify-start mb-5">
-              <button
-                @click="createCommentChild(cmt.id)"
-                class="cursor-pointer rounded-2xl uppercase font-semibold w-[150px] px-5 mx-2 text-xl text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
-              >
-                <i class="fa-solid fa-paper-plane"></i>
-                gửi
-              </button>
-            </div>
+          <div class="ml-10 my-3">
+            <vInputCmtChildVue :id="cmt.id" />
           </div>
         </div>
         <!-- list cmt con -->
         <div v-for="child in cmt.cmt_child" :key="child.id" class="w-5/6 mx-auto">
-          <div class="ml-10 my-3 rounded-3xl shadow-xl bg-slate-100 dark:bg-gray-500">
+          <div class="ml-10 my-3 rounded-3xl shadow-xl bg-slate-100 dark:bg-gray-800">
             <div>
               <div class="p-5 h-16 flex">
                 <img
@@ -112,8 +102,29 @@
                   </div>
                 </div>
               </div>
-              <div class="text-xl mt-10 pt-3 px-5">
-                {{ child.content }}
+              <!-- các tag name -->
+              <div class="flex justify-start mt-7 mx-7">
+                <div
+                  v-for="user in child.listTagName"
+                  :key="user.id"
+                  class="border-2 w-fit p-2 rounded-md"
+                >
+                  <div class="hover:scale-125 duration-300 hover:bg-violet-500">
+                    <router-link :to="`/user/${user._id}`" class="">
+                      {{ user.name }}
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <!-- noi dung cmt -->
+              <div class="m-5">
+                <QuillEditor
+                  :content="child.content"
+                  ref="quill"
+                  :readOnly="true"
+                  theme="bubble"
+                  :toolbar="[]"
+                />
               </div>
               <!-- voted cua list blog -->
               <div class="flex mx-5">
@@ -147,18 +158,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import vInputCmtVue from "./vInputCmt.vue";
+import vInputCmtChildVue from "./vInputCmtChild.vue";
+import { QuillEditor, Quill } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import { ref, onMounted, computed } from "vue";
 import { blogStore } from "../../stores/blog.store";
 import { authStore } from "../../stores/auth.store";
 import { alertStore } from "../../stores/alert.store";
+import { infoStore } from "../../stores/info.store";
 import emptyImage from "@/assets/upload-image.png";
+const quill = ref();
+const useInfo = infoStore();
 const useAuth = authStore();
 const useBlog = blogStore();
-const comment_Blog = ref({
-  id_blog: "",
-  content: "",
-  author: "",
-});
+const tagnameOpen = ref(false);
+const tagName = ref("");
 
 const comment_BlogChild = ref({
   id_blog: "",
@@ -168,21 +183,12 @@ const comment_BlogChild = ref({
 
 const open = ref();
 
-async function createComment() {
-  if (comment_Blog.value.content) {
-    comment_Blog.value.id_blog = useBlog.blog.id;
-    comment_Blog.value.author = useAuth.user.id;
-    try {
-      await useBlog.createComment(comment_Blog.value);
-      await useBlog.findOneBlog(useBlog.blog.id);
-      comment_Blog.value.content = "";
-    } catch (error) {
-      alertStore().setError("không thể thêm comment");
-    }
-  }
-}
+const listcmt = computed(() => {
+  return useBlog.blog.comment_Blog;
+});
 
 async function createCommentChild(id) {
+  console.log(useInfo.alluser);
   if (comment_BlogChild.value.content) {
     try {
       const data = {

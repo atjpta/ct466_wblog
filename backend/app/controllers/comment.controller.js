@@ -24,6 +24,7 @@ exports.createComment = async (req, res) => {
         author: req.body.author,
         id_blog: req.body.id_blog,
         content: req.body.content,
+        listTagName: req.body.listTagName,
         
     })
     const vote = new Voted({
@@ -51,6 +52,8 @@ exports.createCommentChild = async (req, res, next) => {
     const comment = new Comment({
         author: req.body.author,
         content: req.body.content,
+        listTagName: req.body.listTagName,
+
     })
     const vote = new Voted({
         tim: [],

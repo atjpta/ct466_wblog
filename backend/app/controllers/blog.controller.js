@@ -129,10 +129,12 @@ exports.findOneBlog = async (req, res, next) => {
             path: 'cmt_child',
             options: { sort: { createdAt: -1 } },
             populate: {
-                path: 'author voted',
-                select: 'tim dislike name avatar_Url'
+                path: 'author voted listTagName',
+                select: 'tim dislike name id avatar_Url'
             }
-        }).exec();
+        })
+            .populate('listTagName', 'name id')
+            .exec();
         const document = await Blog.findOne(condition).populate('hashtag', 'name').populate("author").populate('voted').exec();
         let comment_Blog = [];
         if (cmt) {

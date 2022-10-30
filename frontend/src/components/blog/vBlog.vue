@@ -234,6 +234,7 @@ function search(id) {
 async function getApi() {
   await useBlog.findOneBlog(route.params.id);
   await useInfo.getApiInfo();
+  await useInfo.getAllUsers();
   setContent();
 }
 

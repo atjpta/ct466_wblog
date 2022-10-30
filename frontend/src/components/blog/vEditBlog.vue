@@ -48,7 +48,7 @@
       <!-- noi dung bài viết -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">nhập dung bài viết:</p>
-        <div class="bg-white/5">
+        <div class="">
           <QuillEditor
             v-model:content="useBlog.blogEdit.content"
             ref="quill"
@@ -120,4 +120,8 @@ onMounted(() => {
 });
 </script>
 
-<style></style>
+<style scoped>
+.svg {
+  color: azure;
+}
+</style>

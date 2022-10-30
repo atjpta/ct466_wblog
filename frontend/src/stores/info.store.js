@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { authStore } from "./auth.store";
 import { alertStore } from "./alert.store";
-
 import UserService from "@/services/users.service";
 import imageService from "../services/image.service";
 import usersService from "../services/users.service";
@@ -30,12 +29,22 @@ export const infoStore = defineStore("infoStore", {
 			},
 			setFollow: false,
 			wallet: {},
+			alluser: [],
 		};
 	},
 	getters: {
 
 	},
 	actions: {
+
+		async getAllUsers() {
+			try {
+				this.alluser = await usersService.getAllUser();
+			} catch (error) {
+				console.log("lỗi getAllUsers");
+				console.log(error);
+			}	
+		},
 
 		async addFollow(follow) {
 			try {

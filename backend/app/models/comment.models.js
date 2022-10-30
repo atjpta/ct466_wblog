@@ -7,7 +7,13 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "blog"
         },
-        content: String,
+        content: Object,
+        listTagName: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "user"
+            },
+        ],
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
