@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 dark:text-white">
+  <div class="">
     <div class="">
       <p class="text-4xl pt-10 pb-5">Nhập phản hồi của bạn:</p>
       <div class="">

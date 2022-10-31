@@ -1,121 +1,93 @@
 <template>
-  <div class="z-50 mb-5">
-    <div
-      class="border-b-2 h-[70px] bg-white dark:bg-gray-700 dark:text-white flex justify-between"
-    >
-      <!--  bên trái -->
-      <!-- tên / logo -->
-      <div class="flex">
-        <div class="xl:hidden block relative">
-          <i
-            @click="openLeft = !openLeft"
-            :class="[openLeft ? 'fa-solid fa-x' : 'fa-solid fa-bars']"
-            class="font-semibold cursor-pointer active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate p-3 mt-2 ml-3 rounded-xl hover:text-violet-800 text-4xl"
-          ></i>
+  <div>
+    <div class="navbar bg-base-100 border-b-2">
+      <div class="navbar-start">
+        <div class="dropdown">
+          <label tabindex="0" class="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+          <ul
+            tabindex="0"
+            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li v-for="i in dataMidNav" :key="i">
+              <router-link :to="i.url">
+                <i :class="i.icon"></i>
+                {{ i.name }}
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <router-link
-          class="cursor-pointer rounded-2xl uppercase font-semibold w-[150px] px-10 m-2 pt-3 text-xl text-center truncate hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-125 duration-300"
-          to="/homeblog"
-        >
-          <div class="">
-            wblog
-            <div class="animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
-          </div>
-        </router-link>
-
-        <vToggleDarkModeVue class="mt-5" />
+        <div class="mx-5">
+          <router-link to="/homeblog" class="btn btn-ghost normal-case text-xl"
+            >Wblog</router-link
+          >
+          <div class="ml-2 animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
+        </div>
       </div>
-      <!-- ở giữa -->
-      <div v-if="useAuth.isUserLoggedIn" class="justify-between hidden xl:flex">
-        <!-- nút thứ 1 -->
-        <router-link
-          class="cursor-pointer rounded-2xl uppercase font-semibold w-[200px] px-10 m-2 pt-3 text-center truncate hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-125 duration-300"
-          to="/follow"
-        >
-          <i class="fa-solid fa-heart"></i>
-          Theo dõi
-        </router-link>
-        <!-- nút thứ 2 -->
-        <router-link
-          class="cursor-pointer rounded-2xl uppercase font-semibold w-[200px] px-10 m-2 pt-3 text-center truncate hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-125 duration-300"
-          to="/shop"
-        >
-          <i class="fa-solid fa-basket-shopping"></i>
-          Cửa Hàng
-        </router-link>
-        <!-- nút thứ 3 -->
-
-        <router-link
-          class="cursor-pointer rounded-2xl uppercase font-semibold w-[200px] px-10 m-2 pt-3 text-center truncate hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-125 duration-300"
-          to="/search"
-        >
-          <i class="fa-solid fa-magnifying-glass"></i>
-          Tìm kiếm
-        </router-link>
-
-        <!-- nút thứ 4 -->
-        <vdropdown type="header" title="menu2" :data="data" />
+      <div v-if="useAuth.isUserLoggedIn" class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal p-0">
+          <li v-for="i in dataMidNav" :key="i">
+            <router-link :to="i.url">
+              <i :class="i.icon"></i>
+              {{ i.name }}
+            </router-link>
+          </li>
+        </ul>
       </div>
-      <!-- bên phải -->
-
-      <div class="w-[200px] mr-5">
-        <div
-          v-if="!useAuth.isUserLoggedIn"
-          class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadowa-violet-500 shadowa-md p-3 rounded-2xl hover:text-violet-800"
-        >
+      <div class="navbar-end">
+        <!-- chỉnh theme -->
+        <vThemeVue />
+        <!-- nút đăng xuất -->
+        <button v-if="!useAuth.isUserLoggedIn" class="mx-3 btn btn-outline btn-primary">
           Đăng nhập
-        </div>
-        <vdropdownAvatar
-          v-if="useAuth.isUserLoggedIn"
-          :name="useAuth.user.name"
-          :avatar="useAuth.user.avatar_Url"
-          :data="dataAvatar"
-        />
-      </div>
-    </div>
+        </button>
 
-    <!-- slidebar bên trái -->
-    <div
-      v-if="openLeft"
-      class="xl:hidden absolute left-auto z-40 block backdrop-blur-sm bg-gradient-to-r from-green-400/50 to-blue-500/50 w-fit rounded-2xl m-2"
-    >
-      <!-- nút thứ 1 -->
-      <div class="flex justify-between">
-        <div>
-          <div class="w-[200px] m-2 mx-auto">
-            <router-link to="/follow">
-              <div
-                class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadowa-violet-500 shadowa-md p-3 rounded-2xl hover:text-violet-800"
-              >
-                <i class="fa-solid fa-heart"></i>
-                Theo dõi
+        <!-- dropdown avatar -->
+        <div v-if="useAuth.isUserLoggedIn" class="flex-none gap-2 mx-3">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+              <div class="w-12 rounded-full">
+                <img :src="useAuth.user.avatar_Url" />
               </div>
-            </router-link>
-          </div>
-          <!-- nút thứ 2 -->
-          <div class="w-[200px] m-2 mx-auto">
-            <router-link to="/shop">
-              <div
-                class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadowa-violet-500 shadowa-md p-3 rounded-2xl hover:text-violet-800"
-              >
-                <i class="fa-solid fa-basket-shopping"></i>
-                Cửa Hàng
+            </label>
+            <ul
+              tabindex="0"
+              class="mt-3 border-2 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <div class="avatar">
+                <div class="w-12 h-12 rounded-full">
+                  <img :src="useAuth.user.avatar_Url" />
+                </div>
+                <p class="mt-3 px-2">{{ useAuth.user.name }}</p>
               </div>
-            </router-link>
+              <li></li>
+
+              <li v-for="i in dataAvatar" :key="i">
+                <router-link v-if="i.name != 'Đăng xuất'" :to="i.url"
+                  ><i :class="i.icon"></i>
+                  {{ i.name }}
+                </router-link>
+                <router-link @click="logout()" v-if="i.name == 'Đăng xuất'" :to="i.url"
+                  ><i :class="i.icon"></i>
+                  {{ i.name }}
+                </router-link>
+              </li>
+            </ul>
           </div>
-          <!-- nút thứ 3 -->
-          <div class="w-[200px] m-2 mx-auto">
-            <router-link to="/search">
-              <div
-                class="font-semibold text-lg cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-violet-500/20 truncate shadowa-violet-500 shadowa-md p-3 rounded-2xl hover:text-violet-800"
-              >
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Tìm kiếm
-              </div>
-            </router-link>
-          </div>
-          <!-- nút thứ 4 -->
-          <vdropdown title="menu2" :data="data" />
         </div>
       </div>
     </div>
@@ -125,24 +97,32 @@
 <script setup>
 import vdropdown from "../dropdown/vDropDown.vue";
 import vdropdownAvatar from "../dropdown/vDropDownAvatar.vue";
-import vToggleDarkModeVue from "./vToggleDarkMode.vue";
+import vThemeVue from "./vTheme.vue";
 import { ref, onBeforeMount } from "vue";
 import { authStore } from "../../stores/auth.store";
 import { infoStore } from "../../stores/info.store";
 
 const useAuth = authStore();
-const data = ref([
+const dataMidNav = ref([
   {
-    name: "thành phần 1",
-    url: "/trang2",
+    name: "Theo dõi",
+    url: "/follow",
+    icon: "fa-solid fa-heart",
   },
   {
-    name: "thành phần 2",
-    url: "/trang2",
+    name: "Cửa hàng",
+    url: "/shop",
+    icon: "fa-solid fa-basket-shopping",
   },
   {
-    name: "thành phần 2",
+    name: "Tìm kiếm",
+    url: "/search",
+    icon: "fa-solid fa-magnifying-glass",
+  },
+  {
+    name: "trang2",
     url: "/trang2",
+    icon: "fa-solid fa-right-from-bracket",
   },
 ]);
 
@@ -170,6 +150,10 @@ const dataAvatar = ref([
 ]);
 
 const openLeft = ref(false);
+
+function logout() {
+  useAuth.logout();
+}
 
 onBeforeMount(() => {
   useAuth.loadAuthState();

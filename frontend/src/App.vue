@@ -1,18 +1,14 @@
 <script setup>
 import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
-import Vheader from "@/components/layout/vheader.vue";
+import vHeaderVue from "@/components/layout/vHeader.vue";
 import vAlertVue from "@/components/vAlert.vue";
 
 const route = useRoute();
 </script>
 
 <template>
-  <!-- <div
-    class="min-h-screen text-black bg-cover bg-fixed"
-    style="background-image: url(../public/imgs/bg.jpg)"
-  > -->
-  <div class="bg-slate-100 dark:bg-gray-500 text-black min-h-screen">
-    <Vheader class="" />
+  <div class="min-h-screen">
+    <vHeaderVue />
     <vAlertVue />
 
     <router-view :key="route.path" v-slot="{ Component }">

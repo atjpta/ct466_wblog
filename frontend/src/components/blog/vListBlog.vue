@@ -1,9 +1,25 @@
 <template>
   <div>
     <div class="flex space-x-5 justify-center">
+      <!-- The button to open modal -->
+
+      <!-- Put this part before </body> tag -->
+      <div class="modal" id="delete">
+        <div class="modal-box">
+          <h3 class="py-4 font-bold text-lg text-center">bạn có chắc muốn xóa?</h3>
+          <div class="flex justify-evenly">
+            <div class="modal-action">
+              <button class="btn w-20 btn-outline btn-error">có</button>
+            </div>
+            <a href="#" class="modal-action">
+              <button class="btn w-20 btn-outline btn-info">không</button>
+            </a>
+          </div>
+        </div>
+      </div>
       <div
         v-if="isOpen"
-        class="top-1/3 z-50 fixed rounded-2xl h-1/4 shadow-lg shadow-blue-500"
+        class="top-1/3 z-50 fixed rounded-2xl h-1/4 shadow-lg shadow-blue-500 bg-base-300"
       >
         <div>
           <div class="text-center text-2xl p-12">Bạn có chắc chắn muốn xóa?</div>
@@ -11,7 +27,7 @@
             <div class="">
               <button
                 @click="deleteBlog"
-                class="p-5 w-40 cursor-pointer bg-violet-500/20 rounded-2xl uppercase font-semibold text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
+                class="p-5 w-40 cursor-pointer rounded-2xl uppercase font-semibold text-center truncate hover:text-violet-700 hover:bg-violet-500/30 active:bg-violet-500/50 hover:scale-110 duration-300"
               >
                 Có
               </button>
@@ -19,7 +35,7 @@
             <div class="">
               <button
                 @click="cancel"
-                class="p-5 w-40 cursor-pointer bg-red-500/20 rounded-2xl uppercase font-semibold text-center truncate hover:text-red-700 hover:bg-red-500/30 active:bg-red-500/50 hover:scale-110 duration-300"
+                class="p-5 w-40 cursor-pointer rounded-2xl uppercase font-semibold text-center truncate hover:text-red-700 hover:bg-red-500/30 active:bg-red-500/50 hover:scale-110 duration-300"
               >
                 Không
               </button>
@@ -34,49 +50,56 @@
           v-for="blog in data.arr1"
           :key="blog.id"
         >
-          <div
-            class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-white dark:bg-gray-700 dark:text-white"
-          >
+          <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
             <div class="flex justify-between">
-              <!-- tác giả -->
-              <div class="flex pt-5">
-                <img
-                  class="bg-black h-16 w-16 rounded-full"
-                  :src="blog.author.avatar_Url || emptyImage"
-                  alt=""
-                />
-                <div class="text-2xl p-2 mx-3">
-                  <button
-                    class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50"
-                  >
-                    <router-link :to="`/user/${blog.author._id}`">
-                      {{ blog.author.name }}
-                    </router-link>
-                  </button>
-                  <div class="text-sm">
-                    <i>{{ blog.createdAt }}</i>
+              <router-link
+                class="hover:text-sky-500 hover:scale-110 duration-500"
+                :to="`/user/${blog.author._id}`"
+              >
+                <!-- tác giả -->
+                <div class="flex pt-5">
+                  <img
+                    class="bg-black h-16 w-16 rounded-full"
+                    :src="blog.author.avatar_Url || emptyImage"
+                    alt=""
+                  />
+                  <div class="text-2xl p-2 mx-3">
+                    {{ blog.author.name }}
+                    <div class="text-sm">
+                      <i>{{ blog.createdAt }}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </router-link>
+
+              <!-- edit cho tác giả -->
               <div v-if="useAuth.user.id == blog.author._id" class="pt-5">
-                <div
-                  class="bg-white dark:bg-gray-700 dark:text-white static border-2 rounded-2xl flex"
-                >
+                <div class="bg-base-300 space-x-2 static flex">
                   <router-link :to="`/editblog/${blog.id}`">
-                    <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                    >
+                    <div href="#delete" class="btn btn-outline btn-info">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                   </router-link>
-                  <div class="border-r-2"></div>
-                  <div
-                    @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
+                  <a href="#delete" class="btn btn-outline btn-error"
+                    ><i class="fa-solid fa-trash-can"></i
+                  ></a>
                 </div>
+              </div>
+              <!-- phần tùy chọn cho người đọc -->
+              <div
+                v-if="useAuth.user.id != blog.author._id"
+                class="dropdown dropdown-left"
+              >
+                <label tabindex="0" class="btn btn-outline btn-info mt-5">
+                  <i class="fa-solid fa-ellipsis-vertical"> </i>
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li><a>Item 1</a></li>
+                  <li><a>Item 2</a></li>
+                </ul>
               </div>
             </div>
 
@@ -104,7 +127,7 @@
                 <div>
                   <button
                     @click="search(Hashtag.id || Hashtag._id)"
-                    class="active:bg-violet-700/30 link text-xl text-center hover: hover:scale-125 duration-300"
+                    class="badge badge-outline hover: hover:scale-125 duration-300"
                   >
                     <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
                   </button>
@@ -138,49 +161,56 @@
           v-for="blog in data.arr2"
           :key="blog.id"
         >
-          <div
-            class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-white dark:bg-gray-700 dark:text-white"
-          >
+          <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
             <div class="flex justify-between">
-              <!-- tác giả -->
-              <div class="flex pt-5">
-                <img
-                  class="bg-black h-16 w-16 rounded-full"
-                  :src="blog.author.avatar_Url || emptyImage"
-                  alt=""
-                />
-                <div class="text-2xl p-2 mx-3">
-                  <button
-                    class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50"
-                  >
-                    <router-link :to="`/user/${blog.author._id}`">
-                      {{ blog.author.name }}
-                    </router-link>
-                  </button>
-                  <div class="text-sm">
-                    <i>{{ blog.createdAt }}</i>
+              <router-link
+                class="hover:text-sky-500 hover:scale-110 duration-500"
+                :to="`/user/${blog.author._id}`"
+              >
+                <!-- tác giả -->
+                <div class="flex pt-5">
+                  <img
+                    class="bg-black h-16 w-16 rounded-full"
+                    :src="blog.author.avatar_Url || emptyImage"
+                    alt=""
+                  />
+                  <div class="text-2xl p-2 mx-3">
+                    {{ blog.author.name }}
+                    <div class="text-sm">
+                      <i>{{ blog.createdAt }}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </router-link>
+
+              <!-- edit cho tác giả -->
               <div v-if="useAuth.user.id == blog.author._id" class="pt-5">
-                <div
-                  class="bg-white dark:bg-gray-700 dark:text-white static border-2 rounded-2xl flex"
-                >
+                <div class="bg-base-300 space-x-2 static flex">
                   <router-link :to="`/editblog/${blog.id}`">
-                    <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                    >
+                    <div href="#delete" class="btn btn-outline btn-info">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                   </router-link>
-                  <div class="border-r-2"></div>
-                  <div
-                    @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
+                  <a href="#delete" class="btn btn-outline btn-error"
+                    ><i class="fa-solid fa-trash-can"></i
+                  ></a>
                 </div>
+              </div>
+              <!-- phần tùy chọn cho người đọc -->
+              <div
+                v-if="useAuth.user.id != blog.author._id"
+                class="dropdown dropdown-left"
+              >
+                <label tabindex="0" class="btn btn-outline btn-info mt-5">
+                  <i class="fa-solid fa-ellipsis-vertical"> </i>
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li><a>Item 1</a></li>
+                  <li><a>Item 2</a></li>
+                </ul>
               </div>
             </div>
 
@@ -208,7 +238,7 @@
                 <div>
                   <button
                     @click="search(Hashtag.id || Hashtag._id)"
-                    class="active:bg-violet-700/30 link text-xl text-center hover: hover:scale-125 duration-300"
+                    class="badge badge-outline hover: hover:scale-125 duration-300"
                   >
                     <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
                   </button>
@@ -243,49 +273,56 @@
           v-for="blog in data.arr3"
           :key="blog.id"
         >
-          <div
-            class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-white dark:bg-gray-700 dark:text-white"
-          >
+          <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
             <div class="flex justify-between">
-              <!-- tác giả -->
-              <div class="flex pt-5">
-                <img
-                  class="bg-black h-16 w-16 rounded-full"
-                  :src="blog.author.avatar_Url || emptyImage"
-                  alt=""
-                />
-                <div class="text-2xl p-2 mx-3">
-                  <button
-                    class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50"
-                  >
-                    <router-link :to="`/user/${blog.author._id}`">
-                      {{ blog.author.name }}
-                    </router-link>
-                  </button>
-                  <div class="text-sm">
-                    <i>{{ blog.createdAt }}</i>
+              <router-link
+                class="hover:text-sky-500 hover:scale-110 duration-500"
+                :to="`/user/${blog.author._id}`"
+              >
+                <!-- tác giả -->
+                <div class="flex pt-5">
+                  <img
+                    class="bg-black h-16 w-16 rounded-full"
+                    :src="blog.author.avatar_Url || emptyImage"
+                    alt=""
+                  />
+                  <div class="text-2xl p-2 mx-3">
+                    {{ blog.author.name }}
+                    <div class="text-sm">
+                      <i>{{ blog.createdAt }}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </router-link>
+
+              <!-- edit cho tác giả -->
               <div v-if="useAuth.user.id == blog.author._id" class="pt-5">
-                <div
-                  class="bg-white dark:bg-gray-700 dark:text-white static border-2 rounded-2xl flex"
-                >
+                <div class="bg-base-300 space-x-2 static flex">
                   <router-link :to="`/editblog/${blog.id}`">
-                    <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                    >
+                    <div href="#delete" class="btn btn-outline btn-info">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                   </router-link>
-                  <div class="border-r-2"></div>
-                  <div
-                    @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
+                  <a href="#delete" class="btn btn-outline btn-error"
+                    ><i class="fa-solid fa-trash-can"></i
+                  ></a>
                 </div>
+              </div>
+              <!-- phần tùy chọn cho người đọc -->
+              <div
+                v-if="useAuth.user.id != blog.author._id"
+                class="dropdown dropdown-left"
+              >
+                <label tabindex="0" class="btn btn-outline btn-info mt-5">
+                  <i class="fa-solid fa-ellipsis-vertical"> </i>
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li><a>Item 1</a></li>
+                  <li><a>Item 2</a></li>
+                </ul>
               </div>
             </div>
 
@@ -313,7 +350,7 @@
                 <div>
                   <button
                     @click="search(Hashtag.id || Hashtag._id)"
-                    class="active:bg-violet-700/30 link text-xl text-center hover: hover:scale-125 duration-300"
+                    class="badge badge-outline hover: hover:scale-125 duration-300"
                   >
                     <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
                   </button>
@@ -347,49 +384,56 @@
           v-for="blog in data.ListBlog"
           :key="blog.id"
         >
-          <div
-            class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-white dark:bg-gray-700 dark:text-white"
-          >
+          <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
             <div class="flex justify-between">
-              <!-- tác giả -->
-              <div class="flex pt-5">
-                <img
-                  class="bg-black h-16 w-16 rounded-full"
-                  :src="blog.author.avatar_Url || emptyImage"
-                  alt=""
-                />
-                <div class="text-2xl p-2 mx-3">
-                  <button
-                    class="hover:scale-110 hover:text-sky-800 active:text-sky-800/50"
-                  >
-                    <router-link :to="`/user/${blog.author._id}`">
-                      {{ blog.author.name }}
-                    </router-link>
-                  </button>
-                  <div class="text-sm">
-                    <i>{{ blog.createdAt }}</i>
+              <router-link
+                class="hover:text-sky-500 hover:scale-110 duration-500"
+                :to="`/user/${blog.author._id}`"
+              >
+                <!-- tác giả -->
+                <div class="flex pt-5">
+                  <img
+                    class="bg-black h-16 w-16 rounded-full"
+                    :src="blog.author.avatar_Url || emptyImage"
+                    alt=""
+                  />
+                  <div class="text-2xl p-2 mx-3">
+                    {{ blog.author.name }}
+                    <div class="text-sm">
+                      <i>{{ blog.createdAt }}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </router-link>
+
+              <!-- edit cho tác giả -->
               <div v-if="useAuth.user.id == blog.author._id" class="pt-5">
-                <div
-                  class="bg-white dark:bg-gray-700 dark:text-white static border-2 rounded-2xl flex"
-                >
+                <div class="bg-base-300 space-x-2 static flex">
                   <router-link :to="`/editblog/${blog.id}`">
-                    <div
-                      class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                    >
+                    <div href="#delete" class="btn btn-outline btn-info">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                   </router-link>
-                  <div class="border-r-2"></div>
-                  <div
-                    @click="isOpen = blog.id"
-                    class="cursor-pointer mx-auto active:bg-teal-500/50 hover:bg-teal-500/20 truncate p-3 rounded-2xl hover:scale-125 duration-300"
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </div>
+                  <a href="#delete" class="btn btn-outline btn-error"
+                    ><i class="fa-solid fa-trash-can"></i
+                  ></a>
                 </div>
+              </div>
+              <!-- phần tùy chọn cho người đọc -->
+              <div
+                v-if="useAuth.user.id != blog.author._id"
+                class="dropdown dropdown-left"
+              >
+                <label tabindex="0" class="btn btn-outline btn-info mt-5">
+                  <i class="fa-solid fa-ellipsis-vertical"> </i>
+                </label>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li><a>Item 1</a></li>
+                  <li><a>Item 2</a></li>
+                </ul>
               </div>
             </div>
 
@@ -417,7 +461,7 @@
                 <div>
                   <button
                     @click="search(Hashtag.id || Hashtag._id)"
-                    class="active:bg-violet-700/30 link text-xl text-center hover: hover:scale-125 duration-300"
+                    class="badge badge-outline hover: hover:scale-125 duration-300"
                   >
                     <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
                   </button>
@@ -447,28 +491,23 @@
     </div>
     <!-- nút xem thêm -->
     <div>
-      <div class="w-[200px] mx-auto m-2">
+      <div class="flex justify-center">
         <div
           v-show="!loading && endList == 9"
           @click="NextPage()"
-          class="hover:scale-125 bg-white dark:bg-gray-700 dark:text-white/50 duration-300 cursor-pointer mx-auto w-[150px] active:bg-violet-500/50 text-center hover:bg-white truncate shadow-violet-500 shadow-md p-3 rounded-2xl hover:text-violet-800"
+          class="btn btn-outline btn-info"
         >
           Xem thêm
         </div>
         <div v-show="loading && endList == 9" class="flex justify-center">
-          <div
-            class="bg-white dark:bg-gray-700 dark:text-white/50 cursor-wait mx-auto w-[150px] active:bg-violet-500/50 text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
-          >
-            <i class="fa-solid fa-spinner animate-spin px-4"></i>
-            Xem thêm
-          </div>
+          <div class="btn loading btn-outline btn-inf">Xem thêm</div>
         </div>
-        <div
-          v-show="endList < 9"
-          class="bg-white dark:bg-gray-700 dark:text-white/50 duration-300 mx-auto w-[150px] text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
-        >
-          ~~~ Hết ~~~
-        </div>
+      </div>
+      <div
+        v-show="endList < 9 || !endList"
+        class="bg-base-300/50 duration-300 mx-auto w-[150px] text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
+      >
+        ~~~ Hết ~~~
       </div>
     </div>
   </div>
@@ -497,7 +536,7 @@ const useHashtag = hashtagStore();
 const page = ref(0);
 const loading = ref(false);
 const endList = ref(9);
-
+const openOptionBlog = ref();
 async function addFollow(follow) {
   try {
     loading.value = true;

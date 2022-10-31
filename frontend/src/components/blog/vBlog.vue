@@ -1,9 +1,7 @@
 <template>
   <div>
     <!-- thanh bên trái -->
-    <div
-      class="bg-white dark:text-white dark:bg-gray-700 fixed left-64 top-1/3 border-2 p-2 rounded-2xl z-50"
-    >
+    <div class="fixed left-64 top-1/3 border-2 p-2 rounded-2xl z-50">
       <router-link :to="`/user/${useBlog.blog.author.id}`">
         <div>
           <img
@@ -99,7 +97,7 @@
         <div>
           <button
             @click="search(Hashtag.id || Hashtag._id)"
-            class="active:bg-violet-700/30 link text-xl text-center hover:text-blue-900 hover:scale-125 duration-300"
+            class="badge badge-outline hover: hover:scale-125 duration-300"
           >
             <i class="m-1 text-xl">#{{ Hashtag.name }}</i>
           </button>

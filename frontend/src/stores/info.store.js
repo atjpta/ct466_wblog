@@ -40,6 +40,7 @@ export const infoStore = defineStore("infoStore", {
 		async getAllUsers() {
 			try {
 				this.alluser = await usersService.getAllUser();
+				this.alluser = this.alluser.filter((user) => user.id != authStore().user.id);
 			} catch (error) {
 				console.log("lỗi getAllUsers");
 				console.log(error);

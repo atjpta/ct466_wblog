@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 dark:text-white">
+  <div class="">
     <div class="">
       <p class="text-4xl pt-10 pb-5">Nhập bình luận của bạn:</p>
       <div class="">
@@ -130,7 +130,7 @@ async function sendCmt() {
     content: content.value,
     listTagName: list,
   };
-  if (data.content || data.listTagName) {
+  if (!(typeof data.content == "undefined") || data.listTagName.length > 0) {
     await useBlog.createComment(data);
     useBlog.findOneBlog(data.id_blog);
     content.value.ops = [];

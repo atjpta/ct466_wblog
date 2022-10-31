@@ -8,30 +8,30 @@
     <div v-for="cmt in listcmt" :key="cmt.id" class="">
       <!-- list cmt cha -->
       <div>
-        <div
-          class="mt-10 w-5/6 mx-auto bg-slate-100 dark:bg-gray-800 rounded-3xl shadow-xl"
-        >
-          <div class="p-5 h-16 flex">
-            <img
-              class="h-16 w-16 rounded-full"
-              :src="cmt.author.avatar_Url || emptyImage"
-              alt=""
-            />
-            <div class="text-3xl mx-3">
-              {{ cmt.author.name }}
-              <div class="text-lg">
-                <i>{{ cmt.createdAt }}</i>
+        <div class="mt-10 w-5/6 mx-auto bg-base-100 rounded-3xl shadow-xl">
+          <router-link
+            class="hover:text-sky-500 hover:scale-110 duration-500"
+            :to="`/user/${cmt.author._id}`"
+          >
+            <!-- tác giả -->
+            <div class="p-5 h-16 flex">
+              <img
+                class="bg-black h-16 w-16 rounded-full"
+                :src="cmt.author.avatar_Url || emptyImage"
+                alt=""
+              />
+              <div class="text-2xl p-2 mx-3">
+                {{ cmt.author.name }}
+                <div class="text-sm">
+                  <i>{{ cmt.createdAt }}</i>
+                </div>
               </div>
             </div>
-          </div>
+          </router-link>
           <!-- các tag name -->
-          <div class="flex justify-start mt-7 mx-7">
-            <div
-              v-for="user in cmt.listTagName"
-              :key="user.id"
-              class="border-2 w-fit p-2 rounded-md"
-            >
-              <div class="hover:scale-125 duration-300 hover:bg-violet-500">
+          <div class="flex justify-start mt-7 mx-5">
+            <div v-for="user in cmt.listTagName" :key="user.id" class="text-sky-500">
+              <div class="mx-5 hover:scale-125 duration-300">
                 <router-link :to="`/user/${user._id}`" class="">
                   {{ user.name }}
                 </router-link>
@@ -87,29 +87,35 @@
         </div>
         <!-- list cmt con -->
         <div v-for="child in cmt.cmt_child" :key="child.id" class="w-5/6 mx-auto">
-          <div class="ml-10 my-3 rounded-3xl shadow-xl bg-slate-100 dark:bg-gray-800">
+          <div class="ml-10 my-3 rounded-3xl shadow-xl bg-base-100">
             <div>
-              <div class="p-5 h-16 flex">
-                <img
-                  class="h-16 w-16 rounded-full"
-                  :src="child.author.avatar_Url || emptyImage"
-                  alt=""
-                />
-                <div class="text-3xl mx-3">
-                  {{ child.author.name }}
-                  <div class="text-lg">
-                    <i>{{ child.createdAt }}</i>
+              <router-link
+                class="hover:text-sky-500 hover:scale-110 duration-500"
+                :to="`/user/${cmt.author._id}`"
+              >
+                <!-- tác giả -->
+                <div class="p-5 h-16 flex">
+                  <img
+                    class="bg-black h-16 w-16 rounded-full"
+                    :src="cmt.author.avatar_Url || emptyImage"
+                    alt=""
+                  />
+                  <div class="text-2xl p-2 mx-3">
+                    {{ cmt.author.name }}
+                    <div class="text-sm">
+                      <i>{{ cmt.createdAt }}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </router-link>
               <!-- các tag name -->
-              <div class="flex justify-start mt-7 mx-7">
+              <div class="flex justify-start mt-7 mx-5">
                 <div
                   v-for="user in child.listTagName"
                   :key="user.id"
-                  class="border-2 w-fit p-2 rounded-md"
+                  class="text-sky-500"
                 >
-                  <div class="hover:scale-125 duration-300 hover:bg-violet-500">
+                  <div class="mx-5 hover:scale-125 duration-300">
                     <router-link :to="`/user/${user._id}`" class="">
                       {{ user.name }}
                     </router-link>
@@ -117,7 +123,7 @@
                 </div>
               </div>
               <!-- noi dung cmt -->
-              <div class="m-5">
+              <div class="mx-5">
                 <QuillEditor
                   :content="child.content"
                   ref="quill"

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div
-      class="bg-white dark:bg-gray-900 dark:text-white rounded-2xl lg:w-3/5 mt-10 pb-10 mx-auto"
-    >
+    <div class="bg-base-300 rounded-2xl lg:w-3/5 mt-10 pb-10 mx-auto">
       <div>
         <vBlogVue />
         <vCmtVue />
