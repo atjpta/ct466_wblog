@@ -44,9 +44,6 @@
             <p class="text-blue-600 text-3xl font-bold">
               {{ useInfo.info_user.name }}
             </p>
-            <i class="text-gray-600">{{
-              useInfo.info_user.date || "chưa thêm ngày sinh"
-            }}</i>
           </div>
 
           <div class="mt-10 bg-cover">

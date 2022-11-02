@@ -120,9 +120,9 @@ const dataMidNav = ref([
     icon: "fa-solid fa-magnifying-glass",
   },
   {
-    name: "trang2",
-    url: "/trang2",
-    icon: "fa-solid fa-right-from-bracket",
+    name: "Hỏi Đáp",
+    url: "/readquestion",
+    icon: "fa-solid fa-comment-dots",
   },
 ]);
 
@@ -131,6 +131,11 @@ const dataAvatar = ref([
     name: "Tạo bài viết",
     url: "/addblog",
     icon: "fa-solid fa-file-circle-plus",
+  },
+  {
+    name: "Tạo câu hỏi",
+    url: "/addquestion",
+    icon: "fa-solid fa-file-circle-question",
   },
   {
     name: "Trang cá nhân",

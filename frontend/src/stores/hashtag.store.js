@@ -52,6 +52,26 @@ export const hashtagStore = defineStore("hashtagStore", {
 			}
 		},
 
+		async createHashtagQuestion(id_question) {
+			this.listCreateHashtag = [];
+			try {
+				this.newHashtag.forEach(async (e) => {
+					this.listCreateHashtag.push(e)
+				})
+				this.selectedHashtag.forEach(e => {
+					this.listCreateHashtag.push(e)
+				})
+				const id = await hashtagService.createHashtagQuestion({
+					id_question: id_question,
+					list: this.listCreateHashtag,
+				})
+				return id;
+
+			} catch (error) {
+				console.log(error + 'lỗi createHashtag');
+			}
+		},
+
 		async deleteAllHashtag() {
 			try {
 				await hashtagService.deleteAllHashtag();

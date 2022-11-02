@@ -10,6 +10,9 @@ class HashtagService {
     async createHashtag(data) {
         return (await this.api.post("/", data)).data;
     }
+    async createHashtagQuestion(data) {
+        return (await this.api.post("/question", data)).data;
+    }
     async deleteAllHashtag() {
         return (await this.api.delete("/")).data
     }

@@ -18,6 +18,9 @@ module.exports = (app) => {
 
     router.route("/remove/:id")
         .put(hashtag.removeBlogToHashtag)
+    
+    router.route("/question")
+        .post([withoutDulicate.checkDuplicateHashtag], hashtag.createHashtagQuestion)
 
     app.use("/api/hashtag", router); 
 };

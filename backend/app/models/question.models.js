@@ -6,11 +6,12 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         },
+        answer: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "comment"
+        },
         title: String,
         content: Object,
-        cover_image_Url: {
-            type: String,
-        },
         voted: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "vote"
@@ -21,11 +22,6 @@ const schema = mongoose.Schema(
                 ref: "hashtag"
             }
         ],
-        premium: Boolean,
-        deleted: {
-            type: Boolean,
-            default: false,
-        },
     },
 
     {
@@ -39,4 +35,4 @@ schema.method('toJSON', function () {
     return object;
 });
 
-module.exports = mongoose.model("blog", schema);
+module.exports = mongoose.model("question", schema);

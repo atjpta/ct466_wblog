@@ -8,7 +8,7 @@ const hashtag = require('./hashtag.routes');
 const search = require('./search.routes');
 const gem = require('./gem.routes')
 const premium = require('./premium.routes')
-
+const question = require('./question.routes')
 module.exports = {
     auth,
     users,
@@ -20,4 +20,5 @@ module.exports = {
     search,
     gem,
     premium,
+    question,
 }

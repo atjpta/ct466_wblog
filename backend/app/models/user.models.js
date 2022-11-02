@@ -15,15 +15,10 @@ const schema = mongoose.Schema(
             trim: true,
             lowercas: true,
         },
-        gem: {
-            type: Intl,
-            default: 0,
-        },
+        
         password: String,
         name: String,
         introduce: String,
-        date: String,
-        premium: Date,
         // user follow ...
         follow: [{
             type: mongoose.Schema.Types.ObjectId,

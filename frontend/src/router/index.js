@@ -99,6 +99,27 @@ const routes = [
     component: () => import('@/views/blog/AddBlogView.vue'),
   },
 
+  {
+    path: '/addquestion',
+    name: 'addquestion',
+    component: () => import('@/views/question/AddQuestionView.vue'),
+  },
+  {
+    path: '/editquestion/:id',
+    name: 'editquestion',
+    component: () => import('@/views/question/EditQuestionView.vue'),
+  },
+  {
+    path: '/readquestion/:id',
+    name: 'readquestion',
+    component: () => import('@/views/question/ReadQuestionView.vue'),
+  },
+  {
+    path: '/homequestion',
+    name: 'homequestion',
+    component: () => import('@/views/question/HomeQuestionView.vue'),
+  },
+
 
   {
     path: '/user/:id',

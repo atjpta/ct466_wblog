@@ -8,7 +8,7 @@ const gem = require('./pgem.models')
 const premium = require('./ppremium.models')
 const billgem = require('./billgem.models')
 const billpremium = require('./billpremium.models')
-
+const question = require('./question.models')
 module.exports = {
     user,
     role,
@@ -20,4 +20,5 @@ module.exports = {
     premium,
     billgem,
     billpremium,
+    question,
 }

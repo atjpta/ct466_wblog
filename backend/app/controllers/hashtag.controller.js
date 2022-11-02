@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const db = require("../models");
 const Blog = db.blog;
 const Hashtag = db.hashtag;
+const Question = db.question
 //lấy ds hashtag
 exports.getListHashtag = async (req, res) => {
     try {
@@ -59,13 +60,12 @@ checkDuplicateHashtag = async (name) => {
 
 };
 
-//tạo Hashtag
+//tạo Hashtag cho blog
 exports.createHashtag = async (req, res) => {
     const list = req.body.list;
     const id_blog = req.body.id_blog
     try {
         await list.forEach(async (e, i) => {
-            // console.log('là lần ' + i);
             let check = await checkDuplicateHashtag(e.name)
             if (!e.id && check == 0) {
                 let hashtag = new Hashtag({
@@ -75,7 +75,6 @@ exports.createHashtag = async (req, res) => {
                 try {
                     const document = await hashtag.save();
                     e.id = document.id;
-                    // console.log(document + "1");
                 }
                 catch (error) {
                     return res.status(500).send({ Message: "Không thể tạo Hashtag - " + error.message })
@@ -92,9 +91,6 @@ exports.createHashtag = async (req, res) => {
                 }, {
                     new: true
                 });
-                // console.log(document2 + "2");
-                // console.log(document3 + "3");
-
             }
             catch (error) {
                 console.log(error);
@@ -105,6 +101,56 @@ exports.createHashtag = async (req, res) => {
 
         });
         return res.send(id_blog);
+
+    } catch (error) {
+        console.log("lỗi " + error);
+    }
+
+}
+
+
+//tạo Hashtag cho Question
+exports.createHashtagQuestion = async (req, res, next) => {
+    const list = req.body.list;
+    const id_question = req.body.id_question
+    console.log(id_question);
+    try {
+        await list.forEach(async (e, i) => {
+            let check = await checkDuplicateHashtag(e.name)
+            if (!e.id && check == 0) {
+                let hashtag = new Hashtag({
+                    name: e.name,
+                })
+
+                try {
+                    const document = await hashtag.save();
+                    e.id = document.id;
+                }
+                catch (error) {
+                    return res.status(500).send({ Message: "Không thể tạo Hashtag - " + error.message })
+                }
+            } else e.id = check;
+            try {
+                const document2 = await Hashtag.findByIdAndUpdate({ _id: e.id }, {
+                    $addToSet: { question: id_question }
+                }, {
+                    new: true
+                });
+                const document3 = await Question.findByIdAndUpdate({ _id: id_question }, {
+                    $addToSet: { hashtag: e.id }
+                }, {
+                    new: true
+                });
+            }
+            catch (error) {
+                console.log(error);
+                return next(
+                    res.status(500).json({ Message: ` không thể update Hashtag với id = ${id_question} ` })
+                )
+            }
+
+        });
+        return res.send(id_question);
 
     } catch (error) {
         console.log("lỗi " + error);

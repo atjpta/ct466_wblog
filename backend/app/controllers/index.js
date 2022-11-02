@@ -7,7 +7,7 @@ const voted = require('./vote.controller')
 const search = require('./search.controller')
 const gem = require('./gem.controller')
 const premium = require('./premium.controller')
-
+const question = require('./question.controller')
 module.exports = {
     auth,
     user,
@@ -18,4 +18,5 @@ module.exports = {
     search,
     gem,
     premium,
+    question,
 }

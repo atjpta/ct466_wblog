@@ -39,12 +39,7 @@
         type="text"
       />
       <div class="">
-        <button
-          @click="addNewHashtag()"
-          class="active:bg-violet-700/30 p-3 px-5 text-2xl text-center shadow-violet-700 shadow-md rounded-full hover:text-blue-900 hover:scale-125 duration-300"
-        >
-          Thêm
-        </button>
+        <button @click="addNewHashtag()" class="btn btn-outline btn-info">Thêm</button>
       </div>
     </div>
     <div class="mt-10 text-4xl">Thêm hashtag đã có</div>

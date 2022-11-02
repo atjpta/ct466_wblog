@@ -36,7 +36,6 @@ const useInfo = infoStore();
 onMounted(() => {});
 onBeforeMount(() => {
   useInfo.getApiInfo();
-  useInfo.getWallet();
 });
 </script>
 <style></style>

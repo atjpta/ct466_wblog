@@ -27,6 +27,7 @@ route.hashtag(app);
 route.search(app);
 route.gem(app);
 route.premium(app)
+route.question(app)
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

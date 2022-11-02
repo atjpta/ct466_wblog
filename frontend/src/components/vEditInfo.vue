@@ -8,15 +8,6 @@
           class="text-blue-600 text-3xl w-11/12 font-bold bg-slate-50/5 border-b-2 border-black"
         />
       </div>
-      <p class="text-4xl mt-5">ngày sinh:</p>
-      <div class="mt-5 w-1/3 lg:w-1/2">
-        <vue-tailwind-datepicker
-          as-single
-          :formatter="formatter"
-          v-model="useInfo.infoEdit.date"
-          :placeholder="useInfo.infoEdit.date || 'chưa thêm ngày sinh'"
-        />
-      </div>
 
       <div class="mt-10">
         <p class="text-3xl">Giới thiệu:</p>
@@ -61,7 +52,6 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import VueTailwindDatepicker from "vue-tailwind-datepicker";
 import { infoStore } from "../stores/info.store";
 import { alertStore } from "@/stores/alert.store";
 
@@ -71,11 +61,6 @@ const router = useRouter();
 const route = useRoute();
 const useInfo = infoStore();
 const useAlertStore = alertStore();
-
-const formatter = ref({
-  date: "DD/MM/YYYY",
-  Month: "MM",
-});
 
 const loading = ref(false);
 

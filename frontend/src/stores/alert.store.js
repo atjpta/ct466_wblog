@@ -36,7 +36,7 @@ export const alertStore = defineStore("alertStore", {
 			setTimeout(() => {
 				this.success.set = false;
 				this.success.message = ''
-			}, 5000);
+			}, 3000);
 		},
 		setWarning(message){
 			this.warning.message = message
@@ -44,7 +44,7 @@ export const alertStore = defineStore("alertStore", {
 			setTimeout(() => {
 				this.warning.set = false;
 				this.warning.message = ''
-			}, 5000);
+			}, 3000);
 
 		},
 		setInfo(message){
@@ -53,7 +53,7 @@ export const alertStore = defineStore("alertStore", {
 			setTimeout(() => {
 				this.info.set = false;
 				this.info.message = ''
-			}, 5000);
+			}, 3000);
 
 		},
 		setError(message){
@@ -62,7 +62,7 @@ export const alertStore = defineStore("alertStore", {
 			setTimeout(() => {
 				this.error.set = false;
 				this.error.message = ''
-			}, 5000);
+			}, 3000);
 
 		},
 	},

@@ -9,6 +9,12 @@ const schema = mongoose.Schema(
               ref: "blog"
             },
         ],
+        question: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "question"
+            },
+        ],
     },
 
     {

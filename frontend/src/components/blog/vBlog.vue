@@ -12,42 +12,63 @@
         </div>
       </router-link>
       <div v-if="useAuth.user.id != useBlog.blog.author.id">
-        <div
-          @click="vote('tim', useBlog.blog.voted, useBlog.blog.voted.id)"
-          class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center mt-5"
-        >
-          <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
-        </div>
-        <div class="text-xl text-center">{{ rateVote }}</div>
-        <div
-          @click="vote('dislike', useBlog.blog.voted, useBlog.blog.voted.id)"
-          class="hover:bg-violet-500/30 active:bg-violet-500/50 cursor-pointer text-center"
-        >
-          <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
-        </div>
+        <!-- voted cua list useBlog.blog -->
+        <div class="mt-7 p-2">
+          <button
+            @click="vote('tim', useBlog.blog.voted, useBlog.blog.voted.id)"
+            class="btn btn-circle btn-outline"
+          >
+            <i
+              :class="[isVote(useBlog.blog.voted.tim) ? 'text-blue-500' : '']"
+              class="text-3xl fa-solid fa-caret-up"
+            ></i>
+          </button>
+          <div class="text-xl text-center">
+            {{ rateVote }}
+          </div>
 
-        <div
-          class="cursor-pointer text-center mt-3 hover:bg-violet-500/30 active:bg-violet-500/50"
-        >
-          <i
-            @click="followBlog"
-            :class="[markBlog > -1 ? 'text-sky-500' : '']"
-            class="p-2 text-2xl fa-solid fa-bookmark"
-          ></i>
+          <button
+            @click="vote('dislike', useBlog.blog.voted, useBlog.blog.voted.id)"
+            class="btn btn-circle btn-outline"
+          >
+            <i
+              :class="[isVote(useBlog.blog.voted.dislike) ? 'text-blue-500' : '']"
+              class="text-3xl fa-solid fa-caret-down"
+            ></i>
+          </button>
+
+          <div
+            class="cursor-pointer text-center mt-3 hover:bg-violet-500/30 active:bg-violet-500/50"
+          >
+            <i
+              @click="followBlog"
+              :class="[markBlog > -1 ? 'text-sky-500' : '']"
+              class="p-2 text-2xl fa-solid fa-bookmark"
+            ></i>
+          </div>
         </div>
       </div>
 
       <div v-if="useAuth.user.id == useBlog.blog.author.id" class="opacity-30">
-        <div class="text-center mt-5">
-          <i class="px-2 text-5xl fa-solid fa-caret-up"></i>
-        </div>
-        <div class="text-xl text-center">{{ rateVote }}</div>
-        <div class="text-center">
-          <i class="px-2 text-5xl fa-solid fa-caret-down"></i>
-        </div>
+        <!-- voted cua blog (cua tac gia) -->
+        <div class="mt-7 p-2 opacity-30">
+          <button class="cursor-pointer hover:bg-transparent btn btn-circle btn-outline">
+            <i
+              class="cursor-pointer hover:bg-transparent text-3xl fa-solid fa-caret-up"
+            ></i>
+          </button>
+          <div class="text-xl text-center">
+            {{ rateVote }}
+          </div>
 
-        <div class="text-center mt-3">
-          <i class="p-2 text-2xl fa-solid fa-bookmark"></i>
+          <button class="cursor-pointer hover:bg-transparent btn btn-circle btn-outline">
+            <i
+              class="cursor-pointer hover:bg-transparent text-3xl fa-solid fa-caret-down"
+            ></i>
+          </button>
+          <div class="text-center mt-3">
+            <i class="p-2 text-2xl fa-solid fa-bookmark"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -147,8 +168,7 @@ import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
 import { useRouter, useRoute } from "vue-router";
-import { ref, onMounted, onBeforeMount, computed } from "vue";
-import blogService from "../../services/blog.service";
+import { ref, onMounted, computed } from "vue";
 import { blogStore } from "../../stores/blog.store";
 import { authStore } from "../../stores/auth.store";
 import { hashtagStore } from "../../stores/hashtag.store";
