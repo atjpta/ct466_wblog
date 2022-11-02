@@ -26,5 +26,9 @@ class HashtagService {
     async removeBlogToHashtag(id, data) {
         return (await this.api.put(`/remove/${id}`, data)).data;
     }
+
+    async removeQuestionToHashtag(id, data) {
+        return (await this.api.put(`/question/remove/${id}`, data)).data;
+    }
 }
 export default new HashtagService();

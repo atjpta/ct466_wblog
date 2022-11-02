@@ -22,7 +22,7 @@ exports.createComment = async (req, res) => {
     }
     const comment = new Comment({
         author: req.body.author,
-        id_blog: req.body.id_blog,
+        id_Question: req.body.id_Question,
         content: req.body.content,
         listTagName: req.body.listTagName,
         
@@ -67,6 +67,35 @@ exports.createCommentChild = async (req, res, next) => {
         const document = await Comment.findByIdAndUpdate({ _id: req.params.id }, { $addToSet: { cmt_child: documentchild.id } }, {
             new: true
         });
+        return res.send(document);
+    }
+    catch (error) {
+        return res.status(500).send({ Message: "Không thể tạo comment - " + error.message })
+    }
+}
+
+
+//tạo comment cho question
+exports.createCommentQuestion = async (req, res) => {
+    if (Object.keys(req.body).length === 0) {
+        return res.status(440).json({ Message: "thông tin không thế thay đổi" })
+
+    }
+    const comment = new Comment({
+        author: req.body.author,
+        id_Question: req.body.id_Question,
+        content: req.body.content,
+        listTagName: req.body.listTagName,
+
+    })
+    const vote = new Voted({
+        tim: [],
+        dislike: [],
+    })
+    try {
+        const documentVote = await vote.save();
+        comment.voted = documentVote.id;
+        const document = await comment.save();
         return res.send(document);
     }
     catch (error) {

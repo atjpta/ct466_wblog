@@ -8,6 +8,9 @@ module.exports = (app) => {
         .post(comment.createComment)
         .delete(comment.deleteAllComment)
     
+    router.route("/question")
+        .post(comment.createCommentQuestion)
+    
     router.route("/:id")
         .put(comment.createCommentChild)
 

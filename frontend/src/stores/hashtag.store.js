@@ -125,7 +125,19 @@ export const hashtagStore = defineStore("hashtagStore", {
 			} catch (error) {
 				console.log(error + 'loi removeBlogToHashtag ');
 			}
+		},
+
+		async removeQuestionToHashtag(blog) {
+			try {
+				this.listRemove.forEach(async e => {
+					await hashtagService.removeQuestionToHashtag(e.id, { question: question })
+				})
+			} catch (error) {
+				console.log(error + 'loi removeQuestionToHashtag ');
+			}
 		}
+
+		
 
 	},
 });

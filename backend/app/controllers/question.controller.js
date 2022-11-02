@@ -36,14 +36,6 @@ exports.findOneQuestion = async (req, res, next) => {
             .populate("author", "name avatar_Url")
             .populate("voted", "tim dislike")
             .populate({
-                path: "answer",
-                select: "content listTagName author voted",
-                populate: {
-                    path: "listTagName author voted",
-                    select: "tim dislike name id avatar_Url",
-                },
-            })
-            .populate({
                 path: "cmt_child",
                 options: { sort: { createdAt: -1 } },
                 populate: {
@@ -57,6 +49,14 @@ exports.findOneQuestion = async (req, res, next) => {
             .populate("hashtag", "name")
             .populate("author", 'name avatar_Url')
             .populate("voted")
+            .populate({
+                path: 'answer',
+                options: { sort: { createdAt: -1 } },
+                populate: {
+                    path: 'author voted listTagName',
+                    select: 'tim dislike name id avatar_Url'
+                }
+            })
             .exec();
         if (!document) {
             return next(
@@ -70,6 +70,7 @@ exports.findOneQuestion = async (req, res, next) => {
                 name: document.author.name,
                 avatar_Url: document.author.avatar_Url,
             },
+            answer: document.answer,
             title: document.title,
             voted: document.voted,
             content: document.content,
@@ -82,7 +83,7 @@ exports.findOneQuestion = async (req, res, next) => {
             res
                 .status(500)
                 .json({
-                    Message: ` không thể tìm thấy Question với id = ${req.params.id} `,
+                    Message: ` không thể tìm thấy Question với id = ${req.params.id} ++++ ${error} `,
                 })
         );
     }

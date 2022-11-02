@@ -1,50 +1,43 @@
 <template>
   <div class="">
-    <div hidden>
-      {{ isreset }}
+    <div>
+      <QuillEditor
+        :on-update:content="gettagname()"
+        v-model:content="data.content"
+        ref="quill"
+        theme="snow"
+        toolbar="full"
+      />
     </div>
-    <div class="">
-      <div class="">
+    <!-- các tag name đã chọn -->
+    <div class="flex justify-start">
+      <div
+        v-for="user in data.tagname"
+        :key="user.id"
+        class="border-2 w-fit p-2 rounded-md"
+      >
         <div>
-          <QuillEditor
-            :on-update:content="gettagname()"
-            v-model:content="data.content"
-            ref="quill"
-            theme="snow"
-            toolbar="full"
-          />
+          {{ user.name }}
+          <i
+            @click="removeUser(user.id)"
+            class="cursor-pointer hover:scale-125 duration-300 fa-solid fa-x"
+          ></i>
         </div>
-        <!-- các tag name đã chọn -->
-        <div class="flex justify-start">
-          <div
-            v-for="user in data.tagname"
-            :key="user.id"
-            class="border-2 w-fit p-2 rounded-md"
-          >
-            <div>
-              {{ user.name }}
-              <i
-                @click="removeUser(user.id)"
-                class="cursor-pointer hover:scale-125 duration-300 fa-solid fa-x"
-              ></i>
-            </div>
-          </div>
-        </div>
-        <!-- listuser -->
-        <div
-          v-for="user in listUser"
-          :key="user.id"
-          class="bg-slate-200 mt-3 dark:text-white dark:bg-gray-800"
-        >
-          <div
-            @click="selectUser(user.id)"
-            class="flex hover:bg-teal-500/50 cursor-pointer p-1"
-          >
-            <img class="rounded-full w-12 h-12" :src="user.avatar_Url" alt="" />
+      </div>
+    </div>
+    <!-- listuser -->
+    <div
+      v-for="user in listUser"
+      :key="user.id"
+      class="bg-slate-200 mt-3 dark:text-white dark:bg-gray-800"
+    >
+      <div
+        @click="selectUser(user.id)"
+        class="flex hover:bg-teal-500/50 cursor-pointer p-1"
+      >
+        <img class="rounded-full w-12 h-12" :src="user.avatar_Url" alt="" />
 
-            <div class="p-3">{{ user.name }}</div>
-          </div>
-        </div>
+        <div class="p-3">{{ user.name }}</div>
       </div>
     </div>
   </div>
@@ -62,7 +55,7 @@ const tagName = ref("");
 
 const props = defineProps({
   data: Object,
-  reset: Boolean,
+  reset: Intl,
 });
 
 const listUser = computed(() => {
@@ -115,11 +108,14 @@ function selectUser(id) {
     }
   });
 }
-const isreset = computed(() => {
-  if (props.reset) {
+const isReset = ref(0);
+onUpdated(() => {
+  if (props.reset > isReset.value) {
+    isReset.value = props.reset;
     quill.value.setContents({ ops: [{ insert: "\n" }] });
   }
 });
+
 onMounted(() => {
   quill.value.setContents({ ops: [{ insert: "\n" }] });
   useInfo.getAllUsers();

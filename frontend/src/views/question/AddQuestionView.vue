@@ -48,7 +48,7 @@ async function createQ() {
   try {
     const id = await useQuestion.createQ(data.value);
     const redirectPath = route.query.redirect || {
-      path: `/readblog/${id}`,
+      path: `/readquestion/${id}`,
     };
     router.push(redirectPath);
   } catch (error) {

@@ -8,6 +8,10 @@ class CommentService {
         return (await this.api.post("/", data)).data;
     }
 
+    async createCommentQuestion(data) {
+        return (await this.api.post("/question", data)).data;
+    }
+
     async createCommentChild(data, id) {
         return (await this.api.put(`/${id}`, data)).data;
     }

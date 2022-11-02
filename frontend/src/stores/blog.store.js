@@ -25,7 +25,21 @@ export const blogStore = defineStore("blogStore", {
 					view: [],
 				},
 				content: {},
-				comment_Blog: {},
+				comment_Blog: [
+					{
+						content: {
+							ops: [{
+								insert: {}
+							}],
+						},
+						author: {},
+						voted: {
+							tim: [],
+							dislike: [],
+							view: [],
+						},
+					}
+				],
 				hashtag: [],
 
 			},
@@ -79,12 +93,10 @@ export const blogStore = defineStore("blogStore", {
 
 		async createComment(data) {
 			const document = await commentBlogService.create(data);
-			console.log(document);
 		},
 
 		async createCommentChild(data, id) {
 			const document = await commentBlogService.createCommentChild(data, id);
-			console.log(document);
 		},
 
 		async updatePushVote(type, id_list) {
