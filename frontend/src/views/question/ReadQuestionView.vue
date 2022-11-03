@@ -2,7 +2,35 @@
   <div>
     <div class="bg-base-300 rounded-2xl lg:w-3/5 mt-10 pb-10 mx-auto">
       <div>
+        <!-- câu hỏi -->
         <vQuestionVue />
+        <!-- câu trả lời -->
+        <div class="w-4/5 mx-auto">
+          <div class="text-4xl my-5">Câu trả lời</div>
+          <div v-if="useQuestion.question.answer">
+            <vCmtQuestion
+              @selectAnswer="removeAnswer"
+              type="answer"
+              :data="useQuestion.question.answer"
+              :answer="useQuestion.question.answer ? true : false"
+            />
+          </div>
+          <div v-else class="my-5">chưa có đáp án cho câu hỏi này</div>
+        </div>
+
+        <!-- vote của question-->
+        <div class="lg:text-2xl text-base flex justify-evenly border-b-4 border-black">
+          <div class="p-3 flex items-center justify-center">
+            <i class="fa-solid fa-comments pt-1"></i>
+            <p class="mx-2">{{ useQuestion.question.comment_Question.length || 0 }}</p>
+          </div>
+          <div class="p-3 flex items-center justify-center">
+            <i class="fa-solid fa-eye pt-1"></i>
+            <div class="mx-2">
+              {{ useQuestion.question.voted.view.length || 0 }}
+            </div>
+          </div>
+        </div>
         <!-- danh sách cmt -->
         <div class="w-4/5 mx-auto">
           <!-- input cmt của bài question -->
@@ -22,7 +50,12 @@
           </div>
           <!-- cmt question -->
           <div :key="cmt.id" v-for="cmt in useQuestion.question.comment_Question">
-            <vCommentVue @rep="openInput" :data="cmt" />
+            <vCmtQuestion
+              @selectAnswer="selectAnswer"
+              @rep="openInput"
+              :data="cmt"
+              :answer="useQuestion.question.answer ? true : false"
+            />
             <!-- input rep -->
             <div class="ml-16" v-if="isOpenInput == cmt.id">
               <vInputCmtVue :reset="resetInput" :data="dataInput" />
@@ -43,7 +76,12 @@
             </div>
             <!-- list cmt child -->
             <div class="ml-16" :key="child.id" v-for="child in cmt.cmt_child">
-              <vCommentVue :child="true" @rep="openInput" :data="child" />
+              <vCmtQuestion
+                @selectAnswer="selectAnswer"
+                type="child"
+                :data="child"
+                :answer="useQuestion.question.answer ? true : false"
+              />
             </div>
           </div>
         </div>
@@ -54,12 +92,16 @@
 
 <script setup>
 import vQuestionVue from "../../components/question/vQuestion.vue";
-import vCommentVue from "../../components/Comment/vComment.vue";
+import vCmtQuestion from "../../components/question/vCmtQuestion.vue";
 import vInputCmtVue from "../../components/Comment/vInputCmt.vue";
 import { ref } from "vue";
 import { infoStore } from "../../stores/info.store";
 import { alertStore } from "../../stores/alert.store";
 import { questStore } from "../../stores/question.store";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
 const useQuestion = questStore();
 const useInfo = infoStore();
 const useAlert = alertStore();
@@ -73,6 +115,42 @@ const isOpenInput = ref("");
 
 const loading = ref(false);
 const loadingChild = ref(false);
+
+async function selectAnswer(answer, author) {
+  const id = useQuestion.question.id;
+  const data = {
+    answer: answer,
+    author: author,
+  };
+  try {
+    await useQuestion.selectAnswer(id, data);
+    await useQuestion.findOneQuestion(route.params.id);
+    useAlert.setSuccess("đã chọn câu trả lời");
+  } catch (error) {
+    console.log("lỗi selectAnswer");
+    console.log(error);
+    useAlert.setError("có lỗi khi chọn câu trả lời");
+  }
+}
+
+async function removeAnswer(answer, author) {
+  const id = useQuestion.question.id;
+  const data = {
+    answer: answer,
+    author: author,
+  };
+  console.log(id);
+  console.log(data);
+  try {
+    await useQuestion.removeAnswer(id, data);
+    await useQuestion.findOneQuestion(route.params.id);
+    useAlert.setSuccess("đã xóa câu trả lời");
+  } catch (error) {
+    console.log("lỗi selectAnswer");
+    console.log(error);
+    useAlert.setError("có lỗi khi chọn câu trả lời");
+  }
+}
 
 function openInput(id) {
   if (isOpenInput.value == id) {

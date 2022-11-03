@@ -33,6 +33,10 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "blog"
         }],
+        repAnswer: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "question"
+        }],
         roles: [
             {
               type: mongoose.Schema.Types.ObjectId,

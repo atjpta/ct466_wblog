@@ -93,6 +93,12 @@ export const questStore = defineStore("questStore", {
             }
         },
 
+        async selectAnswer(id, data) {
+            await questionService.selectAnswer(id, data);
+        },
+        async removeAnswer(id, data) {
+            await questionService.removeAnswer(id, data);
+        }
 
     },
 });

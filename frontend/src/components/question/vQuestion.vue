@@ -64,20 +64,6 @@
         </div>
       </div>
     </div>
-
-    <!-- vote -->
-    <div class="lg:text-2xl text-base flex justify-evenly border-b-4 border-black">
-      <div class="p-3 flex items-center justify-center">
-        <i class="fa-solid fa-comments pt-1"></i>
-        <p class="mx-2">{{ useQuestion.question.comment_Question.length || 0 }}</p>
-      </div>
-      <div class="p-3 flex items-center justify-center">
-        <i class="fa-solid fa-eye pt-1"></i>
-        <div class="mx-2">
-          {{ useQuestion.question.voted.view.length || 0 }}
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

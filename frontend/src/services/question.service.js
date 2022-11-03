@@ -20,6 +20,16 @@ class QuestionService {
         return (await this.api.put(`/${id}`, data)).data;
     }
 
+    async selectAnswer(id, data) {
+        return (await this.api.put(`/addanswer/${id}`, data)).data;
+    }
+
+    async removeAnswer(id, data) {
+        return (await this.api.put(`/removeanswer/${id}`, data)).data;
+    }
+
+
+
 }
 export default new QuestionService();
 

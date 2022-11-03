@@ -12,6 +12,12 @@ module.exports = (app) => {
         .get(question.findOneQuestion)
         .put(question.updateQuestion)
         .delete(question.deleteQuestion)
+    
+    router.route("/addanswer/:id")
+        .put(question.selectAnswer)
+    
+    router.route("/removeanswer/:id")
+        .put(question.removeAnswer)
 
     app.use("/api/question", router);
 };

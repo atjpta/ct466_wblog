@@ -9,7 +9,9 @@
           <h3 class="py-4 font-bold text-lg text-center">bạn có chắc muốn xóa?</h3>
           <div class="flex justify-evenly">
             <div class="modal-action">
-              <button class="btn w-20 btn-outline btn-error">có</button>
+              <button @click="deleteBlog()" class="btn w-20 btn-outline btn-error">
+                có
+              </button>
             </div>
             <a href="#" class="modal-action">
               <button class="btn w-20 btn-outline btn-info">không</button>
@@ -605,6 +607,7 @@ async function deleteBlog() {
   await useBlog.deleteBlog(isOpen.value);
   await useBlog.getListBlog();
   isOpen.value = "";
+  router.back();
 }
 
 function cancel() {

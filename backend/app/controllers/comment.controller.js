@@ -22,7 +22,7 @@ exports.createComment = async (req, res) => {
     }
     const comment = new Comment({
         author: req.body.author,
-        id_Question: req.body.id_Question,
+        id_blog: req.body.id_blog,
         content: req.body.content,
         listTagName: req.body.listTagName,
         
