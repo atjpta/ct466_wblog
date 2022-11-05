@@ -11,6 +11,8 @@ export const questStore = defineStore("questStore", {
     id: 'quest',
     state() {
         return {
+            data: {},
+            ListQuestion: [],
             question: {
                 author: {},
                 comment_Question: {},
@@ -27,6 +29,34 @@ export const questStore = defineStore("questStore", {
     getters: {
     },
     actions: {
+
+        async getListQuestion() {
+            const data = {
+                arr1: [],
+                arr2: [],
+                arr3: [],
+            };
+            try {
+                this.ListQuestion = await questionService.getListQ()
+                this.ListQuestion.forEach((questio, i) => {
+                    this.ListQuestion[i].createdAt = this.setTime(questio.createdAt);
+                    if (i % 3 == 0) {
+                        data.arr1.push(this.ListQuestion[i])
+                    }
+                    else if (i % 3 == 1) {
+                        data.arr2.push(this.ListQuestion[i])
+                    }
+                    else if (i % 3 == 2) {
+                        data.arr3.push(this.ListQuestion[i])
+                    }
+                });
+
+            } catch (error) {
+                alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
+            }
+            this.data = data;
+            this.data.ListQuestion = this.ListQuestion;
+        },
 
         async createCommentQuestion(data) {
             const document = await commentBlogService.createCommentQuestion(data);
@@ -56,6 +86,7 @@ export const questStore = defineStore("questStore", {
         },
 
         async findOneQuestion(id) {
+            // console.log(id);
             try {
                 this.question = await questionService.findOneQ(id);
                 this.question.time = this.setTime(this.question.time)

@@ -2,15 +2,14 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
     {
-        userId: {
+        id_user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         },
-        premiumId: {
+        id_blog: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "premium"
-        }
-
+            ref: "blog"
+        }]
     },
 
     {
@@ -24,4 +23,4 @@ schema.method('toJSON', function () {
     return object;
 });
 
-module.exports = mongoose.model("billpremium", schema);
+module.exports = mongoose.model("cart", schema);

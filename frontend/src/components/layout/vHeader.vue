@@ -121,7 +121,7 @@ const dataMidNav = ref([
   },
   {
     name: "Hỏi Đáp",
-    url: "/readquestion",
+    url: "/homequestion",
     icon: "fa-solid fa-comment-dots",
   },
 ]);

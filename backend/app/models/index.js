@@ -4,11 +4,9 @@ const vote = require("./vote.models")
 const blog = require('./blog.models')
 const comment = require('./comment.models')
 const hashtag = require('./hashtag.models')
-const gem = require('./pgem.models')
-const premium = require('./ppremium.models')
-const billgem = require('./billgem.models')
-const billpremium = require('./billpremium.models')
 const question = require('./question.models')
+const cart = require('./cart.models')
+const bill = require('./bill.models')
 module.exports = {
     user,
     role,
@@ -16,9 +14,7 @@ module.exports = {
     blog,
     comment,
     hashtag,
-    gem,
-    premium,
-    billgem,
-    billpremium,
     question,
+    cart,
+    bill,
 }

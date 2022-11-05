@@ -10,7 +10,10 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         }],
-        view: Intl,
+        view: {
+            type: Intl,
+            default: 0,
+        },
     },
 
     {

@@ -36,7 +36,7 @@ export const blogStore = defineStore("blogStore", {
 						voted: {
 							tim: [],
 							dislike: [],
-							view: [],
+							view: 0,
 						},
 					}
 				],

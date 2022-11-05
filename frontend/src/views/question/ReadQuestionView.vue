@@ -27,7 +27,7 @@
           <div class="p-3 flex items-center justify-center">
             <i class="fa-solid fa-eye pt-1"></i>
             <div class="mx-2">
-              {{ useQuestion.question.voted.view.length || 0 }}
+              {{ useQuestion.question.voted.view || 0 }}
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="w-4/5 mx-auto">
           <!-- input cmt của bài question -->
           <div>
-            <div class="text-4xl py-5">Nhập bình luận</div>
+            <div class="text-4xl py-5">Nhập Câu trả lời</div>
             <vInputCmtVue :reset="resetInput" :data="dataInput" />
             <!-- btn gửi -->
             <div>
@@ -124,7 +124,7 @@ async function selectAnswer(answer, author) {
   };
   try {
     await useQuestion.selectAnswer(id, data);
-    await useQuestion.findOneQuestion(route.params.id);
+    await useQuestion.findOneQuestion(id);
     useAlert.setSuccess("đã chọn câu trả lời");
   } catch (error) {
     console.log("lỗi selectAnswer");
@@ -179,7 +179,7 @@ async function send() {
       data.listTagName.length
     ) {
       await useQuestion.createCommentQuestion(data);
-      useQuestion.findOneQuestion(data.id_question);
+      useQuestion.findOneQuestion(route.params.id);
       dataInput.value.content = { ops: [{ insert: "\n" }] };
       dataInput.value.tagname = [];
       resetInput.value++;

@@ -9,7 +9,6 @@ const schema = mongoose.Schema(
         answer: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "comment",
-            default: '',
         },
         title: String,
         content: Object,

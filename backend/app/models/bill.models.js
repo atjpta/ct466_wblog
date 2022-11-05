@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
     {
-        name: String,
-        price: Intl,
-        value: Intl,
-        image_url: {
-            type: String,
-            default: 'http://localhost:8088/api/image/cuoi.gif'
+        id_user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
         },
+        id_blog: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "blog"
+        }]
     },
 
     {
@@ -22,4 +23,4 @@ schema.method('toJSON', function () {
     return object;
 });
 
-module.exports = mongoose.model("gem", schema);
+module.exports = mongoose.model("bill", schema);

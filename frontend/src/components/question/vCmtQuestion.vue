@@ -32,7 +32,7 @@
         </button>
         <div></div>
         <button
-          v-if="type == 'child'"
+          v-if="type != 'child' && type != 'answer'"
           @click="$emit('rep', data.id)"
           class="mt-2 btn btn-circle btn-outline"
         >

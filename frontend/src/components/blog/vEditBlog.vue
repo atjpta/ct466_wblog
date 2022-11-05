@@ -10,15 +10,7 @@
           type="text"
         />
       </div>
-      <!-- tóm tắt bài viết  -->
-      <div class="mx-auto w-5/6">
-        <p class="text-4xl pt-10 pb-5">Nhập tóm tắt nội dung bài viết:</p>
-        <input
-          v-model="useBlog.blogEdit.summary"
-          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
-          type="text"
-        />
-      </div>
+
       <!-- ảnh bìa bài viết -->
       <div class="mx-auto w-5/6">
         <p class="text-4xl pt-10 pb-5">Chọn ảnh bìa bài viết:</p>
@@ -61,19 +53,16 @@
       <div class="mt-10 mx-auto w-5/6">
         <vhashtag />
       </div>
-      <!-- premium -->
+      <!-- price -->
       <div class="mt-10 mx-auto w-5/6 text-4xl">
         <div class="mt-10 text-4xl">Mức giá bài viết</div>
-        <select
-          v-model="useBlog.blogEdit.premium"
-          class="mt-10 text-2xl rounded-2xl bg-white/5 shadow-violet-700 shadow-md hover:text-purple-700 hover:scale-125 duration-300"
-        >
-          <option value="false">Miễn phí</option>
-          <option value="true">Có thu phí</option>
-        </select>
+        <input
+          v-model="useBlog.blogEdit.price"
+          class="bg-white/5 border-0 border-b-2 text-xl mb-5 w-full"
+          type="number"
+        />
       </div>
     </div>
-    {{ blog }}
   </div>
 </template>
 <script setup>
@@ -108,7 +97,7 @@ const setContent = () => {
 };
 
 function clear() {
-  useBlog.blogEdit = { premium: false };
+  useBlog.blogEdit = { price: false };
   quill.value.setContents("");
 }
 onMounted(() => {

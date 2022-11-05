@@ -12,7 +12,7 @@ exports.getListQuestion = async (req, res) => {
             .populate("author", "name avatar_Url")
             .populate("voted", "tim dislike view")
             .sort({ createdAt: -1 })
-            .select(["title", "voted", "premium", "hashtag", "id", "createdAt"]);
+            .select(["title", "voted", "premium", "hashtag", "id", "createdAt", 'answer',]);
         if (!listQuestion) {
             return next(
                 res.status(404).json({ Message: "không thể getListQuestion" })
@@ -91,7 +91,7 @@ exports.findOneQuestion = async (req, res, next) => {
 };
 
 //tạo Question
-exports.createQuestion = async (req, res) => {
+exports.createQuestion = async (req, res, next) => {
     const question = new Question({
         author: req.body.author,
         title: req.body.title,
@@ -101,12 +101,13 @@ exports.createQuestion = async (req, res) => {
     const vote = new Voted({
         tim: [],
         dislike: [],
-        view: [],
+        view: 0,
     });
     try {
         const documentVote = await vote.save();
         question.voted = documentVote.id;
         const document = await question.save();
+
         if (!document) {
             return next(
                 res.status(404).json({ Message: "không thể createQuestion" })
@@ -114,7 +115,7 @@ exports.createQuestion = async (req, res) => {
         }
         return res.send(document.id);
     } catch (error) {
-        return next(res.status(500).send("lỗi khi createQuestion"));
+        return next(res.status(500).send("lỗi khi createQuestion" + error));
     }
 };
 

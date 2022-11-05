@@ -47,6 +47,8 @@ async function createQ() {
   loading.value = true;
   try {
     const id = await useQuestion.createQ(data.value);
+    await useQuestion.findOneQuestion(id);
+
     const redirectPath = route.query.redirect || {
       path: `/readquestion/${id}`,
     };

@@ -20,7 +20,7 @@ exports.getListBlog = async (req, res) => {
             "summary",
             "cover_image_Url",
             "voted",
-            "premium",
+            "price",
             "hashtag",
             "_id",
             "createdAt",
@@ -51,7 +51,7 @@ exports.getListBlogNextPage = async (req, res) => {
             "summary",
             "cover_image_Url",
             "voted",
-            "premium",
+            "price",
             "hashtag",
             "_id",
             "createdAt",
@@ -158,7 +158,7 @@ exports.findOneBlog = async (req, res, next) => {
             content: document.content,
             hashtag: document.hashtag,
             comment_Blog: comment_Blog,
-            premium: document.premium,
+            price: document.price,
             time: document.createdAt,
         });
     }
@@ -178,12 +178,12 @@ exports.createBlog = async (req, res) => {
         content: req.body.content,
         hashtag: req.body.hashtag,
         cover_image_Url: req.body.cover_image_Url,
-        premium: req.body.premium,
+        price: parseInt(req.body.price),
     })
     const vote = new Voted({
         tim: [],
         dislike: [],
-        view: [],
+        view: 0,
     })
     try {
         const documentVote = await vote.save();

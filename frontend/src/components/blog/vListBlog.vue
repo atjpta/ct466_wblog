@@ -592,7 +592,6 @@ async function search(id) {
   const redirectPath = route.query.redirect || {
     path: `/searchashtag/${id}`,
   };
-  // useHashtag.findBlogOnHashtag(id);
   router.push(redirectPath);
 }
 

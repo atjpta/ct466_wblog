@@ -75,7 +75,7 @@ exports.pushVoted = async (req, res, next) => {
     catch (error) {
         console.log(error);
         return next(
-            res.status(500).json({ Message: ` không thể update Voted với id = ${req.params.id} ` })
+            res.status(500).json({ Message: ` không thể update Voted với id = ${req.params.id} ` + error })
         )
     }
 }

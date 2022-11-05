@@ -21,7 +21,7 @@ const schema = mongoose.Schema(
                 ref: "hashtag"
             }
         ],
-        premium: Boolean,
+        price: Intl,
         deleted: {
             type: Boolean,
             default: false,

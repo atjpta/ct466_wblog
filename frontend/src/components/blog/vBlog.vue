@@ -79,33 +79,10 @@
         :style="`background-image: url(${useBlog.blog.cover_image_Url})`"
         class="h-96 bg-cover bg-local"
       ></div>
-      <!-- <div>
-        <img
-          class="bg-fixed rounded-2xl opacity-70"
-          :src="useBlog.blog.cover_image_Url"
-          alt=""
-        />
-      </div> -->
+
       <div class="text-center text-6xl font-bold uppercase mt-5">
         {{ useBlog.blog.title }}
       </div>
-      <!-- <div class="h-16 m-auto flex w-11/12">
-        <img
-          class="bg-black h-16 w-16 rounded-full"
-          :src="useBlog.blog.author.avatar_Url || emptyImage"
-          alt=""
-        />
-        <div class="text-3xl text-blue-900 mx-3">
-          <button>
-            <router-link :to="`/user/${useBlog.blog.author._id}`">
-              {{ useBlog.blog.author.name }}
-            </router-link>
-          </button>
-          <div class="text-lg">
-            <i>{{ useBlog.blog.time }}</i>
-          </div>
-        </div>
-      </div> -->
     </div>
 
     <div class="my-10 rounded-2xl">
@@ -128,26 +105,6 @@
 
     <!-- vote -->
     <div class="lg:text-2xl text-base flex justify-evenly border-b-4 border-black">
-      <!-- <button
-        @click="vote('tim', useBlog.blog.voted.tim, useBlog.blog.voted.id)"
-        class="p-3 items-center justify-center flex h-16 hover:text-red-500 hover:scale-150 duration-300"
-      >
-        <i
-          :class="[isVote(useBlog.blog.voted.tim) ? 'text-red-500' : '']"
-          class="fa-solid fa-heart"
-        ></i>
-        <p class="mx-2">{{ useBlog.blog.voted.tim.length || 0 }}</p>
-      </button>
-      <button
-        @click="vote('dislike', useBlog.blog.voted.dislike, useBlog.blog.voted.id)"
-        class="p-3 items-center justify-center flex h-16 hover:text-blue-500 hover:scale-150 duration-300"
-      >
-        <i
-          :class="[isVote(useBlog.blog.voted.dislike) ? 'text-blue-500' : '']"
-          class="fa-solid fa-thumbs-down pt-1"
-        ></i>
-        <p class="mx-2">{{ useBlog.blog.voted.dislike.length || 0 }}</p>
-      </button> -->
       <div class="p-3 flex items-center justify-center">
         <i class="fa-solid fa-comments pt-1"></i>
         <p class="mx-2">{{ useBlog.blog.comment_Blog.length || 0 }}</p>
@@ -155,7 +112,7 @@
       <div class="p-3 flex items-center justify-center">
         <i class="fa-solid fa-eye pt-1"></i>
         <div class="mx-2">
-          {{ useBlog.blog.voted.view.length || 0 }}
+          {{ useBlog.blog.voted.view || 0 }}
         </div>
       </div>
     </div>
