@@ -40,7 +40,7 @@
       </div>
       <div v-if="useAuth.isUserLoggedIn" class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">
-          <li v-for="i in dataMidNav" :key="i">
+          <li class="hover-bordered" v-for="i in dataMidNav" :key="i">
             <router-link :to="i.url">
               <i :class="i.icon"></i>
               {{ i.name }}
@@ -52,7 +52,10 @@
         <!-- chỉnh theme -->
         <vThemeVue />
         <!-- nút đăng xuất -->
-        <button v-if="!useAuth.isUserLoggedIn" class="mx-3 btn btn-outline btn-primary">
+        <button
+          v-if="!useAuth.isUserLoggedIn"
+          class="mx-3 btn btn-outline btn-primary hover-bordered"
+        >
           Đăng nhập
         </button>
 
@@ -76,7 +79,7 @@
               </div>
               <li></li>
 
-              <li v-for="i in dataAvatar" :key="i">
+              <li class="hover-bordered" v-for="i in dataAvatar" :key="i">
                 <router-link v-if="i.name != 'Đăng xuất'" :to="i.url"
                   ><i :class="i.icon"></i>
                   {{ i.name }}
@@ -138,8 +141,8 @@ const dataAvatar = ref([
     icon: "fa-solid fa-file-circle-question",
   },
   {
-    name: "Trang cá nhân",
-    url: "/profile",
+    name: "Trang dashboard",
+    url: "/dashboard",
     icon: "fa-solid fa-address-card",
   },
   {
@@ -167,10 +170,8 @@ onBeforeMount(() => {
 
 <style scoped>
 .router-link-exact-active {
-  color: rgb(0, 0, 0);
-  background-color: rgba(138, 92, 246, 0.726);
-  /* box-shadow: 0px 0px 3px rgb(139 92 246);
-  border-radius: 1rem; */
+  color: rgb(255, 255, 255);
+  background-color: rgba(87, 13, 248);
   font-weight: 700;
 }
 </style>

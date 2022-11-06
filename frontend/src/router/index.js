@@ -147,6 +147,13 @@ const routes = [
     name: 'shop',
     component: () => import('@/views/shop/ShopView.vue'),
   },
+
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/dashboard/dashboardView.vue'),
+  },
+  
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",

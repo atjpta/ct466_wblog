@@ -26,11 +26,11 @@
             >
               <!-- tác giả -->
               <div class="flex pt-5">
-                <img
-                  class="bg-black h-16 w-16 rounded-full"
-                  :src="data.author.avatar_Url"
-                  alt=""
-                />
+                <div class="avatar">
+                  <div class="w-16 h-16 rounded-full">
+                    <img :src="data.author.avatar_Url" />
+                  </div>
+                </div>
                 <div class="text-2xl p-2 mx-3">
                   {{ data.author.name }}
                   <div class="text-sm">
