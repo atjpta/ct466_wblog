@@ -16,6 +16,8 @@ export const infoStore = defineStore("infoStore", {
 				avata_Url: '',
 				introduce: '',
 				followBlog: [],
+				followBy: [],
+				repAnswer:[],
 			},
 			avatar: '',
 			infoEdit: {},
@@ -133,11 +135,12 @@ export const infoStore = defineStore("infoStore", {
 
 		async updateInfo() {
 			try {
-				if (typeof (this.infoEdit.date) != 'string') {
-					this.infoEdit.date = this.infoEdit.date.join().toString();
-				}
-				const result = await UserService.updateInfo(this.infoEdit.id, this.infoEdit);
-				authStore().setAuthState(this.infoEdit.name)
+				const result = await UserService.updateInfo(this.infoEdit.id, {
+					name: this.infoEdit.name,
+					avatar_Url: this.infoEdit.avatar_Url,
+					introduce: this.infoEdit.introduce,
+				});
+				authStore().setAuthState(this.infoEdit.name, this.infoEdit.avatar_Url)
 				alertStore().setSuccess(result.message);
 			} catch (error) {
 				alertStore().setError('lỗi updata - ' + error.message);

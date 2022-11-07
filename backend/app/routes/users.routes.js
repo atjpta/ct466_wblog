@@ -16,8 +16,6 @@ module.exports = (app) => {
         // .delete([authJwt.verifyToken, authJwt.isModerator], users.delete)
         .delete(users.delete)
 
-    router.route("/wallet/:id")
-        .get([authJwt.verifyToken], users.getGemPremium)
     
     router.route('/addFollow/:id')
         .put(users.addFollow)

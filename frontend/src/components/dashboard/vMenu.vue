@@ -4,12 +4,12 @@
       <router-link to="/dashboard">
         <div class="avatar flex justify-center">
           <div class="w-32 h-32 rounded-full">
-            <!-- <img :src="useAuth.user.avatar_Url" /> -->
-            <img src="../../../public/imgs/avatar.jpg" />
+            <img :src="useAuth.user.avatar_Url" />
           </div>
-          <!-- <p class="mt-3 px-2">{{ useAuth.user.name }}</p> -->
         </div>
-        <p class="mt-3 px-2 text-center font-semibold text-2xl">name</p>
+        <p class="mt-3 px-2 text-center font-semibold text-2xl">
+          {{ useAuth.user.name }}
+        </p>
       </router-link>
       <div class="divider"></div>
       <ul class="menu w-64 p-2 rounded-box">
@@ -30,8 +30,13 @@
             </div>
           </li>
           <div class="" v-if="open == i.title">
-            <li v-for="j in i.content" :key="j" class="hover-bordered ml-3">
-              <router-link to="/dashboard">{{ j }}</router-link>
+            <li
+              v-for="j in i.content"
+              :key="j.id"
+              :class="[activeChild == j.id ? 'bg-violet-500 text-white rounded-md' : '']"
+              class="hover-bordered ml-3"
+            >
+              <a @click="activeChild = j.id">{{ j.title }}</a>
             </li>
           </div>
           <div class="divider"></div>
@@ -43,27 +48,68 @@
 
 <script setup>
 import { ref } from "vue";
-
+import { authStore } from "../../stores/auth.store";
+const useAuth = authStore();
 const data = ref([
   {
     title: "Trang cá nhân",
-    content: [1, 2, 3, 4],
+    content: [
+      {
+        title: "Thông tin cá nhân",
+        id: "1.1",
+      },
+      {
+        title: "Theo dõi",
+        id: "1.2",
+      },
+      {
+        title: "Đã lưu",
+        id: "1.3",
+      },
+    ],
   },
   {
-    title: "Quản lý Hóa đơn",
-    content: [1, 2, 3, 4],
+    title: "Quản lý Mua hàng",
+    content: [
+      {
+        title: "Giỏ hàng",
+        id: "2.1",
+      },
+      {
+        id: "2.2",
+        title: "Lịch sử mua hàng",
+      },
+      {
+        id: "2.3",
+        title: "Thống kê",
+      },
+    ],
   },
   {
     title: "Quản lý bài viết",
-    content: [1, 2, 3, 4],
+    content: [
+      {
+        id: "3.1",
+        title: "Chỉnh sửa bài viết",
+      },
+      {
+        title: "Lịch sử bán hàng",
+        id: "3.2",
+      },
+      {
+        id: "3.3",
+        title: "Thống kê",
+      },
+    ],
   },
   {
     title: "Cài đặt",
-    content: [1, 2, 3, 4],
+    content: [],
   },
 ]);
 
-const open = ref("");
+const open = ref("Trang cá nhân");
+const activeChild = ref("1.1");
 </script>
 
 <style></style>

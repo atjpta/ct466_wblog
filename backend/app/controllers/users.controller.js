@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const user = require("../models/user.models");
-
-
+const Blog = require('../models/blog.models')
+const Question = require('../models/question.models')
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
 };
@@ -38,28 +38,6 @@ exports.getAllUsers = async (req, res, next) => {
     }
 };
 
-exports.getGemPremium = async (req, res, next) => {
-    const { id } = req.params;
-    const condition = {
-        _id: id && mongoose.isValidObjectId(id) ? id : null,
-    };
-
-    try {
-        const document = await user.findOne(condition).select([
-            'gem',
-            'premium',
-        ]);
-        if (!document) {
-            return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
-        }
-        return res.send(document);
-    }
-    catch (error) {
-        return next(
-            res.status(500).json({ Message: ` không thể tìm thấy user với id = ${req.params.id} ` })
-        )
-    }
-}
 exports.findOne = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
@@ -67,19 +45,25 @@ exports.findOne = async (req, res, next) => {
     };
 
     try {
-        const document = await user.findOne(condition).select([
-            'name',
-            'date',
-            'introduce',
-            'avatar_Url',
-            'follow',
-            'followBy',
-            'followBlog',
-        ]);
+
+        const slBlog = await Blog.find({ author: id })
+        const slQuestion = await Question.find({ author: id })
+        const document = await user.findOne(condition);
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy user" }));
         }
-        return res.send(document);
+        return res.send({
+            id: document.id,
+            name: document.name,
+            introduce: document.introduce,
+            avatar_Url: document.avatar_Url,
+            follow: document.follow,
+            followBy: document.followBy,
+            repAnswer: document.repAnswer,
+            followBlog: document.followBlog,
+            slBlog: slBlog.length,
+            slQuestion: slQuestion.length,
+        });
     }
     catch (error) {
         return next(

@@ -114,7 +114,7 @@ async function updateAvatar() {
   file.append("image", image.value);
   loading.value = true;
   try {
-    useInfo.info.avatar_Url = url;
+    useInfo.infoEdit.avatar_Url = url;
     await useInfo.updateInfo();
     await imgageService.uploadImage(file);
     useInfo.avatar = "";

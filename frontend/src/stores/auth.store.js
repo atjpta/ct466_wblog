@@ -21,10 +21,10 @@ export const authStore = defineStore("authStore", {
 			this.user = JSON.parse(localStorage.getItem("user"));
 		},
 
-		setAuthState(name) {
+		setAuthState(name, avatar) {
 			this.user.name = name
+			this.user.avatar_Url = avatar;
 			localStorage.setItem("user",  JSON.stringify(this.user));
-			
 		},
 		logout() {
 			this.user = null;
