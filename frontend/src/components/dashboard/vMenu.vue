@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="w-80 border-2 bg-base-200 p-4 rounded-2xl m-5">
+    <div class="w-80 bg-base-200 p-4 rounded-2xl m-5">
       <router-link to="/dashboard">
         <div class="avatar flex justify-center">
           <div class="w-32 h-32 rounded-full">
@@ -29,16 +29,13 @@
               ></i>
             </div>
           </li>
-          <div class="" v-if="open == i.title">
-            <li
-              v-for="j in i.content"
-              :key="j.id"
-              :class="[activeChild == j.id ? 'bg-violet-500 text-white rounded-md' : '']"
-              class="hover-bordered ml-3"
-            >
-              <a @click="activeChild = j.id">{{ j.title }}</a>
-            </li>
-          </div>
+          <transition name="bounce">
+            <div class="" v-if="open == i.title">
+              <li v-for="j in i.content" :key="j.id" class="hover-bordered ml-3">
+                <router-link :to="`/dashboard/${j.url}`">{{ j.title }}</router-link>
+              </li>
+            </div>
+          </transition>
           <div class="divider"></div>
         </div>
       </ul>
@@ -56,15 +53,15 @@ const data = ref([
     content: [
       {
         title: "Thông tin cá nhân",
-        id: "1.1",
+        url: "profile",
       },
       {
         title: "Theo dõi",
-        id: "1.2",
+        url: "follow",
       },
       {
         title: "Đã lưu",
-        id: "1.3",
+        url: "followblog",
       },
     ],
   },
@@ -73,15 +70,15 @@ const data = ref([
     content: [
       {
         title: "Giỏ hàng",
-        id: "2.1",
+        url: "cart",
       },
       {
-        id: "2.2",
         title: "Lịch sử mua hàng",
+        url: "1",
       },
       {
-        id: "2.3",
         title: "Thống kê",
+        url: "1",
       },
     ],
   },
@@ -89,16 +86,16 @@ const data = ref([
     title: "Quản lý bài viết",
     content: [
       {
-        id: "3.1",
         title: "Chỉnh sửa bài viết",
+        url: "1",
       },
       {
         title: "Lịch sử bán hàng",
-        id: "3.2",
+        url: "1",
       },
       {
-        id: "3.3",
         title: "Thống kê",
+        url: "1",
       },
     ],
   },
@@ -109,7 +106,29 @@ const data = ref([
 ]);
 
 const open = ref("Trang cá nhân");
-const activeChild = ref("1.1");
 </script>
 
-<style></style>
+<style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+/* .bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+} */
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.router-link-exact-active {
+  color: rgb(255, 255, 255);
+  background-color: rgba(87, 13, 248);
+  font-weight: 700;
+}
+</style>

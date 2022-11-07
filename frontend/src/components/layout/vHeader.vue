@@ -142,7 +142,7 @@ const dataAvatar = ref([
   },
   {
     name: "Trang dashboard",
-    url: "/dashboard",
+    url: "/dashboard/profile",
     icon: "fa-solid fa-address-card",
   },
   {

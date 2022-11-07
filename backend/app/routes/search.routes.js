@@ -6,8 +6,8 @@ module.exports = (app) => {
     router.route("/")
         .get(search.getListSearch)
     
-    router.route("/follow/:id")
-        .get(search.getListFollow)
+    router.route("/follow/blog/:id")
+        .get(search.getListBlog)
     
     router.route("/follow/user/:id")
         .get(search.getListUser)

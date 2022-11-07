@@ -45,52 +45,35 @@ exports.getListSearch = async (req, res, next) => {
 };
 
 
-exports.getListFollow = async (req, res, next) => {
+exports.getListBlog = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
     try {
-        let listUser = await user.findOne(condition).select('follow')
+        let listBlog = await user.findOne(condition).select('followBlog')
             .populate({
-                path: 'follow',
-                select: 'name avatar_Url id',
+                path: 'followBlog',
+                select: ' title voted hashtag createdAt cover_image_Url',
+                populate: {
+                    path: 'hashtag author voted',
+                    select: 'name tim dislike view name avatar_Url id'
+                }
             })
             .exec();
 
-        listUser = listUser.follow
-        const listID = [];
-        listUser.forEach(e => {
-            listID.push(e.id)
-        });
-        const listBlog = await Blog.find({ author: { $in: listID }, deleted: false }
-        ).populate(
-            'hashtag', 'name'
-        ).populate(
-            'author', 'name avatar_Url'
-        ).populate(
-            'voted', 'tim dislike view'
-        ).sort({ 'createdAt': -1 }
-        ).select([
-            "title",
-            "summary",
-            "cover_image_Url",
-            "voted",
-            "premium",
-            "hashtag",
-            "_id",
-            "createdAt",
-        ])
+        // listUser = listUser.follow
+        // const listID = [];
+        // listUser.forEach(e => {
+        //     listID.push(e.id)
+        // });
 
-        if (!listBlog || !listUser) {
+        if (!listBlog) {
             return next(res.status(404).json({ Message: "không thể getListFollow" }));
         }
-        return res.send({
-            listUser: listUser,
-            listBlog: listBlog,
-        });
+        return res.send(listBlog.followBlog);
     } catch (error) {
-        return next(res.status(500).send("lỗi khi getListFollow"))
+        return next(res.status(500).send("lỗi khi getListBlog" + error))
     }
 };
 

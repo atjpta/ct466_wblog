@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import welcome from '../views/WelcomeView.vue'
 import { authStore } from "@/stores/auth.store";
 import { blogStore } from '@/stores/blog.store'
-
 // khi đăng nhập sẽ chuyển sang trang rooms
 const redirectIfLoggedIn = (_to, _from) => {
   if (authStore().isUserLoggedIn) {
@@ -60,18 +59,18 @@ const routes = [
     component: () => import('@/views/Trang2View.vue'),
 
   },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: () => import('@/views/ProFileView.vue'),
+  // {
+  //   path: '/profile',
+  //   name: 'profile',
+  //   component: () => import('@/views/ProFileView.vue'),
 
-  },
-  {
-    path: '/editprofile',
-    name: 'editprofile',
-    component: () => import('@/views/EditProFileView.vue'),
+  // },
+  // {
+  //   path: '/editprofile',
+  //   name: 'editprofile',
+  //   component: () => import('@/views/EditProFileView.vue'),
 
-  },
+  // },
   {
     path: '/homeblog',
     name: 'homeblog',
@@ -137,21 +136,43 @@ const routes = [
     name: 'search',
     component: () => import('@/views/search/SearchView.vue'),
   },
-  {
-    path: '/follow',
-    name: 'follow',
-    component: () => import('@/views/search/blogFollowView.vue'),
-  },
-  {
-    path: '/shop',
-    name: 'shop',
-    component: () => import('@/views/shop/ShopView.vue'),
-  },
+  // {
+  //   path: '/follow',
+  //   name: 'follow',
+  //   component: () => import('@/views/search/blogFollowView.vue'),
+  // },
+  // {
+  //   path: '/shop',
+  //   name: 'shop',
+  //   component: () => import('@/views/shop/ShopView.vue'),
+  // },
 
   {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/dashboard/dashboardView.vue'),
+    children: [
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('@/views/dashboard/pageUser/ProFileView.vue'),
+      },
+      {
+        path: 'follow',
+        name: 'follow',
+        component: () => import('@/views/dashboard/pageUser/FollowView.vue'),
+      },
+      {
+        path: 'followblog',
+        name: 'followblog',
+        component: () => import('@/views/dashboard/pageUser/FollowBlogView.vue'),
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: () => import('@/views/dashboard/pageBuy/CartView.vue'),
+      },
+    ]
   },
   
   {
