@@ -45,9 +45,9 @@ const routes = [
     beforeEnter: redirectIfLoggedIn,
   },
   {
-    path: '/registration',
-    name: 'registration',
-    component: () => import('@/views/auth/registrationView.vue'),
+    path: '/dangki',
+    name: 'dangki',
+    component: () => import('@/views/auth/RegistrationView.vue'),
     meta: {
       publicPage: true,
     },

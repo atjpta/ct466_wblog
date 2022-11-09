@@ -52,12 +52,14 @@
         <!-- chỉnh theme -->
         <vThemeVue />
         <!-- nút đăng xuất -->
+        <!-- <router-link to="dangki"> -->
         <button
           v-if="!useAuth.isUserLoggedIn"
           class="mx-3 btn btn-outline btn-primary hover-bordered"
         >
           Đăng nhập
         </button>
+        <!-- </router-link> -->
 
         <!-- dropdown avatar -->
         <div v-if="useAuth.isUserLoggedIn" class="flex-none gap-2 mx-3">

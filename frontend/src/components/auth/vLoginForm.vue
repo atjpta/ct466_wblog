@@ -43,7 +43,7 @@
         <div
           class="text-center cursor-pointer hover:scale-125 duration-300 text-sky-500 hover:text-violet-500"
         >
-          <router-link to="/registration" class=""> Chưa có tài khoản? </router-link>
+          <router-link to="/dangki" class=""> Chưa có tài khoản? </router-link>
         </div>
 
         <div v-show="!useAlertStore.loading" class="flex justify-center p-5">

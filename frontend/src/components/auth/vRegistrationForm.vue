@@ -1,7 +1,6 @@
 <template>
   <div class="w-1/3 mx-auto">
     <Form
-      v-if="!useAlertStore.success.set"
       @submit="handleRegister"
       :validation-schema="userFormSchema"
       class="bg-gradient-to-l from-sky-100 to-sky-500/30 rounded-2xl"
@@ -127,10 +126,9 @@
 import * as Yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { authStore } from "@/stores/auth.store";
+import { alertStore } from "@/stores/alert.store";
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { alertStore } from "@/stores/alert.store";
-
 const router = useRouter();
 const route = useRoute();
 const useAlertStore = alertStore();
@@ -165,7 +163,7 @@ async function handleRegister(user) {
     const redirectPath = route.query.redirect || {
       name: "login",
     };
-    useAlertStore.setSuccess(data.message);
+    useAlertStore.setSuccess("đăng kí thành công ");
     loading.value = false;
     router.push(redirectPath);
   } catch (error) {

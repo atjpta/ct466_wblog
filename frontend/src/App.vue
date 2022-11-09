@@ -10,7 +10,7 @@ const route = useRoute();
   <div class="min-h-screen">
     <vHeaderVue />
     <vAlertVue />
-    <router-view v-slot="{ Component }">
+    <router-view :key="route.path" v-slot="{ Component }">
       <transition name="bounce">
         <component :is="Component" />
       </transition>
