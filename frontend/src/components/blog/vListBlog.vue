@@ -62,7 +62,7 @@
                 <div class="flex pt-5">
                   <img
                     class="bg-black h-16 w-16 rounded-full"
-                    :src="blog.author.avatar_Url || emptyImage"
+                    :src="blog.author.avatar_Url"
                     alt=""
                   />
                   <div class="text-2xl p-2 mx-3">
@@ -111,11 +111,7 @@
             >
               <!-- ảnh bìa -->
               <div class="pt-3 h-auto flex justify-center">
-                <img
-                  class="rounded-2xl"
-                  :src="blog.cover_image_Url || emptyImage"
-                  alt=""
-                />
+                <img class="rounded-2xl" :src="blog.cover_image_Url" alt="" />
                 <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
               </div>
               <!-- tiêu đề -->
@@ -173,7 +169,7 @@
                 <div class="flex pt-5">
                   <img
                     class="bg-black h-16 w-16 rounded-full"
-                    :src="blog.author.avatar_Url || emptyImage"
+                    :src="blog.author.avatar_Url"
                     alt=""
                   />
                   <div class="text-2xl p-2 mx-3">
@@ -222,11 +218,7 @@
             >
               <!-- ảnh bìa -->
               <div class="pt-3 h-auto flex justify-center">
-                <img
-                  class="rounded-2xl"
-                  :src="blog.cover_image_Url || emptyImage"
-                  alt=""
-                />
+                <img class="rounded-2xl" :src="blog.cover_image_Url" alt="" />
                 <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
               </div>
               <!-- tiêu đề -->
@@ -285,7 +277,7 @@
                 <div class="flex pt-5">
                   <img
                     class="bg-black h-16 w-16 rounded-full"
-                    :src="blog.author.avatar_Url || emptyImage"
+                    :src="blog.author.avatar_Url"
                     alt=""
                   />
                   <div class="text-2xl p-2 mx-3">
@@ -334,11 +326,7 @@
             >
               <!-- ảnh bìa -->
               <div class="pt-3 h-auto flex justify-center">
-                <img
-                  class="rounded-2xl"
-                  :src="blog.cover_image_Url || emptyImage"
-                  alt=""
-                />
+                <img class="rounded-2xl" :src="blog.cover_image_Url" alt="" />
                 <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
               </div>
               <!-- tiêu đề -->
@@ -396,7 +384,7 @@
                 <div class="flex pt-5">
                   <img
                     class="bg-black h-16 w-16 rounded-full"
-                    :src="blog.author.avatar_Url || emptyImage"
+                    :src="blog.author.avatar_Url"
                     alt=""
                   />
                   <div class="text-2xl p-2 mx-3">
@@ -445,11 +433,7 @@
             >
               <!-- ảnh bìa -->
               <div class="pt-3 h-auto flex justify-center">
-                <img
-                  class="rounded-2xl"
-                  :src="blog.cover_image_Url || emptyImage"
-                  alt=""
-                />
+                <img class="rounded-2xl" :src="blog.cover_image_Url" alt="" />
                 <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
               </div>
               <!-- tiêu đề -->
@@ -519,7 +503,6 @@
 import { useRouter, useRoute } from "vue-router";
 import { ref, onMounted, nextTick } from "vue";
 import { blogStore } from "../../stores/blog.store";
-import emptyImage from "@/assets/upload-image.png";
 import { authStore } from "../../stores/auth.store";
 import { hashtagStore } from "../../stores/hashtag.store";
 import { infoStore } from "../../stores/info.store";

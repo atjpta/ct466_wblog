@@ -51,7 +51,6 @@
 <script setup>
 import { infoStore } from "../stores/info.store";
 import { alertStore } from "../stores/alert.store";
-import emptyImage from "@/assets/upload-image.png";
 import { ref } from "vue";
 import imgageService from "../services/image.service";
 

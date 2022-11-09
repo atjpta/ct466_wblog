@@ -120,7 +120,6 @@
 </template>
 
 <script setup>
-import emptyImage from "@/assets/upload-image.png";
 import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
