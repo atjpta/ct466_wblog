@@ -68,20 +68,15 @@
             </div>
           </div>
 
-          <button
-            class="hover:text-violet-500 hover:scale-105 duration-300"
-            @click="read(data.id, data.voted._id)"
-          >
-            <!-- ảnh bìa -->
-            <div class="pt-3 h-auto flex justify-center">
-              <img class="rounded-2xl" :src="data.cover_image_Url" alt="" />
-              <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
-            </div>
-            <!-- tiêu đề -->
-            <div class="text-3xl font-bold uppercase pt-3">
-              {{ data.title }}
-            </div>
-          </button>
+          <!-- ảnh bìa -->
+          <div class="pt-3 h-auto flex justify-center">
+            <img class="rounded-2xl" :src="data.cover_image_Url" alt="" />
+            <!-- <img class="rounded-2xl" src="../../public/imgs/cuoi.gif" alt="" /> -->
+          </div>
+          <!-- tiêu đề -->
+          <div class="text-3xl font-bold uppercase pt-3">
+            {{ data.title }}
+          </div>
           <!-- hashtag -->
           <div class="flex flex-wrap pt-3">
             <div v-for="Hashtag in data.hashtag" :key="Hashtag.id || Hashtag._id">
@@ -119,17 +114,13 @@
             v-if="useAuth.user.id != data.author._id && data.price > 0"
             class="flex justify-around pb-3"
           >
-            <div v-if="!loading" @click="buy()" class="btn btn-primary btn-outline">
+            <div class="btn btn-primary btn-outline">
               <i class="fa-solid fa-lock-open"></i>
               <div v-if="data.price" class="mx-1 mt-1">{{ data.price / 1000 }}.000</div>
             </div>
-            <div v-if="loading" class="btn btn-primary btn-outline loading">
-              <i class="fa-solid fa-lock-open"></i>
-              <div v-if="data.price" class="mx-1 mt-1">{{ data.price / 1000 }}.000</div>
-            </div>
-            <div @click="addCart()" class="btn btn-primary btn-outline">
-              <i class="fa-solid fa-cart-plus"></i>
-              <div class="mx-1 mt-1">mở khóa sau</div>
+            <div @click="removeBlogToCart()" class="btn btn-error btn-outline">
+              <i class="fa-solid fa-trash-can"></i>
+              <div class="mx-1 mt-1">Xóa khỏi giỏ hàng</div>
             </div>
           </div>
         </div>
@@ -144,16 +135,13 @@ import { blogStore } from "../../stores/blog.store";
 import { useRouter, useRoute } from "vue-router";
 import { alertStore } from "../../stores/alert.store";
 import { cartStore } from "../../stores/cart.store";
-import { ref } from "vue";
-import { billStore } from "../../stores/bill.store";
+
 const router = useRouter();
-const useBill = billStore();
 const route = useRoute();
 const useBlog = blogStore();
 const useAuth = authStore();
 const useAlert = alertStore();
 const useCart = cartStore();
-const loading = ref(false);
 const props = defineProps({
   data: Object,
 });
@@ -172,43 +160,20 @@ async function read(id, id_vote) {
 }
 
 async function deleteBlog() {
-  await useBlog.deleteBlog(props.data.id);
+  await useBlog.deleteBlog(props.data._id);
   await useBlog.getListBlog();
   router.back();
 }
 
-async function addCart() {
+async function removeBlogToCart() {
   try {
     if (useCart.cart) {
-      await useCart.addBlogToCart(useCart.cart.id, { id_blog: props.data.id });
-    } else {
-      useCart.createCart({
-        id_user: useAuth.user.id,
-        id_blog: props.data.id,
-      });
-      await useCart.getListCart(useAuth.user.id);
+      await useCart.removeBlogToCart(useCart.cart.id, { id_blog: props.data._id });
     }
-    useAlert.setSuccess("Đã thêm thành công");
+    useAlert.setSuccess("Đã xóa thành công");
   } catch (error) {
-    useAlert.setError("thêm thất bại");
+    useAlert.setError("xóa thất bại");
     console.log(error);
-  }
-}
-
-async function buy() {
-  loading.value = true;
-  try {
-    await useBill.createBill({
-      id_user: useAuth.user.id,
-      id_blog: props.data.id,
-    });
-    await useBlog.getListBlog();
-    useAlert.setSuccess("đã mở khóa thành công");
-  } catch (error) {
-    useAlert.setError("thanh toán thất bại");
-    console.log(error + "thanh toán thất bại");
-  } finally {
-    loading.value = false;
   }
 }
 </script>

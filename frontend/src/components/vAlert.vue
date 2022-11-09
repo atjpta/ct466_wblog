@@ -2,7 +2,7 @@
   <div>
     <div class="fixed top-20 right-5">
       <!-- thông báo bình thường -->
-      <div v-if="useAlert.info.set" class="alert alert-info shadow-lg">
+      <div v-if="useAlert.info.set > 0" class="alert alert-info shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,8 @@
       </div>
 
       <!-- thông báo thành công -->
-      <div v-if="useAlert.success.set" class="alert alert-success shadow-lg">
-        <div>
+      <div v-if="useAlert.success.set > 0" class="">
+        <div class="alert alert-success shadow-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="stroke-current flex-shrink-0 h-6 w-6"
@@ -44,7 +44,7 @@
       </div>
 
       <!-- lỗi -->
-      <div v-if="useAlert.error.set" class="alert alert-error shadow-lg">
+      <div v-if="useAlert.error.set > 0" class="alert alert-error shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
 
       <!-- cảnh báo -->
 
-      <div v-if="useAlert.warning.set" class="alert alert-warning shadow-lg">
+      <div v-if="useAlert.warning.set > 0" class="alert alert-warning shadow-lg">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +93,16 @@
 
 <script setup>
 import { alertStore } from "../stores/alert.store";
-
+import { onUpdated, ref } from "vue";
+const time = ref(0);
 const useAlert = alertStore();
+setInterval(() => {
+  useAlert.error.set--;
+  useAlert.success.set--;
+  useAlert.info.set--;
+  useAlert.warning.set--;
+}, 1000);
+onUpdated(() => {});
 </script>
 
 <style></style>

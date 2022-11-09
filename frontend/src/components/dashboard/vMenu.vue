@@ -46,6 +46,10 @@
 <script setup>
 import { ref } from "vue";
 import { authStore } from "../../stores/auth.store";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+const route = useRoute();
+
 const useAuth = authStore();
 const data = ref([
   {
@@ -60,8 +64,12 @@ const data = ref([
         url: "follow",
       },
       {
-        title: "Đã lưu",
+        title: "Bài viết đã lưu",
         url: "followblog",
+      },
+      {
+        title: "Bài viết đã mở khóa",
+        url: "blogunlocked",
       },
     ],
   },
@@ -74,7 +82,7 @@ const data = ref([
       },
       {
         title: "Lịch sử mua hàng",
-        url: "1",
+        url: "historybill",
       },
       {
         title: "Thống kê",
@@ -104,8 +112,23 @@ const data = ref([
     content: [],
   },
 ]);
+const open = ref("");
+const link = route.fullPath;
+let url = link.substring(11, link.length);
+let mark = false;
 
-const open = ref("Trang cá nhân");
+data.value.forEach((e) => {
+  e.content.forEach((e2) => {
+    if (e2.url == url) {
+      mark = true;
+      open.value = e.title;
+      return;
+    }
+  });
+  if (mark) {
+    return;
+  }
+});
 </script>
 
 <style scoped>

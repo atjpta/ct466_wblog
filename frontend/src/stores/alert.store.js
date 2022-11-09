@@ -5,19 +5,19 @@ export const alertStore = defineStore("alertStore", {
 		return {
             error: {
 				message: '',
-				set: false,
+				set: 0,
 			},
             success: {
 				message: '',
-				set: false,
+				set: 0,
 			},
 			info: {
 				message: '',
-				set: false,
+				set: 0,
 			},
 			warning: {
 				message: '',
-				set: false,
+				set: 0,
 			},
 		};
 	},
@@ -30,39 +30,27 @@ export const alertStore = defineStore("alertStore", {
 			localStorage.removeItem("user");
 		},
 
-		setSuccess(message){
+		setSuccess(message, time){
 			this.success.message = message
-			this.success.set = true;
-			setTimeout(() => {
-				this.success.set = false;
-				this.success.message = ''
-			}, 3000);
+			this.success.set = time ?? 3;
+			
 		},
-		setWarning(message){
+		setWarning(message, time){
 			this.warning.message = message
-			this.warning.set = true;
-			setTimeout(() => {
-				this.warning.set = false;
-				this.warning.message = ''
-			}, 3000);
+			this.warning.set = time ?? 3;
+			
 
 		},
-		setInfo(message){
+		setInfo(message, time){
 			this.info.message = message
-			this.info.set = true;
-			setTimeout(() => {
-				this.info.set = false;
-				this.info.message = ''
-			}, 3000);
+			this.info.set = time ?? 3;
+			
 
 		},
-		setError(message){
+		setError(message,time){
 			this.error.message = message
-			this.error.set = true;
-			setTimeout(() => {
-				this.error.set = false;
-				this.error.message = ''
-			}, 3000);
+			this.error.set = time ?? 3;
+			
 
 		},
 	},

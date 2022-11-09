@@ -8,7 +8,14 @@ exports.getCart = async (req, res, next) => {
     const { id } = req.params;
    
     try {
-        const document = await Cart.findOne({ id_user: id }).select('id_blog')
+        const document = await Cart.findOne({ id_user: id }).populate({
+            path: 'id_blog',
+            select: 'title cover_image_Url voted price hashtag createdAt',
+            populate: {
+                path: 'hashtag author voted',
+                select: 'name avatar_Url tim dislike view',
+            }
+        }).select('id_blog')
         if (!document) {
             return res.status(200)
         }

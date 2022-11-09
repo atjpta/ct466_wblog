@@ -2,14 +2,14 @@
   <div class="mt-20">
     <div class="stats shadow">
       <div class="stat">
-        <div class="stat-figure text-violet-500">
+        <div class="stat-figure">
           <i class="fa-solid fa-file-lines text-2xl"></i>
         </div>
         <div class="stat-title">Số bài biết</div>
         <div class="stat-value">{{ useInfo.info.slBlog }}</div>
       </div>
       <div class="stat">
-        <div class="stat-figure text-violet-500">
+        <div class="stat-figure">
           <i class="fa-solid fa-file-circle-question text-2xl"></i>
         </div>
         <div class="stat-title">Số Câu hỏi</div>
@@ -17,7 +17,7 @@
       </div>
 
       <div class="stat">
-        <div class="stat-figure text-violet-500">
+        <div class="stat-figure">
           <i class="fa-solid fa-users text-2xl"></i>
         </div>
         <div class="stat-title">số người theo dõi</div>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="stat">
-        <div class="stat-figure text-violet-500">
+        <div class="stat-figure">
           <i class="fa-solid fa-reply text-2xl"></i>
         </div>
         <div class="stat-title">Số lần trả lời</div>
@@ -34,7 +34,9 @@
     </div>
 
     <div v-if="!open">
-      <div class="mt-10 indent-10 border-2 rounded-2xl p-5 w-[730px]">
+      <div
+        class="mt-10 indent-10 border-2 rounded-2xl p-5 w-[730px] text-2xl font-medium"
+      >
         {{ useInfo.infoEdit.introduce }}
       </div>
       <!-- btn -->

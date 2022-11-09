@@ -13,19 +13,15 @@ module.exports = {
     },
     extend: {
       keyframes: {
-        pingOne: {
+        timer: {
           '0%, 100%' : {
-            'transform': 'translateY(25%)',
-            'animation- timing - function': 'cubic- bezier(0.8, 0, 1, 1)',
+            'transform': 'scale(2)',
+            'opacity': '0',
           },
-        //    '50%' : {
-        //     'transform': 'translateY(0)',
-        //     'animation- timing - function': 'cubic- bezier(0, 0, 0.2, 1)',
-        // },
         },
       },
       animation: {
-        'pingOne': 'pingOne 1s cubic-bezier(0, 0, 0.2, 1)',
+        'timer': '1s linear all',
       },
       colors: {
         "vtd-primary": colors.sky, // Light mode Datepicker color

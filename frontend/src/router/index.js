@@ -168,13 +168,29 @@ const routes = [
         component: () => import('@/views/dashboard/pageUser/FollowBlogView.vue'),
       },
       {
+        path: 'blogunlocked',
+        name: 'blogunlocked',
+        component: () => import('@/views/dashboard/pageUser/ListUnlockView.vue'),
+      },
+
+      {
         path: 'cart',
         name: 'cart',
         component: () => import('@/views/dashboard/pageBuy/CartView.vue'),
       },
+      {
+        path: 'historybill',
+        name: 'historybill',
+        component: () => import('@/views/dashboard/pageBuy/HistoryBillView.vue'),
+      },
+      {
+        path: 'detailbill/:id',
+        name: 'detailbill',
+        component: () => import('@/views/dashboard/pageBuy/DetailView.vue'),
+      },
     ]
   },
-  
+
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",

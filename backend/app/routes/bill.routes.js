@@ -1,23 +1,20 @@
 const express = require("express");
-const cart = require('../controllers/cart.controller')
+const bill = require('../controllers/bill.controller')
 
 module.exports = (app) => {
     const router = express.Router();
     router.route("/")
-        .post(cart.createCart)
-        .delete(cart.deleteAllCart)
+        .post(bill.createBill)
+        .delete(bill.deleteAllBill)
 
     router.route("/:id")
-        // id của user
-        .get(cart.getCart)
-        // id của cart
-        .put(cart.deleteCart)
-
-    // id của cart
-    router.route('/add/:id')
-        .put(cart.addBlogToCart)
-    router.route('/remove/:id')
-        .put(cart.removeBlogToCart)
+        .get(bill.getListBill)
+    router.route("/blog/:id")
+        .get(bill.getListBillBlog)
+    router.route("/idblog/:id")
+        .get(bill.getIdBlog)
+    router.route('/detail/:id')
+        .get(bill.getBill)
 
     app.use("/api/bill", router);
 };
