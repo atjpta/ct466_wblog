@@ -184,6 +184,12 @@ const routes = [
         name: 'detailbill',
         component: () => import('@/views/dashboard/pageBuy/DetailView.vue'),
       },
+
+      {
+        path: 'manageblog',
+        name: 'manageblog',
+        component: () => import('@/views/dashboard/pageManageBlog/ManageBlogView.vue'),
+      },
     ]
   },
 

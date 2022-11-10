@@ -43,7 +43,7 @@
             <!-- edit cho tác giả -->
             <div v-if="useAuth.user.id == data.author._id" class="pt-5">
               <div class="bg-base-300 space-x-2 static flex">
-                <router-link :to="`/editdata/${data.id}`">
+                <router-link :to="`/editblog/${data.id}`">
                   <div href="#delete" class="btn btn-outline btn-info">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>

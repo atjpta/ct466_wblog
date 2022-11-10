@@ -95,7 +95,7 @@ const data = ref([
     content: [
       {
         title: "Chỉnh sửa bài viết",
-        url: "1",
+        url: "manageblog",
       },
       {
         title: "Lịch sử bán hàng",

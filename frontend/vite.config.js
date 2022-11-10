@@ -15,7 +15,8 @@ export default defineConfig({
     port: 8081,
     proxy: {
       "/api": {
-        target: "https://example-pi-henna.vercel.app/",
+        // target: "http://localhost:8088/",
+        target: "https://example-atjpta.vercel.app/",
         changeOrigin: true,
       },
     },
@@ -23,5 +24,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
   },
-  base: process.env.NODE_ENV === 'production' ? '/demo_wbchat/' : '/',
+  // base: process.env.NODE_ENV === 'production' ? '/demo_wbchat/' : '/',
 });
