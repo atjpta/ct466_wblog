@@ -84,10 +84,10 @@ const data = ref([
         title: "Lịch sử mua hàng",
         url: "historybill",
       },
-      {
-        title: "Thống kê",
-        url: "1",
-      },
+      // {
+      //   title: "Thống kê",
+      //   url: "1",
+      // },
     ],
   },
   {
@@ -98,13 +98,13 @@ const data = ref([
         url: "manageblog",
       },
       {
-        title: "Lịch sử bán hàng",
-        url: "1",
+        title: "Chỉnh sửa câu hỏi",
+        url: "managequestion",
       },
-      {
-        title: "Thống kê",
-        url: "1",
-      },
+      // {
+      //   title: "Thống kê",
+      //   url: "1",
+      // },
     ],
   },
   {

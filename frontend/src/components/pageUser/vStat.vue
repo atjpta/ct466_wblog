@@ -3,14 +3,14 @@
     <div class="stats shadow">
       <div class="stat">
         <div class="stat-figure">
-          <i class="fa-solid fa-file-lines text-2xl"></i>
+          <i class="text-violet-500 fa-solid fa-file-lines text-2xl"></i>
         </div>
         <div class="stat-title">Số bài biết</div>
         <div class="stat-value">{{ useInfo.info.slBlog }}</div>
       </div>
       <div class="stat">
         <div class="stat-figure">
-          <i class="fa-solid fa-file-circle-question text-2xl"></i>
+          <i class="text-violet-500 fa-solid fa-file-circle-question text-2xl"></i>
         </div>
         <div class="stat-title">Số Câu hỏi</div>
         <div class="stat-value">{{ useInfo.info.slQuestion }}</div>
@@ -18,7 +18,7 @@
 
       <div class="stat">
         <div class="stat-figure">
-          <i class="fa-solid fa-users text-2xl"></i>
+          <i class="text-violet-500 fa-solid fa-users text-2xl"></i>
         </div>
         <div class="stat-title">số người theo dõi</div>
         <div class="stat-value">{{ useInfo.info.followBy.length }}</div>
@@ -26,7 +26,7 @@
 
       <div class="stat">
         <div class="stat-figure">
-          <i class="fa-solid fa-reply text-2xl"></i>
+          <i class="text-violet-500 fa-solid fa-reply text-2xl"></i>
         </div>
         <div class="stat-title">Số lần trả lời</div>
         <div class="stat-value">{{ useInfo.info.repAnswer.length }}</div>
@@ -37,18 +37,19 @@
       <div
         class="mt-10 indent-10 border-2 rounded-2xl p-5 w-[730px] text-2xl font-medium"
       >
-        {{ useInfo.infoEdit.introduce }}
+        {{ useInfo.infoEdit.introduce || "chưa có lời giới thiệu" }}
       </div>
       <!-- btn -->
       <div class="text-center">
-        <div @click="open = true" class="btn btn-primary btn-outline mt-3">
-          <i class="fa-solid text-2xl fa-pen"></i>
+        <div @click="open = true" class="btn btn-ghost mt-3">
+          <i class="fa-solid fa-pen text-primary"></i>
         </div>
       </div>
     </div>
 
     <div v-if="open" class="mt-10 text-center">
       <textarea
+        placeholder="chưa có lời giới thiệu"
         v-model="useInfo.infoEdit.introduce"
         class="mt-3 w-full text-xl bg-slate-50/5 border-black border-opacity-0"
       ></textarea>

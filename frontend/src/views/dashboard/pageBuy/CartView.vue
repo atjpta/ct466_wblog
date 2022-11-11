@@ -4,7 +4,7 @@
     <div @click="removeCart()" class="text-end">
       <div class="btn btn-error btn-outline">
         <i class="fa-solid fa-trash-can"></i>
-        <div class="mx-1 mt-1">Xóa giỏ hàng</div>
+        <div class="mx-1 mt-1">Xóa tất cả</div>
       </div>
     </div>
     <!-- danh sách giỏ hàng -->

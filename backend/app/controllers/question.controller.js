@@ -24,6 +24,26 @@ exports.getListQuestion = async (req, res) => {
     }
 };
 
+// lấy question theo id user
+exports.getListQuestionUser = async (req, res) => {
+    try {
+        const listQuestion = await Question.find({ author: req.params.id })
+            .populate("hashtag", "name")
+            .populate("author", "name avatar_Url")
+            .populate("voted", "tim dislike view")
+            .sort({ createdAt: -1 })
+            .select(["title", "voted", "premium", "hashtag", "id", "createdAt", 'answer',]);
+        if (!listQuestion) {
+            return next(
+                res.status(404).json({ Message: "không thể getListQuestion" })
+            );
+        }
+        return res.send(listQuestion);
+    } catch (error) {
+        return next(res.status(500).send("lỗi khi getListQuestion"));
+    }
+};
+
 //lấy 1 bài Question
 exports.findOneQuestion = async (req, res, next) => {
     const { id } = req.params;

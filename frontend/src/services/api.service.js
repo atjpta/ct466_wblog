@@ -14,7 +14,6 @@ export const createApiClient = (baseURL, withAuthToken = false, config) => {
 	if(config){
 		commonConfig.headers["Content-Type"] = config;
 	}
-
 	const api = axios.create({
 		baseURL,
 		...commonConfig,

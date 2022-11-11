@@ -13,6 +13,9 @@ module.exports = (app) => {
         .put(question.updateQuestion)
         .delete(question.deleteQuestion)
     
+    router.route("/myquetion/:id")
+        .get(question.getListQuestionUser)
+    
     router.route("/addanswer/:id")
         .put(question.selectAnswer)
     

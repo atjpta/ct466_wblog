@@ -23,6 +23,7 @@ exports.getListBlog = async (req, res) => {
             "price",
             "hashtag",
             "_id",
+            'buyer',
             "createdAt",
         ]).limit(9);
         if (!listBlog) {
@@ -53,6 +54,7 @@ exports.getListBlogNextPage = async (req, res) => {
             "voted",
             "price",
             "hashtag",
+            'buyer',
             "_id",
             "createdAt",
         ]).limit(9).skip(9*page)
@@ -68,7 +70,7 @@ exports.getListBlogNextPage = async (req, res) => {
 };
 
 // lấy ds bài viết theo user  giới hạn 9 
-exports.getListBlogUser = async (req, res) => {
+exports.getListBlogUser = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
@@ -80,7 +82,6 @@ exports.getListBlogUser = async (req, res) => {
                 select: 'name avatar_Url tim dislike view'
             })
             .sort({ 'createdAt': -1 })
-            .exec();
         if (!listBlog) {
             return next(res.status(404).json({ Message: "không thể getListBlogUser" }));
         }

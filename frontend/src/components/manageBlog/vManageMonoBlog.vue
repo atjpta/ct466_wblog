@@ -53,26 +53,10 @@
                 ></a>
               </div>
             </div>
-            <!-- phần tùy chọn cho người đọc -->
-            <div v-if="useAuth.user.id != data.author._id" class="dropdown dropdown-left">
-              <label tabindex="0" class="btn btn-outline btn-info mt-5">
-                <i class="fa-solid fa-ellipsis-vertical"> </i>
-              </label>
-              <ul
-                tabindex="0"
-                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
-              </ul>
-            </div>
           </div>
+
           <button
-            :class="[
-              isRead
-                ? 'hover:text-violet-500 hover:scale-105 duration-300 '
-                : 'cursor-default',
-            ]"
+            class="hover:text-violet-500 hover:scale-105 duration-300"
             @click="read(data.id, data.voted._id)"
           >
             <!-- ảnh bìa -->
@@ -97,10 +81,19 @@
             </div>
           </div>
 
+          <div class="text-center">
+            <div class="badge badge-primary badge-outline">
+              Đơn giá: {{ data.price || "free" }}
+            </div>
+          </div>
+
           <!-- vote -->
           <div class="">
             <div class="flex justify-around text-xl text-center w-auto py-3">
-              <div class="flex w-20">
+              <div
+                class="flex w-20 tooltip-left tooltip tooltip-primary"
+                data-tip="điểm bài viết"
+              >
                 <i class="mt-2 h-2 text-3xl fa-solid fa-solid fa-sort-up"></i>
                 <div class="mx-1">
                   {{
@@ -111,36 +104,20 @@
                 </div>
                 <i class="mt-4 h-1 text-3xl fa-solid fa-solid fa-sort-up rotate-180"></i>
               </div>
-              <div class="flex w-20">
+              <div
+                class="flex w-20 tooltip-left tooltip tooltip-primary"
+                data-tip="lượt xem"
+              >
                 <i class="fa-solid fa-eye pt-1 px-3"></i>
                 <p>{{ data.voted.view || 0 }}</p>
               </div>
-            </div>
-          </div>
-          <!-- mua -->
-          <div
-            v-if="useAuth.user.id != data.author._id && data.price > 0 && isBuy == -1"
-            class="flex justify-around pb-3"
-          >
-            <div v-if="!loading" @click="buy()" class="btn btn-primary btn-outline">
-              <i class="fa-solid fa-lock-open"></i>
-              <div v-if="data.price" class="mx-1 mt-1">{{ data.price }} VND</div>
-            </div>
-            <div v-if="loading" class="btn btn-primary btn-outline loading">
-              <i class="fa-solid fa-lock-open"></i>
-              <div v-if="data.price" class="mx-1 mt-1">{{ data.price }} VND</div>
-            </div>
-            <div
-              v-if="!loadingCart"
-              @click="addCart()"
-              class="btn btn-primary btn-outline"
-            >
-              <i class="fa-solid fa-cart-plus"></i>
-              <div class="mx-1 mt-1">mở khóa sau</div>
-            </div>
-            <div v-if="loadingCart" class="btn btn-primary btn-outline loading">
-              <i class="fa-solid fa-cart-plus"></i>
-              <div class="mx-1 mt-1">mở khóa sau</div>
+              <div
+                class="flex w-20 tooltip-left tooltip tooltip-primary"
+                data-tip="số người mở khóa"
+              >
+                <i class="fa-solid fa-users-rectangle pt-1 px-3"></i>
+                <p>{{ data.buyer.length || 0 }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -155,7 +132,7 @@ import { blogStore } from "../../stores/blog.store";
 import { useRouter, useRoute } from "vue-router";
 import { alertStore } from "../../stores/alert.store";
 import { cartStore } from "../../stores/cart.store";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { billStore } from "../../stores/bill.store";
 const router = useRouter();
 const useBill = billStore();
@@ -165,29 +142,8 @@ const useAuth = authStore();
 const useAlert = alertStore();
 const useCart = cartStore();
 const loading = ref(false);
-const loadingCart = ref(false);
-
 const props = defineProps({
   data: Object,
-});
-
-const isBuy = computed(() => {
-  if (props.data.buyer) {
-    return props.data.buyer.indexOf(useAuth.user.id);
-  }
-  return -1;
-});
-const isRead = computed(() => {
-  if (props.data) {
-    if (
-      useAuth.user.id == props.data.author._id ||
-      props.data.price == 0 ||
-      isBuy.value != -1
-    ) {
-      return true;
-    }
-  }
-  return false;
 });
 async function search(id) {
   const redirectPath = route.query.redirect || {
@@ -196,57 +152,17 @@ async function search(id) {
   router.push(redirectPath);
 }
 async function read(id, id_vote) {
-  if (isRead.value) {
-    await useBlog.updatePushVote("view", id_vote);
-    const redirectPath = route.query.redirect || {
-      path: `/readblog/${id}`,
-    };
-    router.push(redirectPath);
-  }
+  await useBlog.updatePushVote("view", id_vote);
+  const redirectPath = route.query.redirect || {
+    path: `/readblog/${id}`,
+  };
+  router.push(redirectPath);
 }
 
 async function deleteBlog() {
   await useBlog.deleteBlog(props.data.id);
   await useBlog.getListBlog();
   router.back();
-}
-
-async function addCart() {
-  loadingCart.value = true;
-  try {
-    if (useCart.cart.id != "") {
-      await useCart.addBlogToCart(useCart.cart.id, { id_blog: props.data.id });
-    } else {
-      await useCart.createCart({
-        id_user: useAuth.user.id,
-        id_blog: props.data.id,
-      });
-      await useCart.getListCart(useAuth.user.id);
-    }
-    useAlert.setSuccess("Đã thêm thành công");
-  } catch (error) {
-    useAlert.setError("thêm thất bại");
-    console.log(error);
-  } finally {
-    loadingCart.value = false;
-  }
-}
-
-async function buy() {
-  loading.value = true;
-  try {
-    await useBill.createBill({
-      id_user: useAuth.user.id,
-      id_blog: props.data.id,
-    });
-    await useBlog.getListBlog();
-    useAlert.setSuccess("đã mở khóa thành công");
-  } catch (error) {
-    useAlert.setError("thanh toán thất bại");
-    console.log(error + "thanh toán thất bại");
-  } finally {
-    loading.value = false;
-  }
 }
 </script>
 

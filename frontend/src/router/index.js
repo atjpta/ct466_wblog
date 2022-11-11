@@ -190,6 +190,12 @@ const routes = [
         name: 'manageblog',
         component: () => import('@/views/dashboard/pageManageBlog/ManageBlogView.vue'),
       },
+      
+      {
+        path: 'managequestion',
+        name: 'managequestion',
+        component: () => import('@/views/dashboard/pageManageBlog/ManageQuestionView.vue'),
+      },
     ]
   },
 

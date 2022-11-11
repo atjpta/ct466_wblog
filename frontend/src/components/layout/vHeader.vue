@@ -1,5 +1,5 @@
 <template>
-  <div class="text-3xl">
+  <div class="text-xl">
     <div class="navbar bg-base-100 border-b-2">
       <div class="navbar-start">
         <div class="dropdown">
@@ -32,10 +32,10 @@
           </ul>
         </div>
         <div class="mx-5">
-          <router-link to="/homeblog" class="btn btn-ghost normal-case text-3xl"
+          <router-link to="/homeblog" class="btn btn-ghost normal-case text-xl"
             >Wblog</router-link
           >
-          <div class="ml-2 animate-ping border-b-2 border-blue-500 h-1 w-32"></div>
+          <div class="ml-2 animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
         </div>
       </div>
       <div v-if="useAuth.isUserLoggedIn" class="navbar-center hidden lg:flex">

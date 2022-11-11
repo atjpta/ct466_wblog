@@ -22,8 +22,8 @@
 
       <div v-if="!openName" class="my-3 text-2xl font-semibold text-center">
         {{ useInfo.info.name }}
-        <div @click="openName = true" class="btn btn-primary btn-outline">
-          <i class="fa-solid fa-pen text-2xl"></i>
+        <div @click="openName = true" class="btn btn-ghost">
+          <i class="fa-solid fa-pen text-primary"></i>
         </div>
       </div>
 

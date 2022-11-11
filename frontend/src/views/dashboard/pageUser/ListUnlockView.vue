@@ -1,5 +1,9 @@
 <template>
   <div class="mx-auto">
+    <div class="text-4xl font-semibold text-center m-5">
+      Danh sách bài viết đã mở khóa
+    </div>
+
     <div class="flex space-x-5 justify-center">
       <div>
         <div

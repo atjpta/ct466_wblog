@@ -16,6 +16,9 @@ class QuestionService {
     async findOneQ(id) {
         return (await this.api.get(`/${id}`)).data;
     }
+    async getListQuestionUser(id) {
+        return (await this.api.get(`/myquetion/${id}`)).data;
+    }
     async updateQ(id, data) {
         return (await this.api.put(`/${id}`, data)).data;
     }

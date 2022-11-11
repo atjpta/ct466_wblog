@@ -1,5 +1,7 @@
 <template>
   <div class="mx-auto">
+    <div class="text-4xl font-semibold text-center m-5">Danh sách bài viết đã lưu</div>
+    <div v-if="!useSearch.dataBlog.ListBlog">Bạn chưa lưu bài viết nào cả</div>
     <div class="flex space-x-5 justify-center">
       <div>
         <div v-for="blog in useSearch.dataBlog.arr1" :key="blog.id">

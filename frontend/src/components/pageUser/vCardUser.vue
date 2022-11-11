@@ -2,7 +2,10 @@
   <div class="border-2 p-5 rounded-2xl">
     <div>
       <router-link to="/dashboard/profile">
-        <div class="tooltip-left tooltip tooltip-primary" :data-tip="data.introduce">
+        <div
+          class="tooltip-left tooltip tooltip-primary"
+          :data-tip="data.introduce || 'Chưa có lời giới thiệu'"
+        >
           <img class="bg-black/50 h-40 w-40 rounded-full" :src="data.avatar_Url" />
           <div class="text-center font-semibold text-2xl">{{ data.name }}</div>
         </div>

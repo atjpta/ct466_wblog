@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const db = require("../models");
 const Cart = db.cart
 const Bill = db.bill
+const Blog = db.blog
 
 
 // get lấy ds bill ra 
@@ -99,12 +100,19 @@ exports.createBill = async (req, res, next) => {
     })
     try {
         const document = bill.save();
+        await bill.id_blog.forEach(async (e, i) => {
+            await Blog.findOneAndUpdate({ _id: e }, {
+                $addToSet: { buyer: bill.id_user }
+            })
+            if (i+1 == bill.id_blog.length) {
+                return res.status(200).send("đã tạo bill thành công");
+            }
+        })
         if (!document) {
             return next(
                 res.status(404).json({ Message: "không thể creatbill" })
             );
         }
-        return next(res.status(200).send("đã tạo bill thành công"));
     } catch (error) {
         return next(res.status(500).send("lỗi khi creatbill" + error));
     }
