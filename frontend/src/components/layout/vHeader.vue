@@ -23,7 +23,7 @@
             tabindex="0"
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li v-for="i in dataMidNav" :key="i">
+            <li class="hover-bordered" v-for="i in dataMidNav" :key="i">
               <router-link :to="i.url">
                 <i :class="i.icon"></i>
                 {{ i.name }}
@@ -32,7 +32,7 @@
           </ul>
         </div>
         <div class="mx-5">
-          <router-link to="/homeblog" class="btn btn-ghost normal-case text-xl"
+          <router-link to="/" class="btn btn-ghost normal-case text-xl"
             >Wblog</router-link
           >
           <div class="ml-2 animate-ping border-b-2 border-blue-500 h-1 w-20"></div>
@@ -110,24 +110,24 @@ import { infoStore } from "../../stores/info.store";
 const useAuth = authStore();
 const dataMidNav = ref([
   {
-    name: "Theo dõi",
-    url: "/follow",
-    icon: "fa-solid fa-heart",
-  },
-  {
-    name: "Cửa hàng",
-    url: "/shop",
-    icon: "fa-solid fa-basket-shopping",
-  },
-  {
-    name: "Tìm kiếm",
-    url: "/search",
-    icon: "fa-solid fa-magnifying-glass",
+    name: "Bài viết",
+    url: "/homeblog",
+    icon: "fa-solid fa-file",
   },
   {
     name: "Hỏi Đáp",
     url: "/homequestion",
     icon: "fa-solid fa-comment-dots",
+  },
+  {
+    name: "Theo dõi",
+    url: "/dashboard/follow",
+    icon: "fa-solid fa-heart",
+  },
+  {
+    name: "Tìm kiếm",
+    url: "/search",
+    icon: "fa-solid fa-magnifying-glass",
   },
 ]);
 
@@ -143,15 +143,16 @@ const dataAvatar = ref([
     icon: "fa-solid fa-file-circle-question",
   },
   {
+    name: "Giỏ hàng",
+    url: "/dashboard/cart",
+    icon: "fa-solid fa-cart-shopping",
+  },
+  {
     name: "Trang dashboard",
     url: "/dashboard/profile",
     icon: "fa-solid fa-address-card",
   },
-  {
-    name: "Quản lý bài viết",
-    url: "/myblog",
-    icon: "fa-solid fa-list-check",
-  },
+
   {
     name: "Đăng xuất",
     url: "/login",

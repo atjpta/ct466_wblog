@@ -75,10 +75,12 @@ import { useRouter, useRoute } from "vue-router";
 import { questStore } from "../../stores/question.store";
 import { hashtagStore } from "../../stores/hashtag.store";
 import { authStore } from "../../stores/auth.store";
+import { blogStore } from "../../stores/blog.store";
 
 const router = useRouter();
 const route = useRoute();
 const useAuth = authStore();
+const useBlog = blogStore();
 const useQuestion = questStore();
 const useHashtag = hashtagStore();
 const quill = ref();
@@ -91,6 +93,40 @@ const rateVote = computed(() => {
   }
   return rate;
 });
+
+async function vote(type, list, id_list) {
+  if (type == "tim") {
+    const indexTim = list.tim.findIndex((e) => e == useAuth.user.id);
+    const indexDislike = list.dislike.findIndex((e) => e == useAuth.user.id);
+
+    if (indexTim > -1) {
+      list.tim.splice(indexTim, 1);
+      await useBlog.updatePopVote(type, id_list);
+    } else {
+      if (indexDislike > -1) {
+        list.dislike.splice(indexDislike, 1);
+      }
+      list.tim.push(useAuth.user.id);
+      await useBlog.updatePushVote(type, id_list);
+    }
+  }
+
+  if (type == "dislike") {
+    const indexTim = list.tim.findIndex((e) => e == useAuth.user.id);
+    const indexDislike = list.dislike.findIndex((e) => e == useAuth.user.id);
+
+    if (indexDislike > -1) {
+      list.dislike.splice(indexDislike, 1);
+      useBlog.updatePopVote(type, id_list);
+    } else {
+      if (indexTim > -1) {
+        list.tim.splice(indexTim, 1);
+      }
+      list.dislike.push(useAuth.user.id);
+      useBlog.updatePushVote(type, id_list);
+    }
+  }
+}
 
 async function getApi() {
   await useQuestion.findOneQuestion(route.params.id);

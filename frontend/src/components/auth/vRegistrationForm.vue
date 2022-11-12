@@ -3,7 +3,7 @@
     <Form
       @submit="handleRegister"
       :validation-schema="userFormSchema"
-      class="bg-gradient-to-l from-sky-100 to-sky-500/30 rounded-2xl"
+      class="bg-base-200 rounded-2xl"
     >
       <div class="text-center text-5xl py-10">Đăng kí</div>
       <div>

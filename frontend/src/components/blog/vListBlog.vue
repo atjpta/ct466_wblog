@@ -475,27 +475,6 @@
         </div>
       </div>
     </div>
-    <!-- nút xem thêm -->
-    <div>
-      <div class="flex justify-center">
-        <div
-          v-show="!loading && endList == 9"
-          @click="NextPage()"
-          class="btn btn-outline btn-info"
-        >
-          Xem thêm
-        </div>
-        <div v-show="loading && endList == 9" class="flex justify-center">
-          <div class="btn loading btn-outline btn-inf">Xem thêm</div>
-        </div>
-      </div>
-      <div
-        v-show="endList < 9 || !endList"
-        class="bg-base-300/50 duration-300 mx-auto w-[150px] text-center truncate shadow-violet-500 shadow-md p-3 rounded-2xl"
-      >
-        ~~~ Hết ~~~
-      </div>
-    </div>
   </div>
 </template>
 

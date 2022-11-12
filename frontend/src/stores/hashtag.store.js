@@ -15,6 +15,7 @@ export const hashtagStore = defineStore("hashtagStore", {
 			newHashtag: [],
 			listCreateHashtag: [],
 			data: {},
+			data2: {},
 			listRemove: [],
 		};
 	},
@@ -90,9 +91,16 @@ export const hashtagStore = defineStore("hashtagStore", {
 				arr2: [],
 				arr3: [],
 			};
+			const data2 = {
+				arr1: [],
+				arr2: [],
+				arr3: [],
+			};
 			try {
 				this.resultSearch = await hashtagService.findBlogOnHashtag(id)
 				this.resultSearch.blog.reverse()
+				this.resultSearch.question.reverse()
+
 				this.resultSearch.blog.forEach((blog, i) => {
 					this.resultSearch.blog[i].id = this.resultSearch.blog[i]._id
 					this.resultSearch.blog[i].createdAt = this.setTime(blog.createdAt);
@@ -106,11 +114,26 @@ export const hashtagStore = defineStore("hashtagStore", {
 						data.arr3.push(this.resultSearch.blog[i])
 					}
 				});
+				this.resultSearch.question.forEach((question, i) => {
+					this.resultSearch.question[i].id = this.resultSearch.question[i]._id
+					this.resultSearch.question[i].createdAt = this.setTime(question.createdAt);
+					if (i % 3 == 0) {
+						data2.arr1.push(this.resultSearch.question[i])
+					}
+					else if (i % 3 == 1) {
+						data2.arr2.push(this.resultSearch.question[i])
+					}
+					else if (i % 3 == 2) {
+						data2.arr3.push(this.resultSearch.question[i])
+					}
+				});
 			} catch (error) {
 				console.log(error + 'lỗi findBlogOnHashtag');
 			}
 			this.data = data;
 			this.data.ListBlog = this.resultSearch.blog;
+			this.data2 = data2;
+			this.data2.ListQuestion = this.resultSearch.question;
 
 		},
 

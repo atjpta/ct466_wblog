@@ -2,6 +2,9 @@
   <div class="mx-auto m-5">
     <vManageStatVue></vManageStatVue>
     <div class="flex space-x-5 justify-center">
+      <div v-if="useBlog.ListBlog.length < 1">
+        <div class="font-semibold text-3xl text-center m-5">Bạn chưa có bài viết!!</div>
+      </div>
       <div>
         <div v-for="blog in useBlog.data.arr1" :key="blog.id">
           <vManageMonoBlogVue :data="blog" />
