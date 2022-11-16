@@ -73,7 +73,11 @@
       Kết quả tìm kiếm:
     </div>
 
-    <vListCardUser :data="listSearchUser" v-if="selected == 'name'" />
+    <div v-if="selected == 'name'" class="flex justify-center">
+      <div class="m-5 w-52" v-for="user in useSearch.ListUser" :key="user.id">
+        <vCardUserVue :data="user"></vCardUserVue>
+      </div>
+    </div>
     <vLIstBlog :data="listSearchTitle" v-if="selected == 'title'" />
     <vLIstBlog :data="listSearchHashtag" v-if="selected == 'hashtag'" />
   </div>
@@ -81,6 +85,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import vCardUserVue from "../../components/pageUser/vCardUser.vue";
 import { useRoute } from "vue-router";
 import vListCardUser from "../../components/search/vListCardUser.vue";
 import vLIstBlog from "../../components/blog/vListBlog.vue";
@@ -156,6 +161,7 @@ const listSearchUser = computed(() => {
 
 onMounted(() => {
   useSearch.getListSearch();
+  useSearch.getListUser();
 });
 </script>
 

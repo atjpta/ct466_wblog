@@ -1,7 +1,7 @@
 <template>
   <div class="border-2 p-5 rounded-2xl">
     <div>
-      <router-link to="/dashboard/profile">
+      <router-link :to="`/user/${data.id}`">
         <div
           class="tooltip-left tooltip tooltip-primary"
           :data-tip="data.introduce || 'Chưa có lời giới thiệu'"

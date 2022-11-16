@@ -26,6 +26,9 @@ export const infoStore = defineStore("infoStore", {
 				name: authStore().user.name,
 				avata_Url: '',
 				introduce: '',
+				followBlog: [],
+				followBy: [],
+				repAnswer: [],
 			},
 			setFollow: false,
 			alluser: [],
@@ -48,9 +51,8 @@ export const infoStore = defineStore("infoStore", {
 
 		async addFollow(follow) {
 			try {
-				console.log(follow);
-				console.log(authStore().user.id);
 				await usersService.addFollow(authStore().user.id, { follow: follow })
+				await this.getInfoUser(follow)
 				alertStore().setSuccess('đã theo dõi thành công')
 			} catch (error) {
 				alertStore().setError('không thể theo dõi')
@@ -62,6 +64,7 @@ export const infoStore = defineStore("infoStore", {
 		async removeFollow(follow) {
 			try {
 				await usersService.removeFollow(authStore().user.id, { follow: follow })
+				await this.getInfoUser(follow)
 				alertStore().setSuccess('đã hủy theo dõi thành công')
 			} catch (error) {
 				alertStore().setError('không thể hủy theo dõi')
@@ -100,24 +103,6 @@ export const infoStore = defineStore("infoStore", {
 				alertStore().setError('lỗi lấy dữ liệu - ' + error.message);
 			}
 		},
-
-
-		// /*Hàm tính khoảng cách giữa 2 ngày trong javascript*/
-		// get_day_of_time (d1, d2) {
-		// 	let ms1 = d1.getTime();
-		// 	let ms2 = d2.getTime();
-		// 	return Math.ceil((ms2 - ms1) / (24 * 60 * 60 * 1000));
-		// },
-
-
-		// async getWallet() {
-		// 	try {
-		// 		this.wallet = await UserService.getGemPremium(authStore().user.id)
-		// 		this.wallet.premium = this.get_day_of_time(new Date(), new Date(this.wallet.premium))
-		// 	} catch (error) {
-		// 		alertStore().setError('lỗi lấy getWallet - ' + error.message);
-		// 	}
-		// },
 
 		async getInfoUser(id) {
 			try {

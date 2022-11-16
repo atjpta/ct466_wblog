@@ -26,8 +26,8 @@ exports.findBlogOnHashtag = async (req, res, next) => {
     try {
         const document = await Hashtag.find(condition)
             .populate({
-                path: 'blog',
-                select: 'author title summary cover_image_Url voted premium hashtag _id createdAt',
+                path: 'blog question',
+                select: 'author title cover_image_Url voted premium hashtag _id createdAt',
                 match: { deleted: false },
                 populate: {
                     path: 'author voted hashtag',

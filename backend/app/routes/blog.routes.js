@@ -2,12 +2,12 @@ const express = require("express");
 const blog = require('../controllers/blog.controller')
 
 module.exports = (app) => {
-    const router = express.Router();
+    const router = express.Router()
     router.route("/")
         .get(blog.getListBlog)
         .post(blog.createBlog)
         .delete(blog.deleteAllBlog)
-
+    
     router.route("/:id")
         .get(blog.findOneBlog)
         .put(blog.updateBlog)
@@ -15,9 +15,6 @@ module.exports = (app) => {
 
     router.route("/blogUser/:id")
         .get(blog.getListBlogUser)
-    
-    router.route("/page/:page")
-        .get(blog.getListBlogNextPage)
     
     router.route("/retore/:id")
         .put(blog.restoreBlog)

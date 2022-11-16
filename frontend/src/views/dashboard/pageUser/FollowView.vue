@@ -1,8 +1,10 @@
 <template>
   <div class="mt-5 mx-auto">
     <div class="text-4xl font-semibold text-center">Danh sách theo dõi</div>
-    <div class="m-5 w-52" v-for="user in useSearch.ListUser" :key="user.id">
-      <vcardUserVue :data="user"></vcardUserVue>
+    <div class="flex w-[650px] flex-wrap justify-center">
+      <div class="m-5 w-52" v-for="user in useSearch.ListUser" :key="user.id">
+        <vcardUserVue :data="user"></vcardUserVue>
+      </div>
     </div>
   </div>
 </template>

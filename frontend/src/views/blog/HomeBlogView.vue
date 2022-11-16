@@ -16,20 +16,20 @@
     </div>
     <div class="flex space-x-5 justify-center">
       <div>
-        <div v-for="blog in filtersBlog.arr1" :key="blog.id">
-          <vMonoBlogVue :data="blog" />
+        <div v-for="blog1 in filtersBlog.arr1" :key="blog1.id">
+          <vMonoBlogVue :data="blog1" />
         </div>
       </div>
 
       <div>
-        <div v-for="blog in filtersBlog.arr2" :key="blog.id">
-          <vMonoBlogVue :data="blog" />
+        <div v-for="blog2 in filtersBlog.arr2" :key="blog2.id">
+          <vMonoBlogVue :data="blog2" />
         </div>
       </div>
 
       <div>
-        <div v-for="blog in filtersBlog.arr3" :key="blog.id">
-          <vMonoBlogVue :data="blog" />
+        <div v-for="blog3 in filtersBlog.arr3" :key="blog3.id">
+          <vMonoBlogVue :data="blog3" />
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
 <script setup>
 import vMonoBlogVue from "../../components/blog/vMonoBlog.vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onUpdated } from "vue";
 import { blogStore } from "../../stores/blog.store";
 import { authStore } from "../../stores/auth.store";
 import { cartStore } from "../../stores/cart.store";
@@ -67,6 +67,10 @@ const dataTab = ref([
     value: "#rate",
   },
   {
+    title: "Đã mở khóa",
+    value: "#unlock",
+  },
+  {
     title: "Miễn phí",
     value: "#price",
   },
@@ -92,6 +96,9 @@ const filtersBlog = computed(() => {
             (b.voted.tim.length - b.voted.dislike.length)
           );
         });
+        break;
+      case "#unlock":
+        listBlog = listBlog.filter((e) => e.buyer.indexOf(useAuth.user.id) > -1);
         break;
       case "#price":
         listBlog = listBlog.filter((e) => e.price == 0);

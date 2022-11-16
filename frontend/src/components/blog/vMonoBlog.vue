@@ -1,21 +1,5 @@
 <template>
   <div>
-    <!-- Put this part before </body> tag -->
-    <div class="modal" id="delete">
-      <div class="modal-box">
-        <h3 class="py-4 font-bold text-lg text-center">bạn có chắc muốn xóa?</h3>
-        <div class="flex justify-evenly">
-          <div class="modal-action">
-            <button @click="deleteBlog()" class="btn w-20 btn-outline btn-error">
-              có
-            </button>
-          </div>
-          <a href="#" class="modal-action">
-            <button class="btn w-20 btn-outline btn-info">không</button>
-          </a>
-        </div>
-      </div>
-    </div>
     <div class="">
       <div class="mx-auto rounded-2xl my-5 h-fit">
         <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
@@ -44,7 +28,7 @@
             <div v-if="useAuth.user.id == data.author._id" class="pt-5">
               <div class="bg-base-300 space-x-2 static flex">
                 <router-link :to="`/editblog/${data.id}`">
-                  <div href="#delete" class="btn btn-outline btn-info">
+                  <div class="btn btn-outline btn-info">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
                 </router-link>
@@ -130,6 +114,7 @@
               <i class="fa-solid fa-lock-open"></i>
               <div v-if="data.price" class="mx-1 mt-1">{{ data.price }} VND</div>
             </div>
+
             <div
               v-if="!loadingCart"
               @click="addCart()"
@@ -233,6 +218,8 @@ async function addCart() {
 }
 
 async function buy() {
+  console.log(props.data.id);
+
   loading.value = true;
   try {
     await useBill.createBill({
@@ -246,6 +233,7 @@ async function buy() {
     console.log(error + "thanh toán thất bại");
   } finally {
     loading.value = false;
+    router.back();
   }
 }
 </script>

@@ -74,6 +74,7 @@
     </div>
 
     <!-- blog -->
+    <!-- <img :src="useBlog.blog.cover_image_Url" alt="" /> -->
     <div class="relative">
       <div
         :style="`background-image: url(${useBlog.blog.cover_image_Url})`"

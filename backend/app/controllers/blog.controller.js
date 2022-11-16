@@ -4,17 +4,16 @@ const { populate } = require("../models/user.models");
 const Blog = db.blog;
 const Comment = db.comment;
 const Voted = db.vote;
+
 //lấy ds blog giới hạn 9
 exports.getListBlog = async (req, res) => {
     try {
-        const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
-        ).populate(
-            'hashtag', 'name'
-        ).populate(
-            'author', 'name avatar_Url'
-        ).populate(
-            'voted', 'tim dislike view'
-        ).sort({ 'createdAt': -1 }
+        const listBlog = await Blog.find({ deleted: false }
+        ).populate({
+            path: 'author voted hashtag',
+            select: 'name avatar_Url tim dislike view',
+        })
+        .sort({ 'createdAt': -1 }
         ).select([
             "title",
             "summary",
@@ -25,7 +24,7 @@ exports.getListBlog = async (req, res) => {
             "_id",
             'buyer',
             "createdAt",
-        ]).limit(9);
+        ])
         if (!listBlog) {
             return next(res.status(404).json({ Message: "không thể getListBlogUser" }));
         }
@@ -35,41 +34,7 @@ exports.getListBlog = async (req, res) => {
     }
 };
 
-//lấy ds blog từ trang 2 trở lên
-exports.getListBlogNextPage = async (req, res) => {
-    const { page } = req.params;
-    try {
-        const listBlog = await Blog.find({ _id: { $ne: req.params.id }, deleted: false }
-        ).populate(
-            'hashtag', 'name'
-        ).populate(
-            'author', 'name avatar_Url'
-        ).populate(
-            'voted', 'tim dislike view'
-        ).sort({ 'createdAt': -1 }
-        ).select([
-            "title",
-            "summary",
-            "cover_image_Url",
-            "voted",
-            "price",
-            "hashtag",
-            'buyer',
-            "_id",
-            "createdAt",
-        ]).limit(9).skip(9*page)
-            ;
-        if (!listBlog) {
-            return next(res.status(404).json({ Message: "không thể getListBlog2" }));
-        }
-        return res.send(listBlog);
-    } catch (error) {
-        return next(res.status(500).send("lỗi khi getListBlog2"))
 
-    }
-};
-
-// lấy ds bài viết theo user  giới hạn 9 
 exports.getListBlogUser = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
@@ -91,30 +56,6 @@ exports.getListBlogUser = async (req, res, next) => {
 
     }
 };
-// lấy ds bài viết theo user  từ trang 2 trở lên
-exports.getListBlogUserNextPage = async (req, res) => {
-    const { id, page } = req.params;
-    const condition = {
-        _id: id && mongoose.isValidObjectId(id) ? id : null,
-    };
-    try {
-        const listBlog = await Blog.find({ author: condition, deleted: false })
-            .populate({
-                path: 'author voted hashtag',
-                select: 'name avatar_Url tim dislike view'
-            })
-            .sort({ 'createdAt': -1 })
-            .limit(9).skip(9 * page);
-        if (!listBlog) {
-            return next(res.status(404).json({ Message: "không thể getListBlogUser2" }));
-        }
-        return res.send(listBlog);
-    } catch (error) {
-        return next(res.status(500).send("lỗi khi getListBlogUser2g"))
-
-    }
-};
-
 //lấy 1 bài blog
 exports.findOneBlog = async (req, res, next) => {
     const { id } = req.params;
@@ -122,7 +63,7 @@ exports.findOneBlog = async (req, res, next) => {
         _id: id && mongoose.isValidObjectId(id) ? id : null,
     };
 
-   
+
     try {
         const cmt = await Comment.find({ id_blog: id }).sort({ 'createdAt': -1 }).populate('author', 'name avatar_Url').populate(
             'voted', 'tim dislike'
@@ -179,7 +120,7 @@ exports.createBlog = async (req, res) => {
         content: req.body.content,
         hashtag: req.body.hashtag,
         cover_image_Url: req.body.cover_image_Url,
-        price: parseInt(req.body.price),
+        price: parseInt(req.body.price) || 0,
     })
     const vote = new Voted({
         tim: [],
