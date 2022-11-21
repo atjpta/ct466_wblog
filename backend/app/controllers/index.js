@@ -8,6 +8,7 @@ const search = require('./search.controller')
 const question = require('./question.controller')
 const cart = require('./cart.controller')
 const bill = require('./bill.controller')
+const report =  require('./report.controller')
 module.exports = {
     auth,
     user,
@@ -19,4 +20,5 @@ module.exports = {
     question,
     cart,
     bill,
+    report,
 }

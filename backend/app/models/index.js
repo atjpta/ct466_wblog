@@ -7,6 +7,7 @@ const hashtag = require('./hashtag.models')
 const question = require('./question.models')
 const cart = require('./cart.models')
 const bill = require('./bill.models')
+const report = require('./report.models')
 module.exports = {
     user,
     role,
@@ -17,4 +18,5 @@ module.exports = {
     question,
     cart,
     bill,
+    report,
 }

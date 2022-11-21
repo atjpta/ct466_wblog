@@ -10,6 +10,12 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "comment",
         },
+        report: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "report"
+            }
+        ],
         title: String,
         content: Object,
         voted: {
