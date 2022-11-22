@@ -16,7 +16,6 @@ exports.getListBlog = async (req, res) => {
         .sort({ 'createdAt': -1 }
         ).select([
             "title",
-            "summary",
             "cover_image_Url",
             "voted",
             "price",

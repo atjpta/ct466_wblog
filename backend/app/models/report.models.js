@@ -7,6 +7,14 @@ const schema = mongoose.Schema(
             ref: "user"
         },
         content: String,
+        id_blog: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "blog"
+        },
+        id_question: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "question"
+        },
     },
 );
 

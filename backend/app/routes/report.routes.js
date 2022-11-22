@@ -4,20 +4,21 @@ const report = require('../controllers/report.controller')
 module.exports = (app) => {
     const router = express.Router();
     
+    router.route('/')
+        .delete(report.deleteAllReport)
+        .post(report.createReport)
+    
+    router.route('/:id')
+        .delete(report.deleteOneReport)
+    
+    router.route('/:type/:id')
+        .get(report.getListReportById)
+    
     router.route("/blog")
-        .get(report.getBlogHaveReport)
-        .post(report.createReportBlog)
+        .get(report.getReportBlog)
     
     router.route("/question")
-        .get(report.getBlogHaveReport)
-        .post(report.createReportQuestion)
-    
-    router.route("/blog/:id_blog/:id_report")
-        .delete(report.deleteOneReportBlog)
-    
-    router.route("/question/:id_blog/:id_report")
-        .delete(report.deleteOneReportQuestion)
-    
+        .get(report.getReportQuestion)
     
     app.use("/api/report", router);
 };

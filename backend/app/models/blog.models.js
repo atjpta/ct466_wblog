@@ -6,12 +6,6 @@ const schema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "user"
         },
-        report: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "report"
-            }
-        ],
         title: String,
         content: Object,
         cover_image_Url: {
