@@ -58,7 +58,6 @@
       <div class="modal-box">
         <h3 class="font-bold text-lg">Thông báo cực căng</h3>
         <p class="py-4">Hãy nhập lý do mà bạn muốn báo cáo bài viết này</p>
-        {{ inputReport }}
         <input
           v-model="inputReport"
           class="bg-white/5 border-0 border-b-2 mb-5 w-full"
@@ -68,7 +67,7 @@
         <div class="flex justify-around">
           <div class="modal-action">
             <label
-              @click="buy()"
+              @click="report()"
               for="my-modal-report"
               :class="[loading ? 'loading' : '']"
               class="btn btn-primary btn-outline"
@@ -226,6 +225,7 @@ import { alertStore } from "../../stores/alert.store";
 import { cartStore } from "../../stores/cart.store";
 import { computed, ref } from "vue";
 import { billStore } from "../../stores/bill.store";
+import { reportStore } from "../../stores/report.store";
 const router = useRouter();
 const useBill = billStore();
 const route = useRoute();
@@ -236,6 +236,7 @@ const useCart = cartStore();
 const loading = ref(false);
 const loadingCart = ref(false);
 const inputReport = ref("");
+const useReport = reportStore();
 const props = defineProps({
   data: Object,
 });
@@ -258,6 +259,26 @@ const isRead = computed(() => {
   }
   return false;
 });
+
+async function report() {
+  loading.value = true;
+
+  const data = {
+    id_user: useAuth.user.id,
+    content: inputReport.value,
+    id_blog: props.data.id,
+  };
+  try {
+    await useReport.createReport(data);
+    useAlert.setSuccess("đã gửi báo cáo thành công");
+  } catch (error) {
+    console.log(error);
+    console.log("lỗi khi gửi report");
+    useAlert.setError("có lỗi khi gửi báo cáo");
+  } finally {
+    loading.value = false;
+  }
+}
 async function search(id) {
   const redirectPath = route.query.redirect || {
     path: `/searchashtag/${id}`,

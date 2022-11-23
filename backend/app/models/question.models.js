@@ -28,6 +28,10 @@ const schema = mongoose.Schema(
                 ref: "hashtag"
             }
         ],
+        deleted: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     {

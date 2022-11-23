@@ -74,6 +74,19 @@ const data = ref([
     ],
   },
   {
+    title: "Quản lý báo cáo",
+    content: [
+      {
+        title: "Cáo cáo của bài viết",
+        url: "reportblog",
+      },
+      {
+        title: "Cáo cáo của hỏi đáp",
+        url: "reportquestion",
+      },
+    ],
+  },
+  {
     title: "Quản lý Mua hàng",
     content: [
       {
@@ -84,10 +97,6 @@ const data = ref([
         title: "Lịch sử mua hàng",
         url: "historybill",
       },
-      // {
-      //   title: "Thống kê",
-      //   url: "1",
-      // },
     ],
   },
   {
@@ -101,10 +110,6 @@ const data = ref([
         title: "Chỉnh sửa câu hỏi",
         url: "managequestion",
       },
-      // {
-      //   title: "Thống kê",
-      //   url: "1",
-      // },
     ],
   },
   {

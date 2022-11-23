@@ -65,6 +65,7 @@ exports.getReportBlog = async (req, res, next) => {
                           $addToSet : '$id_blog'  
                         },
                     }
+                    
                 },
                 {
                     $lookup: {
@@ -72,17 +73,27 @@ exports.getReportBlog = async (req, res, next) => {
                         localField: 'id_blog',
                         foreignField: '_id',
                         as: 'blog',
+                        pipeline: [
+                            {
+                                $match: {
+                                    deleted: false,
+                                }
+                            }
+                        ]
                     },
+                    
                 },
                 {
                     '$project': {
                         "blog.title": 1,
-                        "blog.cover_image_Url": 1,
+                        "blog._id": 1,
                         'id_blog': 1,
+                        'blog.deleted': 1,
                         '_id': 1,
                         'count' : 1,
                     }
                 },
+                
             ]
         )
         return res.send(document);   
@@ -93,7 +104,7 @@ exports.getReportBlog = async (req, res, next) => {
 }
 
 
-// lấy bài viết có report
+// lấy câu hỏi có report
 exports.getReportQuestion= async (req, res, next) => {
     try {
         const document = await Report.aggregate(
@@ -113,11 +124,19 @@ exports.getReportQuestion= async (req, res, next) => {
                         localField: 'id_Quetion',
                         foreignField: '_id',
                         as: 'question',
+                        pipeline: [
+                            {
+                                $match: {
+                                    deleted: false,
+                                }
+                            }
+                        ]
                     },
                 },
                 {
                     '$project': {
                         "question.title": 1,
+                        "question._id": 1,
                         'id_Quetion': 1,
                         '_id': 1,
                         'count': 1,

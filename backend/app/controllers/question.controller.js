@@ -7,7 +7,7 @@ const Question = db.question;
 const User = db.user
 exports.getListQuestion = async (req, res) => {
     try {
-        const listQuestion = await Question.find({ _id: { $ne: req.params.id } })
+        const listQuestion = await Question.find({ _id: { $ne: req.params.id }, deleted: false  })
             .populate("hashtag", "name")
             .populate("author", "name avatar_Url")
             .populate("voted", "tim dislike view")
@@ -27,7 +27,7 @@ exports.getListQuestion = async (req, res) => {
 // lấy question theo id user
 exports.getListQuestionUser = async (req, res) => {
     try {
-        const listQuestion = await Question.find({ author: req.params.id })
+        const listQuestion = await Question.find({ author: req.params.id,  deleted: false  })
             .populate("hashtag", "name")
             .populate("author", "name avatar_Url")
             .populate("voted", "tim dislike view")
@@ -264,7 +264,7 @@ exports.deleteQuestion = async (req, res, next) => {
     };
 
     try {
-        const document = await Question.findOneAndDelete(condition);
+        const document = await Question.findOneAndDelete(condition, { deleted: true });
         if (!document) {
             return next(res.status(404).json({ Message: "không thể tìm thấy Question" }));
         }

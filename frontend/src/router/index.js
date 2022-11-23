@@ -196,6 +196,16 @@ const routes = [
         name: 'managequestion',
         component: () => import('@/views/dashboard/pageManageBlog/ManageQuestionView.vue'),
       },
+      {
+        path: 'reportblog',
+        name: 'reportblog',
+        component: () => import('@/views/dashboard/pageAdmin/ReportBlogView.vue'),
+      },
+      {
+        path: 'reportquestion',
+        name: 'reportquestion',
+        component: () => import('@/views/dashboard/pageAdmin/ReportQuestionView.vue'),
+      },
     ]
   },
 
