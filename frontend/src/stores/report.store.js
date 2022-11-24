@@ -31,7 +31,7 @@ export const reportStore = defineStore("reportStore", {
                 this.ListBlog = await reportService.getReportBlog()
             } catch (error) {
                 console.log(error);
-                console.log(`lỗi khi getReportBlog ${type} ++ ${id}`);
+                console.log(`lỗi khi getReportBlog `);
             }
         },
         async getReportQuestion() {
@@ -39,7 +39,7 @@ export const reportStore = defineStore("reportStore", {
                 this.ListQuestion = await reportService.getReportQuestion()
             } catch (error) {
                 console.log(error);
-                console.log(`lỗi khi getReportQuestion ${type} ++ ${id}`);
+                console.log(`lỗi khi getReportQuestion`);
             }
         },
     },

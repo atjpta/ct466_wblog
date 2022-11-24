@@ -257,7 +257,7 @@ console.log(req.body);
     }
 };
 
-exports.deleteQuestion = async (req, res, next) => {
+exports.deleteOneQuestion = async (req, res, next) => {
     const { id } = req.params;
     const condition = {
         _id: id && mongoose.isValidObjectId(id) ? id : null,

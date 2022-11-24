@@ -11,7 +11,7 @@ module.exports = (app) => {
     router.route("/:id")
         .get(question.findOneQuestion)
         .put(question.updateQuestion)
-        .delete(question.deleteQuestion)
+        .delete(question.deleteOneQuestion)
     
     router.route("/myquetion/:id")
         .get(question.getListQuestionUser)

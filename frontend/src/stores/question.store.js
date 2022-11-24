@@ -155,9 +155,22 @@ export const questStore = defineStore("questStore", {
         async selectAnswer(id, data) {
             await questionService.selectAnswer(id, data);
         },
+
         async removeAnswer(id, data) {
             await questionService.removeAnswer(id, data);
-        }
+        },
+
+        async deleteOneQuestion(id) {
+            try {
+                await questionService.deleteOneQuestion(id);
+                alertStore().setSuccess('Đã xóa thành công');
+
+            } catch (error) {
+                console.log(error);
+                console.log('lỗi deleteOneQuestion');
+                alertStore().setError('có lỗi khi xóa Question');
+            }
+        },
 
     },
 });

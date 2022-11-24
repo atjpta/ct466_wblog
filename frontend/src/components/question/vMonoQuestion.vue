@@ -1,21 +1,35 @@
 <template>
   <div>
-    <!-- Put this part before </body> tag -->
-    <!-- <div class="modal" id="delete">
+    <!--Modal report -->
+    <input type="checkbox" id="my-modal-report" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
-        <h3 class="py-4 font-bold text-lg text-center">bạn có chắc muốn xóa?</h3>
-        <div class="flex justify-evenly">
+        <h3 class="font-bold text-lg">Thông báo cực căng</h3>
+        <p class="py-4">Hãy nhập lý do mà bạn muốn báo cáo bài viết này</p>
+        <input
+          autofocus
+          v-model="inputReport"
+          class="bg-white/5 border-0 border-b-2 mb-5 w-full focus"
+          type="text"
+        />
+        <!-- tùy chọn btn -->
+        <div class="flex justify-around">
           <div class="modal-action">
-            <button @click="deleteBlog()" class="btn w-20 btn-outline btn-error">
-              có
-            </button>
+            <label
+              @click="report()"
+              for="my-modal-report"
+              :class="[loading ? 'loading' : '']"
+              class="btn btn-primary btn-outline"
+              >Gửi</label
+            >
           </div>
-          <a href="#" class="modal-action">
-            <button class="btn w-20 btn-outline btn-info">không</button>
-          </a>
+          <div class="modal-action">
+            <label for="my-modal-report" class="btn btn-warning btn-outline">Hủy</label>
+          </div>
         </div>
       </div>
-    </div> -->
+    </div>
+
     <div>
       <div class="mx-auto rounded-2xl my-5 h-fit">
         <div
@@ -51,9 +65,6 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
                 </router-link>
-                <!-- <a href="#delete" class="btn btn-outline btn-error"
-                  ><i class="fa-solid fa-trash-can"></i
-                ></a> -->
               </div>
             </div>
             <!-- phần tùy chọn cho người đọc -->
@@ -65,8 +76,14 @@
                 tabindex="0"
                 class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
+                <li>
+                  <a>
+                    <label for="my-modal-report">
+                      <i class="fa-solid fa-flag"></i>
+                      báo cáo bài viết
+                    </label>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -135,16 +152,42 @@ import { blogStore } from "../../stores/blog.store";
 import { useRouter, useRoute } from "vue-router";
 import { questStore } from "../../stores/question.store";
 import { ref } from "vue";
+import { alertStore } from "../../stores/alert.store";
+import { reportStore } from "../../stores/report.store";
 const useQuestion = questStore();
+const useAlert = alertStore();
+const useReport = reportStore();
 const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const useAuth = authStore();
+const inputReport = ref();
+const loading = ref(false);
 const props = defineProps({
   data: Object,
 });
 
 const isOpen = ref();
+
+async function report() {
+  loading.value = true;
+
+  const data = {
+    id_user: useAuth.user.id,
+    content: inputReport.value,
+    id_question: props.data.id,
+  };
+  try {
+    await useReport.createReport(data);
+    useAlert.setSuccess("đã gửi báo cáo thành công");
+  } catch (error) {
+    console.log(error);
+    console.log("lỗi khi gửi report");
+    useAlert.setError("có lỗi khi gửi báo cáo");
+  } finally {
+    loading.value = false;
+  }
+}
 
 async function read(id, id_vote) {
   await useBlog.updatePushVote("view", id_vote);

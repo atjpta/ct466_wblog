@@ -111,17 +111,17 @@ exports.getReportQuestion= async (req, res, next) => {
             [
                 {
                     $group: {
-                        _id: "$id_Quetion",
+                        _id: "$id_question",
                         count: { $sum: 1 },
-                        id_blog: {
-                            $addToSet: '$id_Quetion'
+                        id_question: {
+                            $addToSet: '$id_question'
                         },
                     }
                 },
                 {
                     $lookup: {
                         from: 'questions',
-                        localField: 'id_Quetion',
+                        localField: 'id_question',
                         foreignField: '_id',
                         as: 'question',
                         pipeline: [
@@ -137,7 +137,8 @@ exports.getReportQuestion= async (req, res, next) => {
                     '$project': {
                         "question.title": 1,
                         "question._id": 1,
-                        'id_Quetion': 1,
+                        'id_question': 1,
+                        'question.deleted': 1,
                         '_id': 1,
                         'count': 1,
                     }

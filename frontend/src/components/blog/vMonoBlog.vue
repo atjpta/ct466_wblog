@@ -59,6 +59,7 @@
         <h3 class="font-bold text-lg">Thông báo cực căng</h3>
         <p class="py-4">Hãy nhập lý do mà bạn muốn báo cáo bài viết này</p>
         <input
+          autofocus
           v-model="inputReport"
           class="bg-white/5 border-0 border-b-2 mb-5 w-full"
           type="text"

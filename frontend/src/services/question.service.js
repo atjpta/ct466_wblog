@@ -31,7 +31,9 @@ class QuestionService {
         return (await this.api.put(`/removeanswer/${id}`, data)).data;
     }
 
-
+    async deleteOneQuestion(id) {
+        return (await this.api.delete(`/${id}`)).data;
+    }
 
 }
 export default new QuestionService();

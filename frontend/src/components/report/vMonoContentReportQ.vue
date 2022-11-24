@@ -15,18 +15,19 @@ import { reportStore } from "../../stores/report.store";
 import { ref } from "vue";
 import { alertStore } from "../../stores/alert.store";
 
-const useAlert = alertStore();
 const useReport = reportStore();
+const useAlert = alertStore();
 const props = defineProps({
   data: Object,
 });
+
 const loading = ref();
 
 async function deleteReport() {
   try {
     await useReport.deleteOneReport(props.data.id);
-    await useReport.getListReportById("blog", props.data.id_blog);
-    await useReport.getReportBlog();
+    await useReport.getListReportById("question", props.data.id_question);
+    await useReport.getReportQuestion();
     useAlert.setSuccess("đã xóa thành công");
   } catch (error) {
     console.log(error);
