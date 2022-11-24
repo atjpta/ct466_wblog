@@ -12,7 +12,26 @@ export const reportStore = defineStore("reportStore", {
         };
     },
     getters: {
-
+        isEmtyBlog(state) {
+            let isEmty = true;
+            state.ListBlog.forEach(e => {
+                if (e.blog.length > 0) {
+                    isEmty = false
+                    return;
+                }
+            })
+            return isEmty;
+        },
+        isEmtyQuestion(state) {
+            let isEmty = true;
+            state.ListQuestion.forEach(e => {
+                if (e.question.length > 0) {
+                    isEmty = false
+                    return;
+                }
+            })
+            return isEmty;
+        },
     },
     actions: {
         async createReport(data) {

@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { authStore } from "../../stores/auth.store";
 import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
@@ -73,19 +73,7 @@ const data = ref([
       },
     ],
   },
-  {
-    title: "Quản lý báo cáo",
-    content: [
-      {
-        title: "Cáo cáo của bài viết",
-        url: "reportblog",
-      },
-      {
-        title: "Cáo cáo của hỏi đáp",
-        url: "reportquestion",
-      },
-    ],
-  },
+
   {
     title: "Quản lý Mua hàng",
     content: [
@@ -117,6 +105,24 @@ const data = ref([
     content: [],
   },
 ]);
+
+const dataAdmin = {
+  title: "Quản lý báo cáo",
+  content: [
+    {
+      title: "Cáo cáo của bài viết",
+      url: "reportblog",
+    },
+    {
+      title: "Cáo cáo của hỏi đáp",
+      url: "reportquestion",
+    },
+  ],
+};
+if (useAuth.isAdmin) {
+  data.value.unshift(dataAdmin);
+}
+
 const open = ref("");
 const link = route.fullPath;
 let url = link.substring(11, link.length);
@@ -134,6 +140,8 @@ data.value.forEach((e) => {
     return;
   }
 });
+
+onMounted(() => {});
 </script>
 
 <style scoped>

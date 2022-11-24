@@ -103,7 +103,7 @@
 import vdropdown from "../dropdown/vDropDown.vue";
 import vdropdownAvatar from "../dropdown/vDropDownAvatar.vue";
 import vThemeVue from "./vTheme.vue";
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onUpdated, onMounted, computed } from "vue";
 import { authStore } from "../../stores/auth.store";
 import { infoStore } from "../../stores/info.store";
 
@@ -166,8 +166,22 @@ function logout() {
   useAuth.logout();
 }
 
-onBeforeMount(() => {
+onMounted(() => {
   useAuth.loadAuthState();
+});
+
+const dataAdmin = {
+  name: "Trang Admin",
+  url: "/dashboard/reportblog",
+  icon: "fa-brands fa-adversal",
+};
+let i = 0;
+onUpdated(() => {
+  console.log(i);
+  if (useAuth.isAdmin & (i == 0)) {
+    dataAvatar.value.unshift(dataAdmin);
+    i++;
+  }
 });
 </script>
 

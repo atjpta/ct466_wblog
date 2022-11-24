@@ -1,8 +1,13 @@
 <template>
   <div class="w-full m-5">
     <div class="w-4/5 mx-auto">
-      <div class="" v-for="blog in useReport.ListBlog" :key="blog.id">
-        <vMonoReportVue :data="blog" />
+      <div v-if="!useReport.isEmtyBlog">
+        <div class="" v-for="blog in useReport.ListBlog" :key="blog.id">
+          <vMonoReportVue :data="blog" />
+        </div>
+      </div>
+      <div class="text-center text-2xl font-semibold m-5" v-if="useReport.isEmtyBlog">
+        không có báo cáo nào cả !!!
       </div>
     </div>
   </div>
