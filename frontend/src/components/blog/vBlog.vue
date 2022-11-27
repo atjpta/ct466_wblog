@@ -74,12 +74,12 @@
     </div>
 
     <!-- blog -->
-    <!-- <img :src="useBlog.blog.cover_image_Url" alt="" /> -->
+    <img class="w-full h-full" :src="useBlog.blog.cover_image_Url" alt="" />
     <div class="relative">
-      <div
+      <!-- <div
         :style="`background-image: url(${useBlog.blog.cover_image_Url})`"
-        class="h-96 bg-cover bg-local"
-      ></div>
+        class="h-full bg-cover bg-local"
+      ></div> -->
 
       <div class="text-center text-6xl font-bold uppercase mt-5">
         {{ useBlog.blog.title }}

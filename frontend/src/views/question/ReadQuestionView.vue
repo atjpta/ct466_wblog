@@ -54,6 +54,7 @@
               @selectAnswer="selectAnswer"
               @rep="openInput"
               :data="cmt"
+              :idauthorblog="useQuestion.question.author.id"
               :answer="useQuestion.question.answer ? true : false"
             />
             <!-- input rep -->

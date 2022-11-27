@@ -1,7 +1,7 @@
 <template>
   <div class="m-24">
     <p class="text-5xl text-center my-24">
-      <b> Chào mừng tới WBCHAT </b>
+      <b> Chào mừng tới WBLOG </b>
     </p>
 
     <div
@@ -10,10 +10,10 @@
       <!-- bên trái -->
       <div class="text-left col-span-6 m-20">
         <!-- tiêu đề -->
-        <div class="text-3xl pb-10">WBCHAT</div>
+        <div class="text-3xl pb-10">WBLOG</div>
         <!-- nội dung -->
         <div class="text-xl w-400 mt-12">
-          Nơi chúng ta có thể tán gẫu, tâm sự thoải mái với nhau
+          Nơi chia sẻ kiến thức, kinh nghiệm về công nghệ thông tin
         </div>
 
         <div
@@ -24,7 +24,10 @@
       </div>
       <!-- bên phải -->
       <div class="col-span-6">
-        <img class="w-[850px] h-[450px]" src="../../public/imgs/miku.png" />
+        <img
+          class="w-[850px] h-[450px]"
+          src="../../public/imgs/cong-nghe-thong-tin-hiu-1.jpg"
+        />
       </div>
     </div>
   </div>

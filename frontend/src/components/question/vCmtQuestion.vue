@@ -66,7 +66,7 @@
             <!--tùy chọn làm cau tra loi -->
             <!-- chọn làm câu trả lời  -->
             <div
-              v-if="!answer"
+              v-if="!answer && useAuth.user.id == idauthorblog"
               @click="
                 $emit('selectAnswer', data.id ? data.id : data._id, data.author._id)
               "
@@ -77,7 +77,7 @@
             </div>
             <!-- xóa câu trả lời  -->
             <div
-              v-if="answer && type == 'answer'"
+              v-if="answer && type == 'answer' && useAuth.user.id == idauthorblog"
               @click="$emit('selectAnswer', data.id, data.author._id)"
               class="btn btn-error btn-outline"
             >
@@ -132,6 +132,7 @@ const pops = defineProps({
   data: Object,
   type: String,
   answer: Boolean,
+  idauthorblog: String,
 });
 const open = ref("");
 const openSend = ref(false);
