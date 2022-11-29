@@ -6,9 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({
-        limit: '50mb',
-        extended: true,
-    })
+    limit: '50mb',
+    extended: true,
+})
 );
 
 app.get("/", (req, res) => {
@@ -19,7 +19,8 @@ app.get("/", (req, res) => {
 route.Start(app);
 
 
-const allowCors = fn => async (req, res, next) => {
+
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true)
     res.setHeader('Access-Control-Allow-Origin', '*')
     // another common pattern
@@ -34,17 +35,7 @@ const allowCors = fn => async (req, res, next) => {
         return
     }
     next();
-    return await fn(req, res, next)
-}
-
-const handler = (req, res) => {
-    const d = new Date()
-    res.end(d.toString())
-}
-
-
-
-app.use(allowCors(handler));
+});
 app.use((error, req, res, next) => {
     if (res == null) {
         res.status(error.status || 500).json({ message: error.message || "internal Server Error" })
