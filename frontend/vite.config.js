@@ -26,5 +26,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
   },
-  // base: process.env.NODE_ENV === 'production' ? '/demo_wbchat/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/deploy_Wblog/' : '/',
 });

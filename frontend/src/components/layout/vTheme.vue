@@ -1,6 +1,7 @@
 <template>
   <div>
     <select data-choose-theme class="select select-accent w-full max-w-xs">
+      <option value="">Mặc định</option>
       <option v-for="i in themes" :key="i" :value="i">{{ i }}</option>
     </select>
   </div>
