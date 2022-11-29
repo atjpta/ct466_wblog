@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mx-auto w-fit">
     <div class="flex justify-center m-5">
       <div class="btn-group space-x-5">
         <div v-for="tab in dataTab" :key="tab.value">
@@ -13,6 +13,14 @@
           </a>
         </div>
       </div>
+    </div>
+    <div class="text-end mx-auto">
+      <router-link to="/addquestion">
+        <div class="btn btn-primary btn-outline">
+          <i class="fa-solid fa-circle-plus mr-3 text-2xl"></i>
+          Thêm Câu hỏi mới
+        </div>
+      </router-link>
     </div>
     <div class="flex space-x-5 justify-center">
       <div>
