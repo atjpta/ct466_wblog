@@ -6,6 +6,8 @@ class authService {
 	}
 
 	async login(user) {
+		console.log(
+			await this.api.post("/signin", user));
 		return (
 			await this.api.post("/signin", user)).data;
 	}

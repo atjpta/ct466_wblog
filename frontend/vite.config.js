@@ -19,6 +19,7 @@ export default defineConfig({
         // target: "https://api-ct484.vercel.app/",
         changeOrigin: true,
       },
+      
     },
   },
   build: {

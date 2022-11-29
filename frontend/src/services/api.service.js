@@ -50,6 +50,5 @@ export const createApiClient = (baseURL, withAuthToken = false, config) => {
 			}
 		);
 	}
-
 	return api;
 };
