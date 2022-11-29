@@ -16,21 +16,15 @@
     </div>
     <div class="flex space-x-5 justify-center">
       <div>
-        <div v-for="blog1 in filtersBlog.arr1" :key="blog1.id">
-          <vMonoBlogVue :data="blog1" />
-        </div>
+        <vMonoBlogVue :data="blog1" v-for="blog1 in filtersBlog.arr1" :key="blog1.id" />
       </div>
 
       <div>
-        <div v-for="blog2 in filtersBlog.arr2" :key="blog2.id">
-          <vMonoBlogVue :data="blog2" />
-        </div>
+        <vMonoBlogVue :data="blog2" v-for="blog2 in filtersBlog.arr2" :key="blog2.id" />
       </div>
 
       <div>
-        <div v-for="blog3 in filtersBlog.arr3" :key="blog3.id">
-          <vMonoBlogVue :data="blog3" />
-        </div>
+        <vMonoBlogVue :data="blog3" v-for="blog3 in filtersBlog.arr3" :key="blog3.id" />
       </div>
     </div>
   </div>

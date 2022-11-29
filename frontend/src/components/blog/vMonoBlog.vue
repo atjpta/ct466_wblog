@@ -1,90 +1,8 @@
 <template>
   <div>
-    <!--Modal delete -->
-    <input type="checkbox" id="my-modal-delete" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg">Thông báo cực căng</h3>
-        <p class="py-4">bạn có chắc chắn muốn xóa bài viết?</p>
-        <!-- tùy chọn btn -->
-        <div class="flex justify-around">
-          <div class="modal-action">
-            <label
-              @click="deleteBlog()"
-              for="my-modal-delete"
-              :class="[loading ? 'loading' : '']"
-              class="btn btn-warning btn-outline"
-              >Xóa</label
-            >
-          </div>
-          <div class="modal-action">
-            <label for="my-modal-delete" class="btn btn-primary btn-outline">Hủy</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--Modal buy -->
-    <input type="checkbox" id="my-modal-buy" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg">Thông báo cực căng</h3>
-        <p class="py-4">
-          Bạn có chắc chắn muốn mở khóa bài viết?
-          <br />
-          Bạn sẽ bị mất tiền để mở khóa!!!!
-        </p>
-        <!-- tùy chọn btn -->
-        <div class="flex justify-around">
-          <div class="modal-action">
-            <label
-              @click="buy()"
-              for="my-modal-buy"
-              :class="[loading ? 'loading' : '']"
-              class="btn btn-primary btn-outline"
-              >mở khóa</label
-            >
-          </div>
-          <div class="modal-action">
-            <label for="my-modal-buy" class="btn btn-warning btn-outline">Hủy</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--Modal report -->
-    <input type="checkbox" id="my-modal-report" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg">Thông báo cực căng</h3>
-        <p class="py-4">Hãy nhập lý do mà bạn muốn báo cáo bài viết này</p>
-        <input
-          autofocus
-          v-model="inputReport"
-          class="bg-white/5 border-0 border-b-2 mb-5 w-full"
-          type="text"
-        />
-        <!-- tùy chọn btn -->
-        <div class="flex justify-around">
-          <div class="modal-action">
-            <label
-              @click="report()"
-              for="my-modal-report"
-              :class="[loading ? 'loading' : '']"
-              class="btn btn-primary btn-outline"
-              >Gửi</label
-            >
-          </div>
-          <div class="modal-action">
-            <label for="my-modal-report" class="btn btn-warning btn-outline">Hủy</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="">
       <div class="mx-auto rounded-2xl my-5 h-fit">
-        <div class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300">
+        <div class="w-[400px] mx-auto rounded-2xl px-5 bg-base-300">
           <div class="flex justify-between">
             <router-link
               class="hover:text-sky-500 hover:scale-110 duration-500"
@@ -114,13 +32,16 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
                 </router-link>
-                <label for="my-modal-delete" class="btn btn-outline btn-error">
+                <div @click="openDialogDelete()" class="btn btn-outline btn-error">
                   <i class="fa-solid fa-trash-can"></i>
-                </label>
+                </div>
               </div>
             </div>
             <!-- phần tùy chọn cho người đọc -->
-            <div v-if="useAuth.user.id != data.author._id" class="dropdown dropdown-end">
+            <div
+              v-if="useAuth.user.id != data.author._id"
+              class="dropdown dropdown-end z-10"
+            >
               <label tabindex="0" class="btn btn-outline btn-info mt-5">
                 <i class="fa-solid fa-ellipsis-vertical"> </i>
               </label>
@@ -130,10 +51,10 @@
               >
                 <li>
                   <a>
-                    <label for="my-modal-report">
+                    <div @click="openDialogReport()">
                       <i class="fa-solid fa-flag"></i>
                       báo cáo bài viết
-                    </label>
+                    </div>
                   </a>
                 </li>
               </ul>
@@ -194,10 +115,10 @@
             v-if="useAuth.user.id != data.author._id && data.price > 0 && isBuy == -1"
             class="flex justify-around pb-3"
           >
-            <label for="my-modal-buy" class="btn btn-outline btn-primary">
+            <div @click="openDialogBuy()" class="btn btn-outline btn-primary">
               <i class="fa-solid fa-lock-open"></i>
               <div v-if="data.price" class="mx-1 mt-1">{{ data.price }} VND</div>
-            </label>
+            </div>
 
             <div
               v-if="!loadingCart"
@@ -224,9 +145,10 @@ import { blogStore } from "../../stores/blog.store";
 import { useRouter, useRoute } from "vue-router";
 import { alertStore } from "../../stores/alert.store";
 import { cartStore } from "../../stores/cart.store";
-import { computed, ref } from "vue";
+import { computed, onMounted, onUpdated, ref, getCurrentInstance } from "vue";
 import { billStore } from "../../stores/bill.store";
 import { reportStore } from "../../stores/report.store";
+import { dialogStore } from "../../stores/dialog.store";
 const router = useRouter();
 const useBill = billStore();
 const route = useRoute();
@@ -238,6 +160,7 @@ const loading = ref(false);
 const loadingCart = ref(false);
 const inputReport = ref("");
 const useReport = reportStore();
+const useDialog = dialogStore();
 const props = defineProps({
   data: Object,
 });
@@ -261,12 +184,46 @@ const isRead = computed(() => {
   return false;
 });
 
-async function report() {
-  loading.value = true;
+function openDialogDelete() {
+  useDialog.showDialog(
+    {
+      title: "Thông báo cực căng!",
+      content: "bạn có chắc chắn muốn xóa?",
+      btn1: "xóa",
+      btn2: "thoát",
+    },
+    deleteBlog
+  );
+}
 
+function openDialogReport() {
+  useDialog.showDialogInput(
+    {
+      title: "Thông báo cực căng!",
+      content: "Nhập nội dung mà bạn muốn báo cáo bài viết ",
+      btn1: "gửi",
+      btn2: "thoát",
+    },
+    report
+  );
+}
+
+function openDialogBuy() {
+  useDialog.showDialog(
+    {
+      title: "Thông báo cực căng!",
+      content: "bạn có chắc chắn muốn mở khóa?",
+      btn1: "mở",
+      btn2: "thoát",
+    },
+    buy
+  );
+}
+
+async function report(input) {
   const data = {
     id_user: useAuth.user.id,
-    content: inputReport.value,
+    content: input,
     id_blog: props.data.id,
   };
   try {
@@ -276,10 +233,9 @@ async function report() {
     console.log(error);
     console.log("lỗi khi gửi report");
     useAlert.setError("có lỗi khi gửi báo cáo");
-  } finally {
-    loading.value = false;
   }
 }
+
 async function search(id) {
   const redirectPath = route.query.redirect || {
     path: `/searchashtag/${id}`,
@@ -323,9 +279,6 @@ async function addCart() {
 }
 
 async function buy() {
-  console.log(props.data.id);
-
-  loading.value = true;
   try {
     await useBill.createBill({
       id_user: useAuth.user.id,
@@ -336,11 +289,10 @@ async function buy() {
   } catch (error) {
     useAlert.setError("thanh toán thất bại");
     console.log(error + "thanh toán thất bại");
-  } finally {
-    loading.value = false;
-    router.back();
   }
 }
+
+onMounted(() => {});
 </script>
 
 <style></style>

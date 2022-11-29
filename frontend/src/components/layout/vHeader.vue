@@ -177,7 +177,6 @@ const dataAdmin = {
 };
 let i = 0;
 onUpdated(() => {
-  console.log(i);
   if (useAuth.isAdmin & (i == 0)) {
     dataAvatar.value.unshift(dataAdmin);
     i++;

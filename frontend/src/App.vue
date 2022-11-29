@@ -2,19 +2,23 @@
 import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import vHeaderVue from "@/components/layout/vHeader.vue";
 import vAlertVue from "@/components/vAlert.vue";
+import vDialogVue from "./components/layout/vDialog.vue";
 
 const route = useRoute();
 </script>
 
 <template>
   <div class="min-h-screen">
-    <vHeaderVue />
-    <vAlertVue />
-    <router-view :key="route.path" v-slot="{ Component }">
-      <transition name="bounce">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <vDialogVue />
+    <div>
+      <vHeaderVue />
+      <vAlertVue />
+      <router-view :key="route.path" v-slot="{ Component }">
+        <transition name="bounce">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
   </div>
 </template>
 

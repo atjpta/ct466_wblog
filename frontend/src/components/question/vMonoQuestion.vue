@@ -1,40 +1,10 @@
 <template>
   <div>
-    <!--Modal report -->
-    <input type="checkbox" id="my-modal-report" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg">Thông báo cực căng</h3>
-        <p class="py-4">Hãy nhập lý do mà bạn muốn báo cáo bài viết này</p>
-        <input
-          autofocus
-          v-model="inputReport"
-          class="bg-white/5 border-0 border-b-2 mb-5 w-full focus"
-          type="text"
-        />
-        <!-- tùy chọn btn -->
-        <div class="flex justify-around">
-          <div class="modal-action">
-            <label
-              @click="report()"
-              for="my-modal-report"
-              :class="[loading ? 'loading' : '']"
-              class="btn btn-primary btn-outline"
-              >Gửi</label
-            >
-          </div>
-          <div class="modal-action">
-            <label for="my-modal-report" class="btn btn-warning btn-outline">Hủy</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div>
       <div class="mx-auto rounded-2xl my-5 h-fit">
         <div
           :class="[data.answer ? 'border-2 border-green-500' : '']"
-          class="w-[400px] mx-auto rounded-2xl px-5 border-2 bg-base-300"
+          class="w-[400px] mx-auto rounded-2xl px-5 bg-base-300"
         >
           <div class="flex justify-between">
             <router-link
@@ -68,7 +38,10 @@
               </div>
             </div>
             <!-- phần tùy chọn cho người đọc -->
-            <div v-if="useAuth.user.id != data.author._id" class="dropdown dropdown-left">
+            <div
+              v-if="useAuth.user.id != data.author._id"
+              class="dropdown dropdown-end z-10"
+            >
               <label tabindex="0" class="btn btn-outline btn-info mt-5">
                 <i class="fa-solid fa-ellipsis-vertical"> </i>
               </label>
@@ -78,10 +51,10 @@
               >
                 <li>
                   <a>
-                    <label for="my-modal-report">
+                    <div @click="openDialogReport()" for="my-modal-report">
                       <i class="fa-solid fa-flag"></i>
                       báo cáo bài viết
-                    </label>
+                    </div>
                   </a>
                 </li>
               </ul>
@@ -154,6 +127,7 @@ import { questStore } from "../../stores/question.store";
 import { ref } from "vue";
 import { alertStore } from "../../stores/alert.store";
 import { reportStore } from "../../stores/report.store";
+import { dialogStore } from "../../stores/dialog.store";
 const useQuestion = questStore();
 const useAlert = alertStore();
 const useReport = reportStore();
@@ -161,20 +135,29 @@ const router = useRouter();
 const route = useRoute();
 const useBlog = blogStore();
 const useAuth = authStore();
-const inputReport = ref();
 const loading = ref(false);
+const useDialog = dialogStore();
 const props = defineProps({
   data: Object,
 });
 
 const isOpen = ref();
 
-async function report() {
-  loading.value = true;
-
+function openDialogReport() {
+  useDialog.showDialogInput(
+    {
+      title: "Thông báo cực căng!",
+      content: "Nhập nội dung mà bạn muốn báo cáo bài viết ",
+      btn1: "gửi",
+      btn2: "thoát",
+    },
+    report
+  );
+}
+async function report(input) {
   const data = {
     id_user: useAuth.user.id,
-    content: inputReport.value,
+    content: input,
     id_question: props.data.id,
   };
   try {
@@ -184,8 +167,6 @@ async function report() {
     console.log(error);
     console.log("lỗi khi gửi report");
     useAlert.setError("có lỗi khi gửi báo cáo");
-  } finally {
-    loading.value = false;
   }
 }
 
