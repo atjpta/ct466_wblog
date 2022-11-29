@@ -1,5 +1,5 @@
 {
-  "name": "wbchat-backend",
+  "name": "wblog-backend",
   "version": "1.0.0",
   "description": "real time app chat",
   "main": "index.js",
