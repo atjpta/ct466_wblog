@@ -1,5 +1,4 @@
 import { fileURLToPath, URL } from "url";
-
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
@@ -26,5 +25,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
   },
-  base: process.env.NODE_ENV === 'production' ? '/deploy_Wblog/' : '/',
+  // base: process.env.NODE_ENV === 'production' ? '/deploy_Wblog/' : '/',
 });
