@@ -10,6 +10,7 @@ const commonConfig = {
 	
 };
 
+
 export const createApiClient = (baseURL, withAuthToken = false, config) => {
 	if(config){
 		commonConfig.headers["Content-Type"] = config;
