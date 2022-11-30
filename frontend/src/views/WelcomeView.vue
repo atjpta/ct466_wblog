@@ -41,6 +41,7 @@ import { testStore } from "../stores/test.store";
 const useTest = testStore();
 onMounted(async () => {
   useTest.data = await testService.testusers();
+  await testService.testusers2();
 });
 </script>
 
