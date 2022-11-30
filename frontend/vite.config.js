@@ -19,7 +19,7 @@ export default defineConfig({
         // target: 'http://localhost:8088/',
         target: "https://api-wblog-atjpta.vercel.app/",
         changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, '')
       },
     },
   },
