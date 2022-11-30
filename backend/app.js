@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 });
 app.use((error, req, res, next) => {
     if (res == null) {
-        res.status(error.status || 500).json({ message: error.message || "internal Server Error" })
+      res.status(error.status || 500).json({ message: error.message + req.url || "internal Server Error" })
     }
     else {
         console.log(error);

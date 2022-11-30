@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api",
-      "destination": "https://api-wblog-atjpta.vercel.app/"
+      "destination": "https://api-wblog-atjpta.vercel.app/api/"
     }
   ]
 }
