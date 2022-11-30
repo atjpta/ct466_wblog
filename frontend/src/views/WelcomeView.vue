@@ -30,11 +30,18 @@
         />
       </div>
     </div>
+    {{ useTest.data }}
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { onMounted } from "vue";
+import testService from "../services/test.service";
+import { testStore } from "../stores/test.store";
+const useTest = testStore();
+onMounted(async () => {
+  useTest.data = await testService.testusers();
+});
 </script>
 
 <style></style>
