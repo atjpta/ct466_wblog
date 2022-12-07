@@ -11,6 +11,7 @@
             <vCmtQuestion
               @selectAnswer="removeAnswer"
               type="answer"
+              :idauthorblog="useQuestion.question.author.id"
               :data="useQuestion.question.answer"
               :answer="useQuestion.question.answer ? true : false"
             />
@@ -140,8 +141,6 @@ async function removeAnswer(answer, author) {
     answer: answer,
     author: author,
   };
-  console.log(id);
-  console.log(data);
   try {
     await useQuestion.removeAnswer(id, data);
     await useQuestion.findOneQuestion(route.params.id);

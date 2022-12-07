@@ -69,12 +69,10 @@
     <!-- Kết quả tìm kiếm: -->
     <div
       class="backdrop-blur-sm bg-white/50 md:w-[750px] w-5/6 mx-auto p-3 my-5 rounded-xl text-4xl text-center"
-    >
-      Kết quả tìm kiếm:
-    </div>
+    ></div>
 
     <div v-if="selected == 'name'" class="flex justify-center">
-      <div class="m-5 w-52" v-for="user in useSearch.ListUser" :key="user.id">
+      <div class="m-5 w-52" v-for="user in listSearchUser" :key="user.id">
         <vCardUserVue :data="user"></vCardUserVue>
       </div>
     </div>

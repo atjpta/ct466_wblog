@@ -30,7 +30,6 @@
         />
       </div>
     </div>
-    {{ useTest.data }}
   </div>
 </template>
 

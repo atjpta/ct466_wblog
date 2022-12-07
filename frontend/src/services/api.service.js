@@ -2,6 +2,7 @@ import axios from "axios";
 import { authStore } from "@/stores/auth.store";
 import app from "@/main";
 import { alertStore } from "@/stores/alert.store";
+
 const commonConfig = {
 	headers: {
 		"Content-Type": "application/json",
